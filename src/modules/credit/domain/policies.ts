@@ -140,8 +140,7 @@ export function deriveCreditStatus(input: {
     return "OVERDUE";
   }
 
-  const financed = input.totalAmountXaf - input.downPaymentXaf;
-  if (input.remainingXaf < financed) {
+  if (input.remainingXaf < input.totalAmountXaf) {
     return "PARTIALLY_PAID";
   }
 

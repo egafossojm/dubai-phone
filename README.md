@@ -14,8 +14,8 @@ Gérer le cycle opérationnel d'un magasin physique :
 - retours et garanties
 
 Cette phase inclut la fondation technique, l'authentification, le catalogue,
-le stock, les achats et la **gestion clients / crédits** (paiements d'échéances).
-La création de vente à crédit reste liée au POS (prompt 009).
+le stock, les achats, les clients / crédits et le **POS online** (ventes comptant et à crédit).
+La synchronisation offline reste liée au prompt 010.
 
 ## Stack
 

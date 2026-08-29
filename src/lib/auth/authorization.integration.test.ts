@@ -61,6 +61,10 @@ function productsListRequest() {
   return new NextRequest("http://localhost/api/products", { method: "GET" });
 }
 
+function salesListRequest() {
+  return new NextRequest("http://localhost/api/sales", { method: "GET" });
+}
+
 function adjustRequest(body?: unknown) {
   return new NextRequest("http://localhost/api/inventory/adjust", {
     method: "POST",
@@ -122,7 +126,7 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
 
   it("allows a salesperson to read sales but not refund or manage users", async () => {
     await attachSession("caisse@dubai-phone.local");
-    expect(await statusOf(await getSales())).toBe(200);
+    expect(await statusOf(await getSales(salesListRequest()))).toBe(200);
     expect(await statusOf(await getProducts(productsListRequest()))).toBe(200);
     expect(await statusOf(await refundSale())).toBe(403);
     expect(await statusOf(await getUsers())).toBe(403);
@@ -136,7 +140,7 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
     expect(await statusOf(await receivePurchase(receiveRequest()))).toBe(404);
     // Adjust is implemented: empty/invalid body → validation (not 501 stub).
     expect(await statusOf(await adjustInventory(adjustRequest()))).toBe(400);
-    expect(await statusOf(await getSales())).toBe(403);
+    expect(await statusOf(await getSales(salesListRequest()))).toBe(403);
     expect(await statusOf(await refundSale())).toBe(403);
     expect(await statusOf(await getUsers())).toBe(403);
   });

@@ -637,6 +637,8 @@ model Sale {
   id             String     @id @default(uuid())
   reference      String     @unique
   clientTxnId    String     @unique
+  /// SHA-256 of canonical complete-sale payload (idempotent replay binding).
+  payloadFingerprint String?
   kind           SaleKind   @default(IMMEDIATE)
   status         SaleStatus @default(DRAFT)
   customerId     String?

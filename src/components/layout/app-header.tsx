@@ -6,6 +6,8 @@ import { hasPermission } from "@/lib/auth/permissions";
 
 const NAV_ITEMS = [
   { href: "/", label: "Tableau de bord", permission: "dashboard.read" },
+  { href: "/pos", label: "Caisse", permission: "sales.create" },
+  { href: "/ventes", label: "Ventes", permission: "sales.read" },
   { href: "/produits", label: "Produits", permission: "products.read" },
   { href: "/stock", label: "Stock", permission: "inventory.read" },
   { href: "/achats", label: "Achats", permission: "purchases.read" },

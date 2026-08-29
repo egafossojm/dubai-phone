@@ -102,12 +102,12 @@ Montant : positif sauf refund explicite (`BR-PAYMENT-002`).
 
 | Statut | Définition |
 | --- | --- |
-| `PENDING` | Créé, aucun paiement encore comptabilisé sur le solde restant |
-| `PARTIALLY_PAID` | Montant payé > 0 et solde > 0 |
+| `PENDING` | Créé sans encaissement (solde = total ; cas limite / seed) |
+| `PARTIALLY_PAID` | Au moins un encaissement (acompte ou échéance) et solde > 0 |
 | `OVERDUE` | Au moins une échéance impayée dépassée |
 | `PAID` | Solde = 0 |
 
-`ACTIVE` reste dans l’enum Prisma pour compatibilité historique / seed ancien, mais **n’est plus dérivé** en MVP (équivalent `PENDING`).
+`ACTIVE` reste dans l’enum Prisma pour compatibilité historique / seed ancien, mais **n’est plus dérivé** en MVP (équivalent historique de `PENDING` sans acompte).
 
 **V1 uniquement :** `DEFAULTED`, `CANCELLED`.
 
@@ -115,7 +115,7 @@ Montant : positif sauf refund explicite (`BR-PAYMENT-002`).
 
 1. si solde = 0 → `PAID`  
 2. sinon si échéance en retard → `OVERDUE`  
-3. sinon si payé > 0 → `PARTIALLY_PAID`  
+3. sinon si solde < total (acompte ou paiements d’échéances) → `PARTIALLY_PAID`  
 4. sinon → `PENDING`  
 
 ---

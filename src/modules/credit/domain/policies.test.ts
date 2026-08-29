@@ -85,6 +85,16 @@ describe("credit policies", () => {
         installments,
         now: new Date("2026-05-01T00:00:00.000Z"),
       }),
+    ).toBe("PARTIALLY_PAID");
+
+    expect(
+      deriveCreditStatus({
+        remainingXaf: BigInt(100_000),
+        totalAmountXaf: BigInt(100_000),
+        downPaymentXaf: BigInt(0),
+        installments,
+        now: new Date("2026-05-01T00:00:00.000Z"),
+      }),
     ).toBe("PENDING");
   });
 });

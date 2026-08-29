@@ -18,7 +18,6 @@ import {
   assertAdjustmentReason,
   assertCanReleaseReservation,
   assertCanReserve,
-  assertDeviceSellable,
   expectedSerialStatusAfterMovement,
   isAdjustmentType,
 } from "@/modules/inventory/domain/policies";
@@ -197,20 +196,13 @@ export async function recordSaleDeduction(
             "Vente sérialisée : un appareil et une quantité de 1 sont requis.",
           );
         }
-        const serial = await tx.productSerial.findUnique({
-          where: { id: line.productSerialId },
-        });
-        if (!serial || serial.variantId !== line.variantId) {
-          throw new AppError("NOT_FOUND", "Appareil sérialisé introuvable.");
-        }
-        assertDeviceSellable(serial.status);
 
         movements.push(
           await applyStockMovement(tx, {
             type: "SALE",
             variantId: line.variantId,
             quantity: -1,
-            productSerialId: serial.id,
+            productSerialId: line.productSerialId,
             saleId: line.saleId,
             saleItemId: line.saleItemId,
             recordedById,
@@ -219,7 +211,7 @@ export async function recordSaleDeduction(
         );
 
         await tx.productSerial.update({
-          where: { id: serial.id },
+          where: { id: line.productSerialId },
           data: { saleItemId: line.saleItemId },
         });
       } else {

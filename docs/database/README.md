@@ -46,7 +46,9 @@
 - `payment_allocations` : une ligne par échéance touchée par un paiement crédit
 - Un mouvement `PURCHASE_RECEIPT` par ligne BR non sérialisée (`goodsReceiptItemId` + `productSerialId IS NULL`)
 - Un mouvement `PURCHASE_RECEIPT` par couple (ligne BR, IMEI) pour le sérialisé
-- **Index partiels SQL** (migrations `…_stock_movement_gr_uniques`, `…_customer_phone_payment_allocations`) — **pas** exprimables en `@@unique` Prisma ; `prisma db push` ne les recrée pas. Toujours utiliser les migrations.
+- Un mouvement `SALE` par appareil sérialisé (`productSerialId` + type SALE)
+- `sales.payloadFingerprint` : empreinte SHA-256 du payload CompleteSale (rejeu idempotent)
+- **Index partiels SQL** (migrations `…_stock_movement_gr_uniques`, `…_customer_phone_payment_allocations`, `…_sale_serial_lock_fingerprint`) — **pas** exprimables en `@@unique` Prisma ; `prisma db push` ne les recrée pas. Toujours utiliser les migrations.
 - Clés étrangères `Restrict` sur l’historique financier (pas de cascade destructrice)
 - CHECK SQL (migration) : montants > 0, quantité mouvement ≠ 0, IMEI1 ≠ IMEI2
 

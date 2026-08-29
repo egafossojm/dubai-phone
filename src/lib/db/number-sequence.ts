@@ -12,6 +12,12 @@ const EXISTS_BY_TYPE: Partial<Record<NumberDocumentType, ExistsFn>> = {
     Boolean(await tx.goodsReceipt.findUnique({ where: { reference }, select: { id: true } })),
   SALE: async (tx, reference) =>
     Boolean(await tx.sale.findUnique({ where: { reference }, select: { id: true } })),
+  RECEIPT: async (tx, reference) =>
+    Boolean(await tx.receipt.findUnique({ where: { reference }, select: { id: true } })),
+  CREDIT: async (tx, reference) =>
+    Boolean(await tx.customerCredit.findUnique({ where: { reference }, select: { id: true } })),
+  WARRANTY: async (tx, reference) =>
+    Boolean(await tx.warranty.findUnique({ where: { reference }, select: { id: true } })),
 };
 
 /**
