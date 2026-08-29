@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dubai Phone : Workflow de Remboursement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#dae2fd",
+                        "surface": "#faf8ff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container": "#eaedff",
+                        "secondary-container": "#6cf8bb",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-on-surface": "#eef0ff",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-tint": "#0054d6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d2d9f4",
+                        "background": "#faf8ff",
+                        "secondary": "#006c49",
+                        "on-primary-fixed": "#001849",
+                        "surface-bright": "#faf8ff",
+                        "primary-container": "#0066ff",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-fixed": "#dae1ff",
+                        "on-surface": "#131b2e",
+                        "on-primary-container": "#f8f7ff",
+                        "tertiary": "#7f4f00",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "outline-variant": "#c2c6d8",
+                        "inverse-surface": "#283044",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "tertiary-fixed": "#ffddb8",
+                        "primary": "#0050cb",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-background": "#131b2e",
+                        "tertiary-container": "#a06500",
+                        "outline": "#727687",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-surface-variant": "#424656",
+                        "surface-container-high": "#e2e7ff",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#fff7f1",
+                        "surface-container-low": "#f2f3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "container-margin": "24px",
+                        "card-padding": "20px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 80, 203, 0.08);
+        }
+        
+        .radio-custom:checked + div {
+            border-color: theme('colors.primary');
+            background-color: theme('colors.primary-fixed');
+        }
+        
+        .radio-custom:checked + div .radio-icon {
+            color: theme('colors.primary');
+        }
+
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #68D391;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: theme('colors.secondary');
+        }
+        
+        #success-overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        #success-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: theme('colors.secondary-container');
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex items-center justify-center font-body-md relative overflow-hidden">
+<!-- Decorative Background Elements -->
+<div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary-fixed-dim rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-secondary-fixed-dim rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+<!-- Main Content Container -->
+<div class="relative w-full max-w-2xl px-container-margin py-8 z-10">
+<!-- Header -->
+<div class="mb-8 text-center">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Initier un Remboursement</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Facture #INV-2023-8942 • Client: <span class="font-semibold text-on-surface">Jean Dupont</span></p>
+</div>
+<!-- Glassmorphism Card -->
+<div class="glass-panel rounded-xl p-card-padding">
+<form class="space-y-8" id="refund-form">
+<!-- Amount Summary -->
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col items-center justify-center border border-outline-variant/30 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-2 relative z-10">Montant Total à Rembourser</span>
+<span class="font-display-lg text-display-lg text-primary relative z-10">245 000 <span class="font-headline-md text-headline-md ml-1">FCFA</span></span>
+</div>
+<!-- Refund Method Selection -->
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4">Méthode de Remboursement</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Option 1: Espèces -->
+<label class="cursor-pointer relative">
+<input checked="" class="radio-custom sr-only" name="refund_method" type="radio" value="cash"/>
+<div class="h-full border border-outline-variant rounded-lg p-4 flex flex-col items-center text-center transition-all duration-200 hover:bg-surface-container-low hover:border-primary/50">
+<span class="material-symbols-outlined text-4xl mb-3 text-on-surface-variant radio-icon transition-colors">payments</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Espèces</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Caisse magasin</span>
+</div>
+</label>
+<!-- Option 2: Virement -->
+<label class="cursor-pointer relative">
+<input class="radio-custom sr-only" name="refund_method" type="radio" value="transfer"/>
+<div class="h-full border border-outline-variant rounded-lg p-4 flex flex-col items-center text-center transition-all duration-200 hover:bg-surface-container-low hover:border-primary/50">
+<span class="material-symbols-outlined text-4xl mb-3 text-on-surface-variant radio-icon transition-colors">account_balance</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Virement</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Bancaire ou Mobile Money</span>
+</div>
+</label>
+<!-- Option 3: Crédit Client -->
+<label class="cursor-pointer relative">
+<input class="radio-custom sr-only" name="refund_method" type="radio" value="store_credit"/>
+<div class="h-full border border-outline-variant rounded-lg p-4 flex flex-col items-center text-center transition-all duration-200 hover:bg-surface-container-low hover:border-primary/50">
+<span class="material-symbols-outlined text-4xl mb-3 text-on-surface-variant radio-icon transition-colors">loyalty</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Crédit Client</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1">Sur le compte client</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Divider -->
+<div class="w-full h-px bg-outline-variant/30"></div>
+<!-- Inventory Action Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant/50 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                            Réintégrer les articles au stock
+                        </span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-1">Les 2 articles retournés seront rajoutés à l'inventaire actuel.</span>
+</div>
+<!-- Tailwind Toggle Switch -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 transition-transform duration-200 ease-in-out" id="restock-toggle" name="restock" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline cursor-pointer" for="restock-toggle"></label>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex gap-4 pt-4">
+<button class="flex-1 py-3 px-6 rounded-lg font-label-md text-label-md font-semibold text-on-surface border border-outline-variant hover:bg-surface-container-low transition-colors duration-200" type="button">
+                        Annuler
+                    </button>
+<button class="flex-[2] py-3 px-6 rounded-lg font-label-md text-label-md font-bold text-on-primary bg-primary hover:bg-primary/90 shadow-md shadow-primary/20 transition-all duration-200 flex items-center justify-center gap-2" id="confirm-btn" type="button">
+<span class="material-symbols-outlined">check_circle</span>
+                        Confirmer le Remboursement
+                    </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Success State Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-surface/90 backdrop-blur-sm" id="success-overlay">
+<div class="glass-panel rounded-2xl p-10 max-w-md w-full text-center flex flex-col items-center transform scale-95 transition-transform duration-300" id="success-card">
+<div class="w-24 h-24 bg-secondary-container rounded-full flex items-center justify-center mb-6 shadow-lg shadow-secondary/20 relative">
+<span class="material-symbols-outlined text-5xl text-secondary" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+<!-- Ring animation -->
+<div class="absolute inset-0 border-4 border-secondary rounded-full animate-ping opacity-20"></div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Remboursement Validé</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6">Le montant de <strong class="text-on-surface">245 000 FCFA</strong> a été traité avec succès (Espèces).</p>
+<div class="bg-surface-container-low rounded-lg p-4 w-full text-left mb-8 border border-outline-variant/30">
+<div class="flex justify-between mb-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Réf. Transaction</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">REF-9842-X</span>
+</div>
+<div class="flex justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Action Stock</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Articles réintégrés</span>
+</div>
+</div>
+<button class="w-full py-3 px-6 rounded-lg font-label-md text-label-md font-bold text-primary border-2 border-primary hover:bg-primary-fixed transition-colors duration-200" onclick="resetForm()" type="button">
+                Retour au Tableau de bord
+            </button>
+</div>
+</div>
+<script>
+        document.getElementById('confirm-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Simple validation simulation
+            const btn = this;
+            const originalContent = btn.innerHTML;
+            
+            // Loading state
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Traitement...';
+            btn.classList.add('opacity-80', 'cursor-not-allowed');
+            
+            // Simulate API call
+            setTimeout(() => {
+                const overlay = document.getElementById('success-overlay');
+                const card = document.getElementById('success-card');
+                
+                overlay.classList.add('active');
+                card.classList.remove('scale-95');
+                card.classList.add('scale-100');
+                
+                // Reset button behind overlay
+                btn.innerHTML = originalContent;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                
+            }, 800);
+        });
+
+        function resetForm() {
+            const overlay = document.getElementById('success-overlay');
+            const card = document.getElementById('success-card');
+            
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            overlay.classList.remove('active');
+            
+            // Optionally reset form here
+            document.getElementById('refund-form').reset();
+            // Need to manually handle custom tailwind toggle visual state if needed based on standard reset behavior
+        }
+
+        // Add some basic CSS animations for the blobs
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes blob {
+                0% { transform: translate(0px, 0px) scale(1); }
+                33% { transform: translate(30px, -50px) scale(1.1); }
+                66% { transform: translate(-20px, 20px) scale(0.9); }
+                100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob {
+                animation: blob 7s infinite;
+            }
+            .animation-delay-2000 {
+                animation-delay: 2s;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body></html>

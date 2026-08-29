@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Paramètres des Paiements - Dubai Phone ERP</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#dae2fd",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "primary": "#0050cb",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "surface-container": "#eaedff",
+                        "inverse-surface": "#283044",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#f8f7ff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "outline": "#727687",
+                        "on-tertiary-container": "#fff7f1",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#a06500",
+                        "background": "#faf8ff",
+                        "on-surface-variant": "#424656",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-dim": "#d2d9f4",
+                        "tertiary": "#7f4f00",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006c49",
+                        "surface-container-high": "#e2e7ff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary-container": "#00714d",
+                        "outline-variant": "#c2c6d8",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-surface": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-tint": "#0054d6",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#001849",
+                        "primary-fixed": "#dae1ff",
+                        "primary-container": "#0066ff",
+                        "surface-bright": "#faf8ff",
+                        "surface": "#faf8ff",
+                        "secondary-container": "#6cf8bb",
+                        "on-background": "#131b2e",
+                        "inverse-primary": "#b3c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md flex h-screen overflow-hidden">
+<!-- Primary SideNavBar -->
+<aside class="h-screen w-72 fixed left-0 top-0 overflow-y-auto bg-surface-container dark:bg-surface-container-high shadow-2xl flex flex-col gap-2 py-6 z-50">
+<!-- Header -->
+<div class="px-6 mb-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">DP</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-extrabold text-primary">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gestion ERP - Cameroun</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-6 mb-6">
+<button class="w-full bg-primary text-on-primary rounded-lg py-3 px-4 font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                Nouvelle Vente
+            </button>
+</div>
+<!-- Main Nav -->
+<nav class="flex-1 flex flex-col gap-1 px-4">
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventaire</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-md text-label-md">Ventes</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-md text-label-md">Clients</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Achats</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assignment_return</span>
+<span class="font-label-md text-label-md">Retours</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-md text-label-md">Garanties</span>
+</a>
+</nav>
+<!-- Footer Nav -->
+<div class="px-4 mt-auto border-t border-outline-variant/30 pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-base bg-primary text-on-primary rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined fill">settings</span>
+<span class="font-label-md text-label-md">Paramètres</span>
+</a>
+<a class="flex items-center gap-base text-error hover:bg-error/10 rounded-xl px-4 py-3 mx-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Déconnexion</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="w-full sticky top-0 z-40 bg-surface/70 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-container-margin h-20 shrink-0">
+<!-- Search -->
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 w-96 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none outline-none w-full font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant" placeholder="Rechercher..." type="text"/>
+</div>
+<!-- Actions & Profile -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 rounded-full hover:bg-primary/10 transition-colors active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-primary/10 transition-colors active:scale-95 cursor-pointer text-primary">
+<span class="material-symbols-outlined fill">settings</span>
+</button>
+<button class="p-2 rounded-full hover:bg-primary/10 transition-colors active:scale-95 cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant/50"></div>
+<button class="flex items-center gap-3 hover:bg-surface-container p-2 rounded-lg transition-colors">
+<div class="text-right hidden md:block">
+<p class="font-label-md text-label-md text-on-surface">Profil Utilisateur</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Admin</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container border border-outline-variant/50 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a corporate administrator in a modern office environment. The lighting is soft and bright, emphasizing clarity and professionalism. The subject is well-groomed, exuding confidence, set against a blurred, light-mode corporate background with subtle glassmorphic elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvxOooNqv2ZEhifsGf21I6CgDX2SLOEhR3_EP5fRxo6z3s85LJ8jqaTTl35dS7uQbTBh0DVXmzM00zAZ3Uw2lYyv8KWLrSVBtZw8kRukFS-BEs7p3Q2_z6xFPWPUKQseTCBK44yQTEO9GZfRrJyyraECoHJPhvHLH87W4hQR-d0UHPmEX_i0kx47_HHPW65MJjevWtg_Sq2b29HhwZf1nRuvBxhU9fGR0J3NphQ9EOM9GNRZa5UdyR"/>
+</div>
+</button>
+</div>
+</header>
+<!-- Settings Canvas -->
+<div class="flex-1 overflow-y-auto p-container-margin flex gap-8">
+<!-- Secondary Sidebar for Settings Navigation -->
+<aside class="w-64 shrink-0 hidden lg:block">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Paramètres</h2>
+<nav class="flex flex-col gap-1">
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">tune</span> Général
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">business</span> Entreprise
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">manage_accounts</span> Utilisateurs
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">security</span> Sécurité
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg bg-surface-container-high text-primary font-semibold transition-colors flex items-center gap-3 border-l-4 border-primary shadow-sm" href="#">
+<span class="material-symbols-outlined text-lg fill">payments</span> Paiements
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">receipt_long</span> Taxes & Devises
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">inventory</span> Inventaire
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">notifications_active</span> Notifications
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">palette</span> Apparence
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">api</span> Intégrations
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">backup</span> Sauvegarde
+                    </a>
+<a class="font-label-md text-label-md px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-lg">info</span> À Propos
+                    </a>
+</nav>
+</aside>
+<!-- Settings Main Area -->
+<div class="flex-1 max-w-4xl flex flex-col gap-6 pb-20">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Paiements</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Configurez les modes de règlement et règles financières.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2 rounded-lg font-label-md text-label-md border border-outline hover:bg-surface-container transition-colors text-on-surface">
+                            Réinitialiser
+                        </button>
+<button class="px-6 py-2 rounded-lg font-label-md text-label-md bg-primary text-on-primary hover:bg-primary/90 shadow-md transition-all active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">save</span> Enregistrer
+                        </button>
+</div>
+</div>
+<!-- Section: Modes Actifs -->
+<section class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-card-padding shadow-[0px_8px_30px_rgba(0,80,203,0.04)] backdrop-blur-md">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2 border-b border-outline-variant/30 pb-3">
+<span class="material-symbols-outlined text-primary">toggle_on</span> Modes de Paiement Actifs
+                    </h3>
+<div class="flex flex-col gap-4 mt-4">
+<!-- Toggle Cash -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-outline-variant/30">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Espèces (CASH)</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Accepter les règlements en espèces au comptoir.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle Orange Money -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-outline-variant/30">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-[#ff7900]/10 text-[#ff7900] flex items-center justify-center font-bold text-xs">
+                                    OM
+                                </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Orange Money</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Intégration paiements mobiles Orange.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle MTN MoMo -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-outline-variant/30">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-[#ffcc00]/20 text-[#000000] flex items-center justify-center font-bold text-xs border border-[#ffcc00]/50">
+                                    MoMo
+                                </div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">MTN Mobile Money</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Intégration paiements mobiles MTN.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Toggle Installments -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface hover:bg-surface-container-low transition-colors border border-transparent hover:border-outline-variant/30">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined">credit_score</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Paiement en plusieurs fois</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Autoriser les crédits et échelonnements clients.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-outline-variant after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Section: Configuration Mobile Money -->
+<section class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-card-padding shadow-[0px_8px_30px_rgba(0,80,203,0.04)] backdrop-blur-md">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2 border-b border-outline-variant/30 pb-3">
+<span class="material-symbols-outlined text-primary">smartphone</span> Configuration Mobile Money
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Numéro Marchand Orange Money</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-on-surface-variant font-label-md">+237</span>
+<input class="w-full bg-surface border border-outline-variant rounded-lg pl-14 pr-4 py-2.5 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all font-body-md text-on-surface" type="text" value="699 00 00 00"/>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Lié au compte principal de la boutique.</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Numéro Marchand MTN MoMo</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-on-surface-variant font-label-md">+237</span>
+<input class="w-full bg-surface border border-outline-variant rounded-lg pl-14 pr-4 py-2.5 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all font-body-md text-on-surface" type="text" value="677 00 00 00"/>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Lié au compte principal de la boutique.</p>
+</div>
+</div>
+</section>
+<!-- Section: Configuration Paiement plusieurs fois -->
+<section class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-card-padding shadow-[0px_8px_30px_rgba(0,80,203,0.04)] backdrop-blur-md">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2 border-b border-outline-variant/30 pb-3">
+<span class="material-symbols-outlined text-primary">account_balance</span> Règles d'Échelonnement (Crédit)
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Acompte minimum exigé</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-lg pl-4 pr-10 py-2.5 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all font-body-md text-on-surface" type="number" value="30"/>
+<span class="absolute inset-y-0 right-0 flex items-center pr-4 text-on-surface-variant font-label-md">%</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-1">Pourcentage du montant total requis à l'achat.</p>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface">Durée maximale du crédit</label>
+<select class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-2.5 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all font-body-md text-on-surface appearance-none">
+<option value="1">1 mois</option>
+<option value="2">2 mois</option>
+<option selected="" value="3">3 mois</option>
+<option value="6">6 mois</option>
+</select>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-md text-label-md text-on-surface">Montant minimum pour éligibilité au crédit</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded-lg pl-4 pr-16 py-2.5 focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-all font-body-md text-on-surface text-right" type="text" value="50 000"/>
+<span class="absolute inset-y-0 right-0 flex items-center pr-4 text-on-surface-variant font-label-md">FCFA</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dubai Phone - Clients</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#faf8ff",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#001849",
+                      "tertiary-container": "#a06500",
+                      "primary": "#0050cb",
+                      "primary-container": "#0066ff",
+                      "on-surface-variant": "#424656",
+                      "surface-container": "#eaedff",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "outline": "#727687",
+                      "inverse-on-surface": "#eef0ff",
+                      "surface-variant": "#dae2fd",
+                      "on-error": "#ffffff",
+                      "outline-variant": "#c2c6d8",
+                      "on-tertiary-container": "#fff7f1",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#006c49",
+                      "surface-tint": "#0054d6",
+                      "inverse-surface": "#283044",
+                      "on-surface": "#131b2e",
+                      "background": "#faf8ff",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#dae2fd",
+                      "on-primary-container": "#f8f7ff",
+                      "tertiary": "#7f4f00",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "on-background": "#131b2e",
+                      "surface-container-high": "#e2e7ff",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#b3c5ff",
+                      "surface-dim": "#d2d9f4",
+                      "on-secondary-fixed": "#002113",
+                      "secondary-container": "#6cf8bb",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#faf8ff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "secondary-fixed-dim": "#4edea3",
+                      "primary-fixed": "#dae1ff",
+                      "on-secondary-container": "#00714d",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#f2f3ff",
+                      "on-secondary-fixed-variant": "#005236"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "card-padding": "20px",
+                      "container-margin": "24px",
+                      "base": "8px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+      </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface border-r border-outline-variant/30 shadow-lg shadow-primary/5 flex-col py-4 z-40">
+<div class="px-6 mb-8 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container mb-4">
+<span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1;">storefront</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary text-center">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center">Management Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2 w-full">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Purchases</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg py-3 flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined">add</span>
+                New Sale
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile) -->
+<header class="md:hidden bg-surface/70 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm shadow-primary/5 sticky top-0 z-50 flex justify-between items-center h-16 px-6 w-full">
+<span class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</span>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">notifications</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small, circular profile portrait of a confident tech professional, well-lit against a clean white background. High resolution, modern professional aesthetic. The image is clean and corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUbyIzT4Ksk3UXCl7Kw8kUNAgLIhN3hNpY6pz9o9YGyB4daThu3U9Yp6s3uBI9x2XwhR7oFl0Y8vdptbgbqbrJusj3BAvlwzhN114EH5zI8DHZQQwcGx_2HNn6BGrw5ZXMxXFXfcn0KsZSHc-NyQgJoBT_HwGMsbbV7BjxOnSQZGgBwDRWHAOMupEA7IbrhzkAbGVcHcus5APLkOtKfHXjsnfoRH0NYw9YchYvFEUEh3xjxivEBBrU"/>
+</div>
+</header>
+<div class="p-container-margin md:p-container-margin flex-1">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Liste des Clients</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Gérez votre portefeuille client et suivez les encours.</p>
+</div>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg py-2.5 px-5 flex items-center gap-2 transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-sm">person_add</span>
+                    Nouveau Client
+                </button>
+</div>
+<!-- Filters & Search Bar -->
+<div class="glass-card rounded-xl p-4 mb-6 flex flex-col md:flex-row gap-4 items-center">
+<div class="relative w-full md:w-96 flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-outline/70" placeholder="Rechercher par nom, téléphone..." type="text"/>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<div class="relative flex-1 md:w-48">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant rounded-lg pl-4 pr-10 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+<option value="">Tous les statuts</option>
+<option value="actif">Actif</option>
+<option value="en_retard">En retard</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">arrow_drop_down</span>
+</div>
+<div class="relative flex-1 md:w-48">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant rounded-lg pl-4 pr-10 py-2 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all">
+<option value="">Toutes les villes</option>
+<option value="douala">Douala</option>
+<option value="yaounde">Yaoundé</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+</div>
+<!-- Customer Table -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 bg-surface-container-low/50">
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium">Nom Complet</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium">Téléphone</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium">Ville</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium text-right">Achats Totaux (FCFA)</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium text-right">Solde Restant (FCFA)</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium text-center">Statut</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-4 px-6 font-medium text-center">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-primary font-label-md">AM</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Amadou Moustapha</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Client VIP</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface">+237 655 44 33 22</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Douala</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface text-right">1,450,000</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface-variant text-right">0</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        Actif
+                                    </span>
+</td>
+<td class="py-4 px-6 text-center">
+<button class="text-outline hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-primary font-label-md">BE</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Bello Entreprise</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Revendeur</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface">+237 677 88 99 00</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Yaoundé</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface text-right">3,200,000</td>
+<td class="py-4 px-6 font-label-md text-label-md text-error text-right">450,000</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                        En retard
+                                    </span>
+</td>
+<td class="py-4 px-6 text-center">
+<button class="text-outline hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-primary font-label-md">CD</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Céline Djomo</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Particulier</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface">+237 699 11 22 33</td>
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface-variant">Douala</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface text-right">850,000</td>
+<td class="py-4 px-6 font-label-md text-label-md text-tertiary text-right">150,000</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                        Actif (Crédit)
+                                    </span>
+</td>
+<td class="py-4 px-6 text-center">
+<button class="text-outline hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined text-lg">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="border-t border-outline-variant/30 p-4 flex items-center justify-between bg-surface-container-lowest/50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Affichage 1 à 3 sur 124 clients</p>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant text-on-surface-variant font-label-sm transition-colors disabled:opacity-50" disabled="">Précédent</button>
+<button class="px-3 py-1 border border-outline-variant rounded hover:bg-surface-variant text-on-surface-variant font-label-sm transition-colors">Suivant</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface border-t border-outline-variant/30 fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center gap-1 text-on-surface-variant p-2 w-16" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-[10px]">Accueil</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant p-2 w-16" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-[10px]">Ventes</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-primary p-2 w-16" href="#">
+<div class="bg-primary-container/30 px-4 py-1 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<span class="font-label-sm text-[10px] font-bold">Clients</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-on-surface-variant p-2 w-16" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-[10px]">Stock</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Historique de Stock - Dubai Phone</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-primary": "#b3c5ff",
+                      "surface-dim": "#d2d9f4",
+                      "on-secondary-container": "#00714d",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#6cf8bb",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#002113",
+                      "outline-variant": "#c2c6d8",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-background": "#131b2e",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "background": "#faf8ff",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#fff7f1",
+                      "surface-bright": "#faf8ff",
+                      "tertiary-container": "#a06500",
+                      "primary": "#0050cb",
+                      "on-surface-variant": "#424656",
+                      "on-primary-fixed": "#001849",
+                      "primary-fixed": "#dae1ff",
+                      "tertiary-fixed": "#ffddb8",
+                      "secondary": "#006c49",
+                      "on-primary-container": "#f8f7ff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "surface-container": "#eaedff",
+                      "surface-container-high": "#e2e7ff",
+                      "outline": "#727687",
+                      "inverse-on-surface": "#eef0ff",
+                      "surface-container-highest": "#dae2fd",
+                      "on-error": "#ffffff",
+                      "surface": "#faf8ff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "surface-variant": "#dae2fd",
+                      "surface-tint": "#0054d6",
+                      "on-tertiary-fixed": "#2a1700",
+                      "surface-container-low": "#f2f3ff",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#283044",
+                      "primary-container": "#0066ff",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-surface": "#131b2e",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "tertiary": "#7f4f00",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "24px",
+                      "card-padding": "20px",
+                      "base": "8px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .glass-shadow {
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+
+        /* 8pt Grid vertical rhythm enforces */
+        .rythm-y-1 { margin-bottom: 8px; }
+        .rythm-y-2 { margin-bottom: 16px; }
+        .rythm-y-3 { margin-bottom: 24px; }
+        .rythm-y-4 { margin-bottom: 32px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex antialiased">
+<!-- SideNavBar Component -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-lowest border-r border-outline-variant shadow-sm py-base px-gutter z-50">
+<div class="flex items-center gap-3 mb-8 px-2 mt-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xl">
+                DP
+            </div>
+<div>
+<h1 class="text-headline-md font-headline-md text-primary tracking-tight leading-none">Dubai Phone</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Gestion d'Électronique</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-md text-label-md">Tableau de bord</span>
+</a>
+</li>
+<li>
+<!-- ACTIVE STATE: Intent falls under Inventory -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-secondary-container/30 border-r-4 border-primary transition-transform scale-95 origin-left" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-label-md text-label-md">Inventaire</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+<span class="font-label-md text-label-md">Ventes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-md text-label-md">Clients</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">build</span>
+<span class="font-label-md text-label-md">Réparations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-md text-label-md">Paramètres</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant/30">
+<button class="w-full bg-primary text-on-primary hover:bg-on-primary-fixed-variant transition-colors py-3 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Nouveau Rapport
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="hidden md:flex justify-between items-center h-16 px-container-margin fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-surface/70 backdrop-blur-md border-b border-outline-variant shadow-sm transition-all focus-within:ring-2 focus-within:ring-primary/20">
+<div class="flex items-center gap-6">
+<!-- Search on Left as requested by JSON -->
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-full font-label-md text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Rechercher..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Bafang</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all" href="#">Yaoundé</a>
+<a class="font-label-md text-label-md text-primary border-b-2 border-primary pb-1" href="#">Douala</a>
+</nav>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors">
+                        Rechercher
+                    </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden ml-2 cursor-pointer">
+<img alt="Profil Utilisateur" class="w-full h-full object-cover" data-alt="A detailed headshot portrait of a professional African man working in a bright, modern electronics retail store. He is wearing a clean branded uniform. The lighting is high-key and crisp, emphasizing a corporate modern aesthetic with tech-blue accents in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv7pt7hIvukN8KTN_a0QiJ2C99ggW9msh93LTOeIyRaWzRR6lPMyYewuPrOcGXx6wmMx4YiiPBhk6swDySEvR2LvqeouOTZr0V1n2n3UeTC9fTYXn75LMdl70WsFdlx0p6yRhlW6Nmf-pZoirSYjnDcDFU7bfQtH9uL8WdHMdT_MyY1IMTRWGji5rIz-R0xo7DhtGsLhm4kipMg-XPrQ5V4wPUw6yuWQQONpnmzCyCtjthVJFPU6ZG"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-4 md:p-container-margin mt-16 md:mt-24">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<a class="font-label-md text-label-md hover:text-primary transition-colors" href="#">Retour à l'inventaire</a>
+</div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight">Historique de Stock</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 flex items-center gap-2">
+<span class="font-semibold text-on-surface">iPhone 15 Pro Max - 256GB</span>
+<span class="text-outline">|</span>
+<span>SKU: IP15PM-256-BLK</span>
+</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:border-primary hover:text-primary transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Exporter
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-on-primary-fixed-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                        Ajustement
+                    </button>
+</div>
+</div>
+<!-- Context Cards Bento -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-8">
+<!-- Current Stock Card -->
+<div class="glass-panel glass-shadow rounded-xl p-card-padding flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">inventory</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Actuel</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Stock Disponible</p>
+<h3 class="font-display-lg text-display-lg text-on-surface">42</h3>
+</div>
+</div>
+<!-- Last 30 Days Changes -->
+<div class="glass-panel glass-shadow rounded-xl p-card-padding flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">sync_alt</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">30 Jours</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Mouvements Nette</p>
+<div class="flex items-center gap-2">
+<h3 class="font-display-lg text-display-lg text-on-surface">-15</h3>
+<span class="material-symbols-outlined text-error text-[24px]">trending_down</span>
+</div>
+</div>
+</div>
+<!-- Value Card -->
+<div class="glass-panel glass-shadow rounded-xl p-card-padding flex flex-col justify-between md:col-span-2 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="bg-cover bg-center w-full h-full" data-alt="A subtle, abstract geometric background pattern featuring intersecting circuit board lines and soft glowing nodes in shades of tech blue and crisp white, designed to provide texture without overwhelming text. High contrast corporate modern style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBo33LJUT1-ufnbP-SzPALSVms_-1t0yzMw-DjnCpvSeskQ8zb3yWtKtZFcBlg02qN1gfrR6nXeiUywVt3krj4EHN6IJyoUAx1EFnGJgWBT1zq1OFbkw2x2-EpTU4VZFLRvQmIIXNdJzc-jC4TlFqVR0i_GbeUmG_c3RqiTTAnJPXYAA7lyKbD5lqWycveBa2FfDov_mLzEYUBB5zjdAse3kcrdae5NyYIMmhSIwuna9e4reBRx2wQ-')"></div>
+</div>
+<div class="relative z-10 flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+</div>
+<div class="relative z-10">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Valeur Estimée du Stock</p>
+<h3 class="font-display-lg text-display-lg text-on-surface">32,550,000 <span class="text-headline-md text-outline">FCFA</span></h3>
+</div>
+</div>
+</div>
+<!-- Main Timeline/Table Area -->
+<div class="glass-panel glass-shadow rounded-xl border border-outline-variant/50 overflow-hidden">
+<!-- Table Controls -->
+<div class="p-4 border-b border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container-lowest/50">
+<div class="flex items-center gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">calendar_today</span>
+<select class="pl-9 pr-8 py-2 bg-surface border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option>Ce mois-ci</option>
+<option>Mois dernier</option>
+<option>3 derniers mois</option>
+<option>Personnalisé...</option>
+</select>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">filter_list</span>
+<select class="pl-9 pr-8 py-2 bg-surface border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
+<option>Tous les types</option>
+<option>Ventes</option>
+<option>Achats</option>
+<option>Retours</option>
+<option>Ajustements</option>
+</select>
+</div>
+</div>
+<div class="relative w-full md:w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Rechercher par utilisateur, ref..." type="text"/>
+</div>
+</div>
+<!-- Table Header -->
+<div class="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-surface-container-low border-b border-outline-variant/30 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+<div class="col-span-2">Date &amp; Heure</div>
+<div class="col-span-3">Type de Mouvement</div>
+<div class="col-span-2 text-right">Variation</div>
+<div class="col-span-2 text-right">Solde Final</div>
+<div class="col-span-3 pl-4">Utilisateur / Réf</div>
+</div>
+<!-- Table Body -->
+<div class="divide-y divide-outline-variant/20 bg-surface-container-lowest/80">
+<!-- Row 1: Sale (Decrease) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 hover:bg-surface-container/50 transition-colors group items-center">
+<div class="col-span-2 font-body-md text-body-md text-on-surface">
+<div>24 Oct 2023</div>
+<div class="text-label-sm text-on-surface-variant mt-0.5">14:30</div>
+</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-error-container/50 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[16px]">shopping_cart_checkout</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Vente en magasin</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Facture #FC-2023-892</div>
+</div>
+</div>
+<div class="col-span-2 text-right font-headline-md text-headline-md text-error flex justify-end items-center gap-1">
+                            -2
+                        </div>
+<div class="col-span-2 text-right font-body-lg text-body-lg text-on-surface font-medium">
+                            42
+                        </div>
+<div class="col-span-3 pl-0 md:pl-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant">MJ</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Marc Johnson</span>
+</div>
+</div>
+<!-- Row 2: Purchase (Increase) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 hover:bg-surface-container/50 transition-colors group items-center">
+<div class="col-span-2 font-body-md text-body-md text-on-surface">
+<div>22 Oct 2023</div>
+<div class="text-label-sm text-on-surface-variant mt-0.5">09:15</div>
+</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[16px]">local_shipping</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Réception Fournisseur</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Bon #BR-9921</div>
+</div>
+</div>
+<div class="col-span-2 text-right font-headline-md text-headline-md text-secondary flex justify-end items-center gap-1">
+                            +20
+                        </div>
+<div class="col-span-2 text-right font-body-lg text-body-lg text-on-surface font-medium">
+                            44
+                        </div>
+<div class="col-span-3 pl-0 md:pl-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant">AD</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Admin System</span>
+</div>
+</div>
+<!-- Row 3: Return (Increase) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 hover:bg-surface-container/50 transition-colors group items-center">
+<div class="col-span-2 font-body-md text-body-md text-on-surface">
+<div>20 Oct 2023</div>
+<div class="text-label-sm text-on-surface-variant mt-0.5">16:45</div>
+</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">keyboard_return</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Retour Client</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Réf: Client défectueux</div>
+</div>
+</div>
+<div class="col-span-2 text-right font-headline-md text-headline-md text-primary flex justify-end items-center gap-1">
+                            +1
+                        </div>
+<div class="col-span-2 text-right font-body-lg text-body-lg text-on-surface font-medium">
+                            24
+                        </div>
+<div class="col-span-3 pl-0 md:pl-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant">ST</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Sarah T. (SAV)</span>
+</div>
+</div>
+<!-- Row 4: Adjustment (Decrease) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-4 hover:bg-surface-container/50 transition-colors group items-center">
+<div class="col-span-2 font-body-md text-body-md text-on-surface">
+<div>15 Oct 2023</div>
+<div class="text-label-sm text-on-surface-variant mt-0.5">10:00</div>
+</div>
+<div class="col-span-3 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Ajustement Inventaire</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Correction écart</div>
+</div>
+</div>
+<div class="col-span-2 text-right font-headline-md text-headline-md text-tertiary flex justify-end items-center gap-1">
+                            -1
+                        </div>
+<div class="col-span-2 text-right font-body-lg text-body-lg text-on-surface font-medium">
+                            23
+                        </div>
+<div class="col-span-3 pl-0 md:pl-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant">MG</div>
+<span class="font-body-md text-body-md text-on-surface-variant">Manager Store</span>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant/30 flex justify-between items-center bg-surface-container-lowest/50">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Affichage 1-4 sur 128 mouvements</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md">1</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container hover:text-primary transition-colors font-label-md text-label-md">2</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container hover:text-primary transition-colors font-label-md text-label-md">3</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

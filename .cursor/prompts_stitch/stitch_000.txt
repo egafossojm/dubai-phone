@@ -1,0 +1,85 @@
+Design a complete modern SaaS design system for a professional French-language retail management application for an electronics store in Cameroon.
+
+The application manages smartphones, mobile phones, accessories, gadgets and electronic equipment.
+
+The product is a professional business management application with a strong focus on:
+- simplicity
+- speed
+- operational efficiency
+- inventory visibility
+- point of sale usability
+- financial clarity
+- trust
+- professional business software aesthetics
+
+Target users:
+1. Super Administrator
+2. Manager
+3. Salesperson/Cashier
+4. Inventory Manager
+
+The interface must be entirely in French.
+
+Currency:
+XAF / FCFA.
+
+Design principles:
+- clean
+- modern
+- professional
+- information-dense but not cluttered
+- highly readable
+- responsive
+- desktop-first for administration
+- optimized for POS usage
+- tablet-friendly
+- accessible
+- consistent spacing
+- clear hierarchy
+- strong visual distinction between primary and destructive actions
+- minimal decorative elements
+
+Create a reusable design system including:
+
+1. Color system
+2. Typography
+3. Spacing scale
+4. Border radius
+5. Shadows
+6. Icons
+7. Buttons
+8. Inputs
+9. Selects
+10. Search fields
+11. Tables
+12. Cards
+13. Badges
+14. Status indicators
+15. Alerts
+16. Modals
+17. Drawers
+18. Dropdown menus
+19. Tabs
+20. Pagination
+21. Empty states
+22. Loading states
+23. Skeleton states
+24. Error states
+25. Confirmation dialogs
+26. Toast notifications
+27. Form validation states
+28. Charts
+29. POS components
+30. Product cards
+31. Customer cards
+32. Payment components
+33. Timeline components
+34. Audit log components
+
+Create components that can be reused consistently across the entire application.
+
+The visual language should feel comparable to high-quality modern business applications such as Stripe Dashboard, Shopify Admin, Square, Linear and modern ERP systems, while remaining original and appropriate for an African retail business.
+
+Do not make the design look like a generic template.
+
+Prioritize usability over decoration.

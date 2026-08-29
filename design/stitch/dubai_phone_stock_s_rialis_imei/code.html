@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inventaire Sérialisé - Dubai Phone</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-dim": "#d2d9f4",
+                        "on-secondary-container": "#00714d",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#6cf8bb",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#002113",
+                        "outline-variant": "#c2c6d8",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-background": "#131b2e",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "background": "#faf8ff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#fff7f1",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-container": "#a06500",
+                        "primary": "#0050cb",
+                        "on-surface-variant": "#424656",
+                        "on-primary-fixed": "#001849",
+                        "primary-fixed": "#dae1ff",
+                        "tertiary-fixed": "#ffddb8",
+                        "secondary": "#006c49",
+                        "on-primary-container": "#f8f7ff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-container": "#eaedff",
+                        "surface-container-high": "#e2e7ff",
+                        "outline": "#727687",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-container-highest": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "surface": "#faf8ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-variant": "#dae2fd",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-low": "#f2f3ff",
+                        "on-error-container": "#93000a",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#283044",
+                        "primary-container": "#0066ff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-surface": "#131b2e",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "tertiary": "#7f4f00",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "24px",
+                        "card-padding": "20px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .status-pill-instock { background-color: #d1fae5; color: #065f46; } /* Emerald */
+        .status-pill-sold { background-color: #f3f4f6; color: #374151; } /* Gray */
+        .status-pill-repair { background-color: #fef08a; color: #854d0e; } /* Yellow */
+        .status-pill-reserved { background-color: #e0e7ff; color: #3730a3; } /* Indigo */
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-lowest dark:bg-inverse-surface h-screen w-64 fixed left-0 top-0 border-r border-outline-variant dark:border-outline shadow-sm flex flex-col py-base px-gutter z-50 md:flex hidden">
+<div class="mb-8 mt-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container font-headline-md">
+                DP
+            </div>
+<div>
+<h1 class="text-headline-md font-headline-md text-primary dark:text-primary-fixed-dim">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gestion d'Électronique</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-primary-fixed-dim font-bold bg-secondary-container/30 dark:bg-secondary-container/10 border-r-4 border-primary scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-body-md text-body-md">Inventaire</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-body-md text-body-md">Ventes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="font-body-md text-body-md">Réparations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 hover:text-primary" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Paramètres</span>
+</a>
+</nav>
+<div class="mt-auto pt-4">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Nouveau Rapport
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface/70 dark:bg-surface-container-highest/70 backdrop-blur-md fixed top-0 right-0 w-full md:w-[calc(100%-16rem)] z-40 shadow-sm flex justify-between items-center h-16 px-container-margin">
+<div class="flex items-center gap-4 flex-1">
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="relative w-full max-w-md hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-full border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all font-body-md text-body-md text-on-surface placeholder:text-outline" placeholder="Rechercher IMEI, SN..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-all" href="#">Bafang</a>
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed border-b-2 border-primary pb-1" href="#">Yaoundé</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-all" href="#">Douala</a>
+</nav>
+<div class="flex items-center gap-4 border-l border-outline-variant pl-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors hidden sm:block">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-tertiary-container overflow-hidden">
+<img alt="Profil Utilisateur" class="w-full h-full object-cover" data-alt="A close up portrait of a young professional African woman smiling softly. She is wearing a crisp white blouse. The background is a brightly lit, modern electronics store with a high-end, clean aesthetic. Soft, natural light illuminates her face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyy7SYPM8filNa7IZfISShkwyrsudYaa4JjQTTwCBabaMC9NzSBHXxnRJF6fzvqvKf0PHyf0bf1119MSjCYYWPj6oLlhquhSD3iFKUEwXt5kHm5C_PosWM0mKyeGHI5du4JILDQUAIzFqAEDr21o0-jeE67Es0jyZcjk9G0r51Ze-0l4fhjGQQ9jwZw0jYb2dpXf0jsHg1vtrIYtszWE5dGefpu7XINCk43IlPCq1cbwwsptbRehWd"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="pt-24 px-container-margin pb-12 flex-1 w-full max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-1">Inventaire Sérialisé</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Gestion détaillée des appareils par IMEI et Numéro de Série.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface text-on-surface font-label-md text-label-md flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filtres
+                    </button>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Ajouter Appareil
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Stats -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+<div class="glass-card rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Total Appareils</p>
+<p class="font-display-lg text-display-lg text-on-background">1,248</p>
+</div>
+<div class="glass-card rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed/30 flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">En Stock</p>
+<p class="font-headline-lg text-headline-lg text-on-background">892</p>
+</div>
+<div class="glass-card rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined">build_circle</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">En Réparation</p>
+<p class="font-headline-lg text-headline-lg text-on-background">45</p>
+</div>
+<div class="glass-card rounded-xl p-card-padding flex flex-col relative overflow-hidden group">
+<div class="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors z-0"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-1">Succursale Active</p>
+<p class="font-headline-lg text-headline-lg text-on-background">Yaoundé</p>
+</div>
+</div>
+</div>
+<!-- Serialized Table -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col bg-surface-container-lowest">
+<div class="p-4 border-b border-outline-variant flex flex-col sm:flex-row gap-4 justify-between items-center bg-surface-bright">
+<div class="relative w-full sm:w-96 md:hidden">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border border-outline-variant bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md text-body-md" placeholder="Rechercher par IMEI..." type="text"/>
+</div>
+<div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 hide-scrollbar">
+<button class="px-3 py-1.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm whitespace-nowrap">Tous</button>
+<button class="px-3 py-1.5 rounded-full bg-surface hover:bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">En Stock</button>
+<button class="px-3 py-1.5 rounded-full bg-surface hover:bg-surface-container border border-outline-variant text-on-surface-variant font-label-sm text-label-sm whitespace-nowrap">Vendus</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-lowest">
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">Produit &amp; Variante</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">IMEI 1</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">IMEI 2</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">Numéro de Série</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">Statut</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">Localisation</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background font-semibold">iPhone 14 Pro Max</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">256GB - Space Black</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-background tracking-wider">356890112345678</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant tracking-wider">356890112345679</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">F17GD890KLM</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-sm text-label-sm status-pill-instock">
+<span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                        En Stock
+                                    </span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Yaoundé - Magasin Principal</td>
+<td class="p-4">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">phone_android</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background font-semibold">Samsung Galaxy S23 Ultra</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">512GB - Phantom Black</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-background tracking-wider">351234567890123</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant tracking-wider">351234567890124</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">RZ8T90ABCDE</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-sm text-label-sm status-pill-sold">
+<span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                        Vendu
+                                    </span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Douala - Akwa</td>
+<td class="p-4">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">tablet_mac</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background font-semibold">iPad Pro 12.9"</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Wi-Fi + Cellular - 1TB</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-background tracking-wider">359988776655443</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant tracking-wider">-</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">DLXQWERT1234</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-sm text-label-sm status-pill-repair">
+<span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                        En Réparation
+                                    </span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Yaoundé - Atelier Central</td>
+<td class="p-4">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">smartphone</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background font-semibold">Xiaomi Redmi Note 12</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">128GB - Ice Blue</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-background tracking-wider">864455009988776</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant tracking-wider">864455009988777</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">XMN12345678</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-label-sm text-label-sm status-pill-reserved">
+<span class="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                        Réservé
+                                    </span>
+</td>
+<td class="p-4 font-body-md text-body-md text-on-surface-variant">Bafang - Centre Ville</td>
+<td class="p-4">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-outline-variant flex justify-between items-center bg-surface-bright">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Affichage 1-4 sur 1,248 éléments</p>
+<div class="flex gap-1">
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md">1</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container font-label-md text-label-md">2</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container font-label-md text-label-md">3</button>
+<button class="w-8 h-8 rounded border border-outline-variant flex items-center justify-center text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

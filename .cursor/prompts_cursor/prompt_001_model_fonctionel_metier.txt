@@ -1,0 +1,1203 @@
+# PROMPT 001 — MODÈLE FONCTIONNEL ET MÉTIER
+# Projet : Dubai Phone
+# Phase : Product / Business Modeling
+# Prérequis : prompt_000_initiation_du_projet.txt
+# Étape suivante : prompt_002_architecture.txt
+
+---
+
+## 1. RÔLE
+
+Tu interviens comme un :
+
+- Senior Product Manager
+- Business Analyst
+- Domain Architect
+- Senior Software Architect
+- UX/Product Strategist
+
+Tu dois formaliser le modèle fonctionnel et métier complet de l'application avant toute implémentation technique importante.
+
+Tu dois raisonner comme si cette documentation allait être utilisée simultanément par :
+
+- Product Manager
+- Software Architect
+- Backend Engineers
+- Frontend Engineers
+- Database Engineers
+- Security Engineers
+- QA Engineers
+- UX/UI Designers
+- AI Coding Agents
+
+Le résultat doit être suffisamment précis pour qu'un autre développeur ou agent IA puisse comprendre le fonctionnement du produit sans devoir réinventer les règles métier.
+
+---
+
+# 2. OBJECTIF DE CETTE ÉTAPE
+
+Construire le modèle fonctionnel et métier de référence du projet.
+
+Cette étape doit répondre précisément aux questions suivantes :
+
+- Que fait exactement l'application ?
+- Quels problèmes métier résout-elle ?
+- Qui utilise l'application ?
+- Quels sont les rôles ?
+- Que peut faire chaque rôle ?
+- Quels sont les modules fonctionnels ?
+- Quels sont les principaux cas d'utilisation ?
+- Quels sont les processus métier ?
+- Quelles sont les règles métier ?
+- Quelles sont les entités métier ?
+- Comment les entités sont-elles liées ?
+- Quels sont les états possibles des objets métier ?
+- Comment les objets passent-ils d'un état à un autre ?
+- Quelles sont les contraintes métier ?
+- Quels sont les cas limites ?
+- Quelles opérations doivent être auditables ?
+- Quelles opérations sont irréversibles ?
+- Quels événements métier doivent être conservés ?
+- Quelles fonctionnalités sont MVP ?
+- Quelles fonctionnalités sont hors scope du MVP ?
+
+---
+
+# 3. RÈGLE FONDAMENTALE
+
+NE COMMENCE PAS À CODER.
+
+Cette phase est exclusivement consacrée à :
+
+- l'analyse ;
+- la modélisation ;
+- la clarification ;
+- la documentation ;
+- la détection des ambiguïtés ;
+- la définition des règles métier ;
+- la préparation des étapes techniques suivantes.
+
+Ne crée pas encore :
+
+- de composants frontend métier ;
+- d'API métier ;
+- de migrations SQL ;
+- de modèles ORM ;
+- de controllers ;
+- de services backend ;
+- de pages applicatives finales.
+
+Si une décision technique est nécessaire pour expliquer le métier, documente-la comme une contrainte ou une recommandation, mais ne l'implémente pas.
+
+---
+
+# 4. SOURCES DE VÉRITÉ
+
+Avant de produire quoi que ce soit :
+
+1. Lis `AGENTS.md` s'il existe.
+2. Lis `.cursor/rules/project-context.md`.
+3. Lis `.cursor/rules/business-rules.md`.
+4. Lis `.cursor/rules/architecture.md`.
+5. Lis les autres fichiers `.cursor/rules/` pertinents.
+6. Lis les documents de contexte déjà présents dans le repository.
+7. Analyse le contenu déjà produit par `prompt_000_initiation_du_projet.txt`.
+8. Analyse la structure actuelle du projet.
+
+Ne suppose pas que le repository est vide.
+
+Ne remplace pas une décision déjà explicitement définie sans justification.
+
+Si deux documents sont contradictoires :
+
+1. identifie la contradiction ;
+2. indique les deux décisions ;
+3. recommande une décision ;
+4. explique brièvement pourquoi.
+
+---
+
+# 5. CONTEXTE PRODUIT
+
+Le projet est une application complète de gestion d'un magasin spécialisé dans la vente de :
+
+- smartphones ;
+- téléphones mobiles ;
+- tablettes ;
+- ordinateurs ;
+- accessoires ;
+- chargeurs ;
+- câbles ;
+- écouteurs ;
+- casques ;
+- montres connectées ;
+- gadgets ;
+- équipements électroniques ;
+- autres produits électroniques.
+
+Le système doit couvrir le cycle de vie complet du commerce :
+
+ACHAT
+→ RÉCEPTION
+→ STOCK
+→ VENTE
+→ PAIEMENT
+→ CLIENT
+→ GARANTIE / RETOUR
+→ RAPPORTING / AUDIT
+
+L'application est principalement destinée à une activité commerciale utilisant le FCFA.
+
+Les méthodes de paiement actuellement prévues sont :
+
+- CASH ;
+- ORANGE MONEY ;
+- MTN MOBILE MONEY ;
+- PAIEMENT EN PLUSIEURS FOIS.
+
+Le paiement en plusieurs fois constitue une fonctionnalité métier importante et doit être modélisé explicitement.
+
+---
+
+# 6. PRINCIPES MÉTIER FONDAMENTAUX
+
+Le système doit être conçu autour des principes suivants.
+
+## 6.1 Traçabilité
+
+Toute opération importante doit pouvoir être retracée.
+
+Exemples :
+
+- entrée en stock ;
+- sortie de stock ;
+- vente ;
+- paiement ;
+- remboursement ;
+- retour ;
+- ajustement de stock ;
+- modification de prix ;
+- modification d'une information sensible ;
+- création ou modification d'un utilisateur ;
+- modification de permissions.
+
+---
+
+## 6.2 Intégrité financière
+
+Les montants financiers doivent être traçables.
+
+Une vente ne doit jamais simplement disparaître.
+
+Une transaction financière importante doit conserver son historique.
+
+Les corrections doivent être réalisées par des opérations compensatoires ou explicitement auditées plutôt que par suppression silencieuse.
+
+---
+
+## 6.3 Intégrité du stock
+
+Le système doit pouvoir expliquer pourquoi le stock actuel possède sa valeur actuelle.
+
+Les mouvements de stock doivent être identifiables par leur origine :
+
+- achat ;
+- réception ;
+- vente ;
+- retour ;
+- ajustement ;
+- perte ;
+- dommage ;
+- transfert éventuel ;
+- autre événement métier autorisé.
+
+---
+
+## 6.4 Produits sérialisés
+
+Les produits tels que les smartphones, certains ordinateurs et certains équipements électroniques peuvent nécessiter une identification individuelle.
+
+Un produit commercial et un appareil physique doivent être considérés comme deux concepts différents.
+
+Exemple :
+
+PRODUCT
+    ↓
+Samsung Galaxy S25 256 GB
+
+DEVICE
+    ↓
+IMEI
+Serial Number
+IMEI 2 éventuel
+
+Le système doit pouvoir déterminer :
+
+- quel appareil a été acheté ;
+- quand il a été reçu ;
+- dans quel stock il se trouve ;
+- à quel client il a été vendu ;
+- quelle vente correspond à cet appareil ;
+- quelle garantie lui est associée ;
+- s'il a été retourné ;
+- quel est son état actuel.
+
+---
+
+# 7. ACTEURS
+
+Modélise au minimum les acteurs suivants :
+
+### 7.1 Super Administrator
+
+Responsable de l'administration globale du système.
+
+Peut notamment :
+
+- gérer les utilisateurs ;
+- gérer les rôles ;
+- gérer les permissions ;
+- consulter les audits ;
+- configurer les paramètres globaux ;
+- accéder aux fonctionnalités administratives sensibles.
+
+---
+
+### 7.2 Manager
+
+Responsable opérationnel du magasin.
+
+Peut notamment :
+
+- consulter les ventes ;
+- gérer ou superviser les produits ;
+- gérer le stock ;
+- gérer les achats ;
+- gérer les fournisseurs ;
+- gérer les clients ;
+- consulter les rapports ;
+- superviser les vendeurs ;
+- approuver certaines opérations sensibles selon les règles métier.
+
+---
+
+### 7.3 Sales Person
+
+Responsable des ventes.
+
+Peut notamment :
+
+- consulter le catalogue ;
+- créer une vente ;
+- gérer un panier ;
+- enregistrer un paiement ;
+- enregistrer un client ;
+- consulter l'historique autorisé ;
+- traiter certaines opérations de retour selon ses permissions.
+
+---
+
+### 7.4 Inventory Manager
+
+Responsable de la gestion du stock.
+
+Peut notamment :
+
+- consulter le stock ;
+- enregistrer les réceptions ;
+- enregistrer les appareils sérialisés ;
+- effectuer les opérations d'inventaire autorisées ;
+- effectuer ou proposer des ajustements ;
+- suivre les mouvements de stock.
+
+---
+
+### 7.5 Customer
+
+Client du magasin.
+
+Le client est une entité métier.
+
+Il n'est pas nécessairement un utilisateur authentifié de l'application.
+
+---
+
+### 7.6 Supplier
+
+Fournisseur.
+
+Le fournisseur est une entité métier.
+
+Il n'est pas nécessairement un utilisateur authentifié de l'application.
+
+---
+
+# 8. MODULES FONCTIONNELS
+
+Formalise au minimum les modules suivants.
+
+## 8.1 Dashboard
+
+Permet notamment de consulter :
+
+- chiffre d'affaires ;
+- ventes ;
+- paiements ;
+- stock ;
+- produits à faible stock ;
+- créances ;
+- échéances ;
+- performances ;
+- indicateurs opérationnels.
+
+---
+
+## 8.2 Catalogue / Products
+
+Gestion :
+
+- produits ;
+- catégories ;
+- marques ;
+- variantes ;
+- prix ;
+- coûts ;
+- SKU ;
+- codes-barres ;
+- produits sérialisables ;
+- caractéristiques ;
+- statut actif/inactif.
+
+---
+
+## 8.3 Inventory
+
+Gestion :
+
+- stock ;
+- niveaux de stock ;
+- appareils individuels ;
+- IMEI ;
+- numéros de série ;
+- mouvements ;
+- ajustements ;
+- pertes ;
+- dommages ;
+- inventaires ;
+- historique.
+
+---
+
+## 8.4 Suppliers & Purchases
+
+Gestion :
+
+- fournisseurs ;
+- commandes fournisseurs ;
+- lignes de commande ;
+- réception ;
+- réception partielle ;
+- réception complète ;
+- coûts d'achat ;
+- historique des achats.
+
+---
+
+## 8.5 Customers
+
+Gestion :
+
+- clients ;
+- coordonnées ;
+- historique des achats ;
+- historique des paiements ;
+- crédit ;
+- soldes ;
+- retours ;
+- garanties.
+
+---
+
+## 8.6 POS / Sales
+
+Gestion :
+
+- panier ;
+- recherche produit ;
+- ajout/suppression de lignes ;
+- quantités ;
+- prix ;
+- remises ;
+- client ;
+- paiement ;
+- finalisation ;
+- reçu ;
+- historique.
+
+---
+
+## 8.7 Payments
+
+Gestion :
+
+- CASH ;
+- ORANGE MONEY ;
+- MTN MOBILE MONEY ;
+- paiement initial ;
+- paiements partiels ;
+- paiements liés au crédit ;
+- remboursement ;
+- historique des paiements.
+
+---
+
+## 8.8 Credit / Installments
+
+Gestion :
+
+- ventes à crédit ;
+- montant total ;
+- montant initial ;
+- solde ;
+- échéances ;
+- paiements ;
+- statut ;
+- historique.
+
+---
+
+## 8.9 Returns
+
+Gestion :
+
+- demande de retour ;
+- inspection ;
+- acceptation ;
+- refus ;
+- remboursement ;
+- échange ;
+- remise en stock ;
+- traitement des produits endommagés.
+
+---
+
+## 8.10 Warranty
+
+Gestion :
+
+- garanties sements ;
+- retours ;
+- performances.
+
+---
+
+## 8.12 Users / RBAC / Audit
+
+Gestion :
+
+- utilisateurs ;
+- rôles ;
+- permissions ;
+- accès ;
+- sessions ;
+- journal d'audit ;
+- actions sensibles.
+
+---
+
+## 8.13 Settings
+
+Gestion des paramètres applicatifs :
+
+- informations du magasin ;
+- devise ;
+- taxes éventuelles ;
+- formats ;
+- numérotation ;
+- reçus ;
+- paramètres commerciaux ;
+- paramètres de notification ;
+- paramètres opérationnels.
+
+---
+
+# 9. MODÈLE DE PRODUIT
+
+Définis clairement la différence entre :
+
+### Product
+
+Produit commercial.
+
+Exemple :
+
+Samsung Galaxy S25 256 GB.
+
+### Product Variant
+
+Variation du produit.
+
+Exemple :
+
+Samsung Galaxy S25
+- 256 GB
+- Noir
+
+### Serialized Device
+
+Unité physique identifiable.
+
+Exemple :
+
+- IMEI 1 ;
+- IMEI 2 ;
+- Serial Number.
+
+### Stock Item
+
+Représentation de la disponibilité commerciale d'un produit.
+
+Le modèle doit permettre de gérer correctement :
+
+- produits sérialisés ;
+- produits non sérialisés.
+
+---
+
+# 10. MODÈLE DE VENTE
+
+Formalise le modèle suivant :
+
+SALE
+    │
+    ├── CUSTOMER
+    │
+    ├── SALE ITEMS
+    │      ├── PRODUCT
+    │      ├── QUANTITY
+    │      ├── UNIT PRICE
+    │      ├── DISCOUNT
+    │      └── SERIALIZED DEVICE éventuel
+    │
+    ├── PAYMENT(S)
+    │
+    ├── CREDIT ACCOUNT éventuel
+    │
+    ├── STOCK MOVEMENTS
+    │
+    └── RECEIPT
+
+Une vente doit pouvoir contenir plusieurs lignes.
+
+Une vente doit pouvoir contenir plusieurs paiements si le modèle métier l'autorise.
+
+Exemple :
+
+Total :
+600 000 FCFA
+
+Paiements :
+
+200 000 FCFA CASH
+150 000 FCFA ORANGE MONEY
+250 000 FCFA MTN MOBILE MONEY
+
+Le modèle doit pouvoir représenter cette situation.
+
+---
+
+# 11. PAIEMENTS
+
+Modélise explicitement les méthodes :
+
+- CASH ;
+- ORANGE_MONEY ;
+- MTN_MOBILE_MONEY ;
+- INSTALLMENT.
+
+Ne considère pas INSTALLMENT comme une simple méthode de paiement physique.
+
+Il s'agit d'un mécanisme de financement / crédit associé à une vente.
+
+Documente la différence entre :
+
+PAYMENT METHOD
+
+et
+
+PAYMENT TRANSACTION
+
+et
+
+INSTALLMENT / CREDIT ACCOUNT
+
+et
+
+INSTALLMENT PAYMENT.
+
+---
+
+# 12. PAIEMENT EN PLUSIEURS FOIS
+
+Le modèle doit permettre :
+
+SALE
+    ↓
+CREDIT ACCOUNT
+    ↓
+INSTALLMENT PLAN
+    ↓
+INSTALLMENTS
+    ↓
+PAYMENTS
+
+Une vente à crédit doit pouvoir suivre :
+
+- montant total ;
+- montant payé initialement ;
+- montant total payé ;
+- montant restant ;
+- nombre d'échéances ;
+- montant des échéances ;
+- dates d'échéance ;
+- statut des échéances ;
+- historique des paiements ;
+- retard éventuel.
+
+Prévoir les états pertinents :
+
+- ACTIVE ;
+- PARTIALLY_PAID ;
+- OVERDUE ;
+- PAID ;
+- DEFAULTED ;
+- CANCELLED.
+
+Ne pas implémenter de règles de pénalité ou d'intérêt si elles ne sont pas explicitement définies dans le projet.
+
+---
+
+# 13. STOCK ET INVENTAIRE
+
+Le stock doit être modélisé autour des mouvements.
+
+Exemples :
+
+PURCHASE_RECEIPT
+SALE
+CUSTOMER_RETURN
+STOCK_ADJUSTMENT
+DAMAGED
+LOST
+SUPPLIER_RETURN
+
+Chaque mouvement doit avoir une raison métier identifiable.
+
+Le modèle doit permettre de répondre à :
+
+"Pourquoi le stock actuel est-il égal à cette quantité ?"
+
+Pour un produit sérialisé, le système doit également pouvoir répondre à :
+
+"Où se trouve actuellement cet IMEI ?"
+
+---
+
+# 14. ACHATS
+
+Formalise le workflow :
+
+DRAFT
+    ↓
+ORDERED
+    ↓
+PARTIALLY_RECEIVED
+    ↓
+RECEIVED
+
+Avec possibilité de :
+
+CANCELLED
+
+Définis les règles concernant :
+
+- commande partielle ;
+- réception partielle ;
+- quantité commandée ;
+- quantité reçue ;
+- quantité restante ;
+- coût d'achat ;
+- variation éventuelle ;
+- association des appareils sérialisés à une réception.
+
+---
+
+# 15. RETOURS
+
+Formalise le workflow :
+
+REQUESTED
+    ↓
+INSPECTING
+    ↓
+ACCEPTED / REJECTED
+
+Si ACCEPTED :
+
+ACCEPTED
+    ↓
+REFUND / EXCHANGE / STORE_CREDIT
+    ↓
+COMPLETED
+
+Définis également les effets potentiels sur :
+
+- stock ;
+- paiement ;
+- vente ;
+- crédit ;
+- garantie ;
+- appareil sérialisé ;
+- historique client.
+
+Une vente et un retour ne doivent pas être confondus.
+
+Un retour est un nouvel événement métier associé à une vente existante.
+
+---
+
+# 16. GARANTIES
+
+Une garantie doit pouvoir être associée notamment à :
+
+- une vente ;
+- un client ;
+- un produit ;
+- un appareil sérialisé ;
+- une période de validité.
+
+Workflow recommandé :
+
+ACTIVE
+    ↓
+CLAIMED
+    ↓
+INSPECTING
+    ↓
+RESOLVED
+
+ou :
+
+ACTIVE
+    ↓
+EXPIRED
+
+Définis les règles permettant de déterminer si une garantie est valide.
+
+---
+
+# 17. CLIENTS
+
+Le client doit pouvoir avoir :
+
+- identité ;
+- coordonnées ;
+- historique ;
+- achats ;
+- paiements ;
+- crédit ;
+- échéances ;
+- retours ;
+- garanties.
+
+Le modèle doit permettre de distinguer :
+
+- client occasionnel ;
+- client identifié ;
+- client ayant un crédit actif.
+
+Si une vente peut être réalisée sans client identifié, documente cette possibilité.
+
+---
+
+# 18. RÈGLES DE PRIX
+
+Formalise les concepts suivants :
+
+- prix d'achat ;
+- prix de vente ;
+- remise ;
+- prix final ;
+- marge.
+
+Définis les règles de priorité entre :
+
+- prix catalogue ;
+- prix promotionnel éventuel ;
+- remise ;
+- prix négocié éventuel.
+
+Si certaines règles ne sont pas encore décidées, marque-les explicitement :
+
+UNDECIDED
+
+et recommande une option.
+
+Ne crée pas silencieusement une règle commerciale.
+
+---
+
+# 19. REMISES
+
+Le système doit pouvoir gérer une remise au niveau approprié.
+
+Évalue :
+
+- remise par ligne ;
+- remise globale ;
+- montant fixe ;
+- pourcentage.
+
+Définis les permissions nécessaires pour les remises sensibles.
+
+Exemple :
+
+SALES_PERSON
+    ↓
+remise ≤ seuil autorisé
+
+MANAGER
+    ↓
+remise supérieure au seuil
+
+Ne fixe pas arbitrairement les seuils si ceux-ci ne sont pas définis.
+
+Utilise des paramètres configurables si nécessaire.
+
+---
+
+# 20. ÉTATS MÉTIER
+
+Pour chaque entité importante, définis :
+
+- états ;
+- transition autorisée ;
+- acteur autorisé ;
+- événement déclencheur ;
+- effets secondaires ;
+- transition interdite.
+
+Entités minimales :
+
+- Product ;
+- Serialized Device ;
+- Purchase;
+- Goods Receipt ;
+- Sale ;
+- Payment ;
+- Credit Account ;
+- Installment ;
+- Return ;
+- Warranty ;
+- Stock Movement ;
+- User.
+
+Présente les workflows sous forme de diagrammes Mermaid lorsque cela améliore la compréhension.
+
+---
+
+# 21. PERMISSIONS
+
+Construis une matrice :
+
+| Fonction | Super Admin | Manager | Sales | Inventory |
+|----------|-------------|---------|-------|-----------|
+
+Inclure au minimum :
+
+- consulter ;
+- créer ;
+- modifier ;
+- supprimer/désactiver ;
+- approuver ;
+- rembourser ;
+- ajuster le stock ;
+- gérer les prix ;
+- gérer les utilisateurs ;
+- consulter les rapports ;
+- consulter l'audit.
+
+Attention :
+
+Ne donne jamais automatiquement toutes les permissions au Manager ou au Super Admin sans expliciter les opérations concernées.
+
+Les opérations critiques doivent être identifiées.
+
+---
+
+# 22. OPÉRATIONS SENSIBLES
+
+Identifie les opérations nécessitant une protection particulière.
+
+Exemples :
+
+- suppression logique d'un produit ;
+- modification d'un prix ;
+- remise importante ;
+- remboursement ;
+- annulation d'une vente ;
+- ajustement de stock ;
+- suppression/désactivation d'un utilisateur ;
+- modification de permissions ;
+- modification d'une transaction financière ;
+- clôture d'un crédit.
+
+Pour chaque opération :
+
+- rôle autorisé ;
+- éventuelle approbation ;
+- audit obligatoire ;
+- réversibilité.
+
+---
+
+# 23. AUDIT
+
+Identifie les événements qui doivent être auditables.
+
+Chaque événement important doit idéalement permettre de savoir :
+
+- qui ;
+- quoi ;
+- quand ;
+- sur quelle entité ;
+- ancienne valeur éventuelle ;
+- nouvelle valeur éventuelle ;
+- contexte ;
+- raison éventuelle.
+
+Ne propose pas de journalisation excessive de données sensibles.
+
+---
+
+# 24. SUPPRESSION DES DONNÉES
+
+Détermine pour chaque type d'entité :
+
+- suppression physique autorisée ;
+- suppression logique ;
+- archivage ;
+- interdiction de suppression.
+
+Principe recommandé :
+
+Les données ayant une importance financière, comptable, commerciale ou d'audit ne doivent pas être supprimées physiquement de manière silencieuse.
+
+---
+
+# 25. NUMÉROTATION
+
+Identifie les documents nécessitant un identifiant métier lisible.
+
+Exemples :
+
+- numéro de vente ;
+- numéro de reçu ;
+- numéro de commande ;
+- numéro de réception ;
+- numéro de retour ;
+- numéro de garantie ;
+- numéro de crédit.
+
+Les identifiants techniques internes et les références métier lisibles doivent être considérés comme deux concepts distincts.
+
+---
+
+# 26. CAS LIMITES
+
+Identifie explicitement les cas limites.
+
+Au minimum :
+
+### Vente
+
+- stock insuffisant ;
+- produit désactivé ;
+- appareil déjà vendu ;
+- IMEI inexistant ;
+- paiement incomplet ;
+- paiement supérieur au montant dû ;
+- annulation ;
+- remise excessive.
+
+### Stock
+
+- stock négatif ;
+- doublon IMEI ;
+- appareil inconnu ;
+- mauvais emplacement éventuel ;
+- ajustement ;
+- produit endommagé.
+
+### Crédit
+
+- échéance dépassée ;
+- paiement partiel ;
+- paiement supérieur au solde ;
+- paiement annulé ;
+- crédit entièrement payé ;
+- client ayant plusieurs crédits.
+
+### Retour
+
+- retour hors délai ;
+- produit endommagé ;
+- IMEI différent ;
+- produit déjà retourné ;
+- remboursement partiel ;
+- échange.
+
+### Achat
+
+- réception partielle ;
+- quantité reçue supérieure à la quantité commandée ;
+- produit manquant ;
+- IMEI dupliqué ;
+- commande annulée après réception partielle.
+
+---
+
+# 27. OFFLINE
+
+Le projet prévoit une fonctionnalité Offline POS.
+
+Le modèle métier doit donc identifier :
+
+- quelles opérations peuvent être effeces contraintes métier.
+
+---
+
+# 28. NOTIFICATIONS
+
+Identifie les événements pouvant nécessiter une notification.
+
+Exemples :
+
+- échéance proche ;
+- échéance en retard ;
+- stock faible ;
+- réception terminée ;
+- garantie expirant bientôt ;
+- retour nécessitant une action.
+
+Ne décide pas encore du fournisseur technique de notification.
+
+---
+
+# 29. REPORTING
+
+Identifie les indicateurs métier essentiels.
+
+Au minimum :
+
+### Ventes
+
+- chiffre d'affaires ;
+- nombre de ventes ;
+- panier moyen ;
+- ventes par période ;
+- ventes par vendeur.
+
+### Stock
+
+- valeur du stock ;
+- stock faible ;
+- produits les plus vendus ;
+- produits dormants ;
+- mouvements.
+
+### Finance
+
+- paiements ;
+- remboursements ;
+- créances ;
+- montants en retard ;
+- marges.
+
+### Clients
+
+- meilleurs clients ;
+- clients avec crédit ;
+- clients en retard.
+
+### Achats
+
+- dépenses fournisseurs ;
+- achats par période ;
+- fournisseurs principaux.
+
+---
+
+# 30. MVP VS FUTURE
+
+Classe chaque fonctionnalité dans :
+
+### MVP
+
+Indispensable au lancement.
+
+### V1
+
+Importante mais non bloquante pour le premier lancement.
+
+### FUTURE
+
+Fonctionnalité future.
+
+### OUT OF SCOPE
+
+Ne doit pas être développée actuellement.
+
+Ne gonfle pas artificiellement le MVP.
+
+Le MVP doit rester suffisamment petit pour être réellement livrable.
+
+---
+
+# 31. DÉPENDANCES ENTRE MODULES
+
+Construis une matrice de dépendances.
+
+Exemple :
+
+| Module | Dépend de |
+|--------|-----------|
+| POS | Products, Inventory, Customers, Payments |
+| Credit | Customers, Sales, Payments |
+| Returns | Sales, Inventory, Payments |
+| Warranty | Sales, Customers, Serialized Devices |
+| Reports | presque tous les modules |
+| Dashboard | presque tous les modules |
+| Purchases | Products, Inventory, Suppliers |
+
+---
+
+# 32. MODÈLE DE DOMAINE
+
+Construis une première représentation du domaine.
+
+Utilise Mermaid lorsque pertinent.
+
+Exemple de niveau conceptuel :
+
+```mermaid
+erDiagram
+    CUSTOMER ||--o{ SALE : makes
+    SALE ||--|{ SALE_ITEM : contains
+    PRODUCT ||--o{ SALE_ITEM : appears_in
+    SALE ||--o{ PAYMENT : has
+    SALE ||--o| CREDIT_ACCOUNT : creates
+    CREDIT_ACCOUNT ||--o{ INSTALLMENT : contains
+    INSTALLMENT ||--o{ PAYMENT : receives
+    PRODUCT ||--o{ SERIALIZED_DEVICE : has
+    SALE_ITEM ||--o| SERIALIZED_DEVICE : identifies

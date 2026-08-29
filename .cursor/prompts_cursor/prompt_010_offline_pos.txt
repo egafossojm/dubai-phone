@@ -1,0 +1,78 @@
+Implement the offline POS synchronization system.
+
+Do not redesign the existing POS.
+
+First inspect the current POS implementation.
+
+The backend remains the source of truth.
+
+Offline mode must support:
+
+- product lookup from synchronized local data
+- customer lookup from synchronized local data
+- creating sales
+- serialized product selection
+- installment sales
+- local persistence
+- pending synchronization
+
+Implement:
+
+1. connectivity detection
+2. local cache
+3. offline transaction queue
+4. unique client transaction IDs
+5. synchronization engine
+6. retry mechanism
+7. idempotency
+8. synchronization status
+9. conflict handling
+10. failed synchronization handling
+
+Possible statuses:
+
+PENDING_SYNC
+SYNCING
+SYNCED
+FAILED
+CONFLICT
+
+The system must never create duplicate sales because of:
+
+- browser refresh
+- retry
+- network timeout
+- double click
+- reconnection
+- synchronization retry
+
+When connectivity returns:
+
+1. detect connection
+2. process pending transactions
+3. send transactions using idempotency keys
+4. verify server response
+5. mark successful transactions as synced
+6. retry recoverable errors
+7. surface unrecoverable errors to the user
+
+Do not silently discard failed transactions.
+
+Provide a synchronization center showing:
+
+- pending
+- synchronized
+- failed
+- retry action
+
+Write dedicated tests for offline behavior.
+
+Test:
+
+- sale offline
+- browser refresh
+- reconnect
+- duplicate request
+- retry
+- conflict
+- partial synchronization failure

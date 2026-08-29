@@ -1,0 +1,52 @@
+iPrepare the application for production deployment.
+
+Inspect the entire project.
+
+Verify:
+
+- environment variables
+- secrets handling
+- database migrations
+- database indexes
+- error handling
+- logging
+- monitoring
+- backups
+- restore procedure
+- authentication
+- authorization
+- audit
+- PWA configuration
+- offline synchronization
+- PDF generation
+- production builds
+- CI/CD
+- Docker configuration
+- health checks
+
+Create:
+
+- production README
+- deployment documentation
+- database migration instructions
+- backup instructions
+- restore instructions
+- environment variable documentation
+- incident recovery instructions
+
+Run:
+
+- lint
+- type checking
+- unit tests
+- integration tests
+- E2E tests
+- production build
+
+Do not declare the application production-ready if critical issues remain.
+
+Provide a final list of:
+
+PASS
+WARNINGS
+BLOCKERS

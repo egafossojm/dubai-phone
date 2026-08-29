@@ -1,0 +1,68 @@
+iPerform a complete quality assurance pass on the application.
+
+Create and execute tests covering:
+
+AUTHENTICATION
+AUTHORIZATION
+RBAC
+
+PRODUCTS
+VARIANTS
+IMEI
+SERIAL NUMBERS
+
+INVENTORY
+STOCK MOVEMENTS
+ADJUSTMENTS
+
+SUPPLIERS
+PURCHASES
+RECEIVING
+
+CUSTOMERS
+CREDIT
+INSTALLMENTS
+PAYMENTS
+
+POS
+DISCOUNTS
+PAYMENTS
+SERIALIZED SALES
+
+RETURNS
+REFUNDS
+WARRANTIES
+
+OFFLINE POS
+SYNCHRONIZATION
+IDEMPOTENCY
+CONFLICTS
+
+RECEIPTS
+
+DASHBOARD
+
+AUDIT
+
+Focus particularly on financial and inventory invariants.
+
+Examples:
+
+A completed sale must reduce available inventory exactly once.
+
+A duplicate request must not create a duplicate sale.
+
+A serialized device cannot be sold twice.
+
+A refund cannot exceed the refundable amount.
+
+A customer credit balance must equal:
+total credit sales - valid payments.
+
+Stock must equal the valid movement balance.
+
+Unauthorized users must not execute restricted operations.
+
+Fix discovered issues instead of only reporting them.
+
+At the end produce a QA report.

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Historique des Mouvements de Stock - Dubai Phone ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#6cf8bb",
+                      "outline": "#727687",
+                      "on-secondary-fixed": "#002113",
+                      "on-background": "#131b2e",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eef0ff",
+                      "tertiary-container": "#a06500",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-tertiary-container": "#fff7f1",
+                      "inverse-surface": "#283044",
+                      "surface-variant": "#dae2fd",
+                      "inverse-primary": "#b3c5ff",
+                      "surface-container-highest": "#dae2fd",
+                      "tertiary": "#7f4f00",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed": "#ffddb8",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-tertiary-fixed": "#2a1700",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#f8f7ff",
+                      "on-error": "#ffffff",
+                      "surface": "#faf8ff",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "on-primary-fixed": "#001849",
+                      "on-error-container": "#93000a",
+                      "secondary-fixed": "#6ffbbe",
+                      "surface-tint": "#0054d6",
+                      "surface-container": "#eaedff",
+                      "outline-variant": "#c2c6d8",
+                      "primary-container": "#0066ff",
+                      "surface-container-low": "#f2f3ff",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#dae1ff",
+                      "on-surface-variant": "#424656",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "secondary-fixed-dim": "#4edea3",
+                      "background": "#faf8ff",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "secondary": "#006c49",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#e2e7ff",
+                      "on-secondary-container": "#00714d",
+                      "surface-dim": "#d2d9f4",
+                      "on-primary": "#ffffff",
+                      "primary": "#0050cb",
+                      "on-surface": "#131b2e",
+                      "surface-bright": "#faf8ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "card-padding": "20px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: theme('borderRadius.full');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md text-body-md overflow-x-hidden antialiased">
+<!-- TopNavBar -->
+<header class="docked full-width top-0 sticky z-40 backdrop-blur-xl border-b border-outline-variant bg-surface/70 shadow-sm flex justify-between items-center w-full px-container-margin py-base ml-64 max-w-[calc(100%-16rem)] hidden md:flex">
+<!-- Search Bar (on_left) -->
+<div class="flex items-center w-full max-w-md">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full p-2 pl-10 text-body-md font-body-md border border-outline-variant rounded-lg bg-surface-container-lowest focus:ring-primary focus:border-primary focus:shadow-[0_0_0_2px_rgba(0,102,255,0.2)] transition-all" placeholder="Rechercher..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Navigation Links -->
+<nav class="flex gap-4">
+<a class="text-on-surface-variant text-label-md font-label-md hover:text-primary transition-colors hover:opacity-80" href="#">Bafang</a>
+<a class="text-on-surface-variant text-label-md font-label-md hover:text-primary transition-colors hover:opacity-80" href="#">Yaoundé</a>
+<a class="text-on-surface-variant text-label-md font-label-md hover:text-primary transition-colors hover:opacity-80" href="#">Douala</a>
+</nav>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<!-- Profile Image -->
+<img alt="Manager Profile" class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A small circular profile picture of a professional store manager in a modern setting. Corporate modern aesthetic, bright lighting, tech-forward feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8pU8DSLZYqob-uHk3j7porZ4e3vV2qL5W92qgnXff0N3FQbhiFp2x2feXiAj7x61SjPmcNJKcVIHJTisr_IP6n5HGqq99WnBByBsusgAnNdH6J_IzlzgQOYZY9T7KindZow4U29jQMYy0stlhk2IoQ2qslaTNsL6AxOw9bgsrCtpWqHmgFexpEB3S3kAKzJE8nkIcGBnbnLxIDFY9lI_4TC0lG3eu_OV9MzoI96Dm_y6UgXqPq8zo"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface/70 backdrop-blur-xl border-r border-outline-variant shadow-sm z-50 flex flex-col h-full py-base hidden md:flex">
+<!-- Brand / Header -->
+<div class="px-container-margin py-4 mb-6">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Dubai Phone</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">Electronics ERP</p>
+</div>
+<!-- CTA -->
+<div class="px-4 mb-8">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md hover:bg-on-primary-fixed-variant hover:shadow-md transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined">add</span>
+                New Sale
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 flex flex-col gap-1 px-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<!-- Active State determined by Intent: "Stock Movement History" sits under Inventory -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold scale-[0.98] transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined fill-icon text-primary">inventory_2</span>
+<span class="text-label-md font-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">receipt_long</span>
+<span class="text-label-md font-label-md">Sales</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">group</span>
+<span class="text-label-md font-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">build</span>
+<span class="text-label-md font-label-md">Repairs</span>
+</a>
+<div class="mt-auto pt-4 pb-2">
+<div class="h-px w-full bg-outline-variant mb-2 opacity-50"></div>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-6 md:pt-8 px-4 md:px-container-margin pb-20 md:pb-8 min-h-screen">
+<!-- Page Header & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<a class="text-primary hover:underline text-label-md font-label-md flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                        Retour à l'Inventaire
+                    </a>
+</div>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-background">Historique des Mouvements</h2>
+<p class="text-on-surface-variant text-body-md font-body-md mt-1">Registre d'audit détaillé des flux de stock</p>
+</div>
+<!-- Toolbar / Filters -->
+<div class="glass-card rounded-xl p-2 flex flex-wrap md:flex-nowrap items-center gap-2">
+<!-- Type Filter -->
+<div class="relative group">
+<select class="appearance-none bg-transparent text-label-md font-label-md text-on-surface py-2 pl-3 pr-8 rounded-lg border border-transparent hover:border-outline-variant focus:border-primary focus:ring-0 cursor-pointer outline-none">
+<option value="">Tous les Types</option>
+<option value="vente">Vente</option>
+<option value="reception">Réception</option>
+<option value="retour">Retour</option>
+<option value="ajustement">Ajustement</option>
+<option value="reservation">Réservation</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant group-hover:text-primary">arrow_drop_down</span>
+</div>
+<div class="w-px h-6 bg-outline-variant hidden md:block"></div>
+<!-- Date Range Filter -->
+<div class="relative group flex items-center">
+<span class="material-symbols-outlined text-on-surface-variant absolute left-2 pointer-events-none">calendar_today</span>
+<input class="bg-transparent text-label-md font-label-md text-on-surface py-2 pl-9 pr-3 rounded-lg border border-transparent hover:border-outline-variant focus:border-primary focus:ring-0 cursor-pointer outline-none w-48" placeholder="Période" type="text" value="01 Oct - 15 Oct, 2023"/>
+</div>
+<div class="w-px h-6 bg-outline-variant hidden md:block"></div>
+<!-- User Filter -->
+<div class="relative group">
+<select class="appearance-none bg-transparent text-label-md font-label-md text-on-surface py-2 pl-3 pr-8 rounded-lg border border-transparent hover:border-outline-variant focus:border-primary focus:ring-0 cursor-pointer outline-none">
+<option value="">Tous les Utilisateurs</option>
+<option value="user1">A. Njoh</option>
+<option value="user2">C. Mvondo</option>
+<option value="user3">Admin</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant group-hover:text-primary">arrow_drop_down</span>
+</div>
+<!-- Export Action -->
+<button class="ml-auto md:ml-2 bg-surface-container-high text-primary hover:bg-primary-container hover:text-on-primary-container p-2 rounded-lg transition-colors flex items-center justify-center border border-outline-variant" title="Exporter CSV">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+<!-- Data Canvas -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col shadow-sm">
+<!-- Table Header -->
+<div class="bg-surface-container-low border-b border-outline-variant py-3 px-4 grid grid-cols-12 gap-4 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider">
+<div class="col-span-2 hidden md:block">Date/Heure</div>
+<div class="col-span-2 hidden md:block">Type</div>
+<div class="col-span-4 md:col-span-3">Produit</div>
+<div class="col-span-3 md:col-span-1 text-right">Qté</div>
+<div class="col-span-2 hidden lg:block">Magasin</div>
+<div class="col-span-2 hidden lg:block">Utilisateur</div>
+<div class="col-span-5 md:col-span-1 text-right">Référence</div>
+</div>
+<!-- Table Body (List) -->
+<div class="flex flex-col overflow-y-auto max-h-[65vh] p-2 space-y-1">
+<!-- Row 1: Vente (-) -->
+<div class="grid grid-cols-12 gap-4 items-center py-3 px-2 md:px-4 rounded-lg hover:bg-surface-container-highest transition-colors cursor-default border-b border-surface-variant last:border-0 group">
+<div class="col-span-12 md:col-span-2 text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="md:hidden font-bold text-on-surface">15 Oct, 14:30</span>
+<span class="hidden md:inline">15/10/23<br/><span class="text-outline">14:30:22</span></span>
+</div>
+<div class="col-span-12 md:col-span-2 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="text-label-md font-label-md text-on-surface">Vente</span>
+</div>
+<div class="col-span-4 md:col-span-3">
+<p class="text-label-md font-label-md text-on-surface truncate">iPhone 14 Pro Max</p>
+<p class="text-label-sm font-label-sm text-outline font-mono truncate mt-0.5">IMEI: 3589210045612</p>
+</div>
+<div class="col-span-3 md:col-span-1 text-right">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded-md bg-error-container text-on-error-container text-label-md font-label-md font-bold w-full md:w-auto">
+                            -1
+                        </span>
+</div>
+<div class="col-span-12 lg:col-span-2 text-body-md font-body-md text-on-surface hidden lg:block truncate">Bafang Principal</div>
+<div class="col-span-12 lg:col-span-2 text-label-sm font-label-sm text-outline hidden lg:block flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+                        A. Njoh
+                    </div>
+<div class="col-span-5 md:col-span-1 text-right text-label-sm font-label-sm text-primary font-mono group-hover:underline cursor-pointer">
+                        INV-8821
+                    </div>
+</div>
+<!-- Row 2: Réception (+) -->
+<div class="grid grid-cols-12 gap-4 items-center py-3 px-2 md:px-4 rounded-lg hover:bg-surface-container-highest transition-colors cursor-default border-b border-surface-variant last:border-0 group">
+<div class="col-span-12 md:col-span-2 text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="md:hidden font-bold text-on-surface">15 Oct, 09:15</span>
+<span class="hidden md:inline">15/10/23<br/><span class="text-outline">09:15:00</span></span>
+</div>
+<div class="col-span-12 md:col-span-2 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-label-md font-label-md text-on-surface">Réception</span>
+</div>
+<div class="col-span-4 md:col-span-3">
+<p class="text-label-md font-label-md text-on-surface truncate">Samsung Galaxy S23 Ultra</p>
+<p class="text-label-sm font-label-sm text-outline font-mono truncate mt-0.5">Lot: L-2310-A</p>
+</div>
+<div class="col-span-3 md:col-span-1 text-right">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded-md bg-secondary-container text-on-secondary-container text-label-md font-label-md font-bold w-full md:w-auto">
+                            +10
+                        </span>
+</div>
+<div class="col-span-12 lg:col-span-2 text-body-md font-body-md text-on-surface hidden lg:block truncate">Entrepôt Douala</div>
+<div class="col-span-12 lg:col-span-2 text-label-sm font-label-sm text-outline hidden lg:block flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+                        Admin
+                    </div>
+<div class="col-span-5 md:col-span-1 text-right text-label-sm font-label-sm text-primary font-mono group-hover:underline cursor-pointer">
+                        PO-4419
+                    </div>
+</div>
+<!-- Row 3: Retour (+) -->
+<div class="grid grid-cols-12 gap-4 items-center py-3 px-2 md:px-4 rounded-lg hover:bg-surface-container-highest transition-colors cursor-default border-b border-surface-variant last:border-0 group">
+<div class="col-span-12 md:col-span-2 text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="md:hidden font-bold text-on-surface">14 Oct, 16:45</span>
+<span class="hidden md:inline">14/10/23<br/><span class="text-outline">16:45:12</span></span>
+</div>
+<div class="col-span-12 md:col-span-2 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-label-md font-label-md text-on-surface">Retour</span>
+</div>
+<div class="col-span-4 md:col-span-3">
+<p class="text-label-md font-label-md text-on-surface truncate">AirPods Pro Gen 2</p>
+<p class="text-label-sm font-label-sm text-outline font-mono truncate mt-0.5">SN: GX9Q8Z7</p>
+</div>
+<div class="col-span-3 md:col-span-1 text-right">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded-md bg-tertiary-container text-on-tertiary-container text-label-md font-label-md font-bold w-full md:w-auto">
+                            +1
+                        </span>
+</div>
+<div class="col-span-12 lg:col-span-2 text-body-md font-body-md text-on-surface hidden lg:block truncate">Bafang Principal</div>
+<div class="col-span-12 lg:col-span-2 text-label-sm font-label-sm text-outline hidden lg:block flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+                        C. Mvondo
+                    </div>
+<div class="col-span-5 md:col-span-1 text-right text-label-sm font-label-sm text-primary font-mono group-hover:underline cursor-pointer">
+                        RET-092
+                    </div>
+</div>
+<!-- Row 4: Ajustement (-) -->
+<div class="grid grid-cols-12 gap-4 items-center py-3 px-2 md:px-4 rounded-lg hover:bg-surface-container-highest transition-colors cursor-default border-b border-surface-variant last:border-0 group">
+<div class="col-span-12 md:col-span-2 text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="md:hidden font-bold text-on-surface">14 Oct, 11:00</span>
+<span class="hidden md:inline">14/10/23<br/><span class="text-outline">11:00:05</span></span>
+</div>
+<div class="col-span-12 md:col-span-2 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<span class="text-label-md font-label-md text-on-surface">Ajustement</span>
+</div>
+<div class="col-span-4 md:col-span-3">
+<p class="text-label-md font-label-md text-on-surface truncate">Câble USB-C Anker 3m</p>
+<p class="text-label-sm font-label-sm text-outline font-mono truncate mt-0.5">SKU: ANK-USBC-3</p>
+</div>
+<div class="col-span-3 md:col-span-1 text-right">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded-md bg-surface-variant text-on-surface-variant border border-outline-variant text-label-md font-label-md font-bold w-full md:w-auto">
+                            -2
+                        </span>
+</div>
+<div class="col-span-12 lg:col-span-2 text-body-md font-body-md text-on-surface hidden lg:block truncate">Yaoundé Centre</div>
+<div class="col-span-12 lg:col-span-2 text-label-sm font-label-sm text-outline hidden lg:block flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+                        Admin
+                    </div>
+<div class="col-span-5 md:col-span-1 text-right text-label-sm font-label-sm text-primary font-mono group-hover:underline cursor-pointer">
+                        ADJ-114
+                    </div>
+</div>
+<!-- Row 5: Réservation (-) -->
+<div class="grid grid-cols-12 gap-4 items-center py-3 px-2 md:px-4 rounded-lg hover:bg-surface-container-highest transition-colors cursor-default border-b border-surface-variant last:border-0 group">
+<div class="col-span-12 md:col-span-2 text-label-sm font-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="md:hidden font-bold text-on-surface">13 Oct, 18:20</span>
+<span class="hidden md:inline">13/10/23<br/><span class="text-outline">18:20:44</span></span>
+</div>
+<div class="col-span-12 md:col-span-2 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-label-md font-label-md text-on-surface">Réservation</span>
+</div>
+<div class="col-span-4 md:col-span-3">
+<p class="text-label-md font-label-md text-on-surface truncate">MacBook Air M2 256GB</p>
+<p class="text-label-sm font-label-sm text-outline font-mono truncate mt-0.5">SKU: MAC-AM2-256</p>
+</div>
+<div class="col-span-3 md:col-span-1 text-right">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded-md bg-primary-container text-on-primary-container text-label-md font-label-md font-bold w-full md:w-auto">
+                            -1
+                        </span>
+</div>
+<div class="col-span-12 lg:col-span-2 text-body-md font-body-md text-on-surface hidden lg:block truncate">Douala Akwa</div>
+<div class="col-span-12 lg:col-span-2 text-label-sm font-label-sm text-outline hidden lg:block flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_circle</span>
+                        Système
+                    </div>
+<div class="col-span-5 md:col-span-1 text-right text-label-sm font-label-sm text-primary font-mono group-hover:underline cursor-pointer">
+                        RES-552
+                    </div>
+</div>
+</div>
+<!-- Pagination Footer -->
+<div class="bg-surface border-t border-outline-variant py-3 px-4 flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Affichage de 1 à 5 sur 124 mouvements</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<span class="text-label-sm font-label-sm text-on-surface px-2">Page 1 / 25</span>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface/90 backdrop-blur-xl border-t border-outline-variant z-50 flex justify-around items-center h-16 pb-safe">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-[10px] mt-1 font-label-sm">Accueil</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary transition-colors relative" href="#">
+<div class="absolute top-0 w-8 h-1 bg-primary rounded-b-full"></div>
+<span class="material-symbols-outlined text-[24px] fill-icon">inventory_2</span>
+<span class="text-[10px] mt-1 font-label-sm font-bold">Stock</span>
+</a>
+<!-- Center FAB-like action -->
+<div class="relative -top-5 flex justify-center w-full">
+<button class="w-12 h-12 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">receipt_long</span>
+<span class="text-[10px] mt-1 font-label-sm">Ventes</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+<span class="text-[10px] mt-1 font-label-sm">Plus</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,50 @@
+Implement returns, refunds and warranty management.
+
+For serialized products, trace:
+
+PURCHASE
+→ SERIALIZED DEVICE
+→ INVENTORY
+→ SALE
+→ CUSTOMER
+→ WARRANTY
+→ RETURN
+
+Implement:
+
+- return request
+- return validation
+- refund
+- exchange
+- warranty lookup
+- warranty status
+
+Warranty must expose:
+
+- start date
+- expiration date
+- status
+
+Return workflow must prevent unauthorized refunds.
+
+Refunds must require appropriate permission.
+
+Every refund must:
+
+- be linked to original sale
+- be auditable
+- update inventory appropriately
+- update financial/payment records
+- update serialized product status where relevant
+
+Use transactions.
+
+Write integration tests for:
+
+- valid return
+- expired warranty
+- valid warranty
+- partial refund
+- full refund
+- exchange
+- unauthorized refund

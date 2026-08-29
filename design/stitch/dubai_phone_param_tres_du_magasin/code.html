@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Paramètres - Informations du Magasin | Dubai Phone ERP</title>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings:
+            'FILL' 1,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+        }
+    </style>
+<!-- Tailwind Config from Style Guidance -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#dae2fd",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff",
+                        "primary": "#0050cb",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "surface-container": "#eaedff",
+                        "inverse-surface": "#283044",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#f8f7ff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "outline": "#727687",
+                        "on-tertiary-container": "#fff7f1",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#a06500",
+                        "background": "#faf8ff",
+                        "on-surface-variant": "#424656",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#4edea3",
+                        "surface-dim": "#d2d9f4",
+                        "tertiary": "#7f4f00",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006c49",
+                        "surface-container-high": "#e2e7ff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary-container": "#00714d",
+                        "outline-variant": "#c2c6d8",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-surface": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-tint": "#0054d6",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed": "#001849",
+                        "primary-fixed": "#dae1ff",
+                        "primary-container": "#0066ff",
+                        "surface-bright": "#faf8ff",
+                        "surface": "#faf8ff",
+                        "secondary-container": "#6cf8bb",
+                        "on-background": "#131b2e",
+                        "inverse-primary": "#b3c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex overflow-hidden">
+<!-- Shared SideNavBar -->
+<nav class="bg-surface-container dark:bg-surface-container-high h-screen w-72 fixed left-0 top-0 overflow-y-auto shadow-lg shadow-primary/5 flex flex-col gap-2 py-6 z-50">
+<div class="px-container-margin mb-8 flex flex-col items-center justify-center">
+<div class="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+<img class="w-10 h-10 object-contain" data-alt="A clean, modern logo for 'Dubai Phone', a tech retail store in Cameroon. The logo uses a minimalist smartphone icon intertwined with a subtle abstract shape representing connectivity or ERP systems. The colors are predominantly tech blue with crisp white elements. The aesthetic is corporate, reliable, and cutting-edge." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKfAPS-WqlqpZwKmW6v_fb6uvOQd7Oo5IAf8UlEmlc8tAIN1Kla2cCoTCzwR7eVIaYtsT2W-dSD-T53ehtmEbywtZPTG8_Ncgc5CLWMA59hk2JLWpCx8vF2-R6p83S5v-UsS2Ms6skTUiDbHYb6ppDbBkAVEVMYZTzLZIdO6GYqhqgcU7lfTvmiK4HUMwgVAVArlaD9xZ9rYv-VaNMt7L_TMCPUk-2ut6TE4Z49h-KxGDtw5gAA_FZ"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-extrabold text-primary text-center">Dubai Phone</h1>
+<p class="font-label-md text-label-md text-on-surface-variant text-center opacity-80">Gestion ERP - Cameroun</p>
+</div>
+<div class="flex flex-col gap-2 flex-grow overflow-y-auto">
+<!-- Inactive -->
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Tableau de bord</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventaire</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span>Ventes</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span>Clients</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span>Achats</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_return">assignment_return</span>
+<span>Retours</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span>Garanties</span>
+</a>
+</div>
+<div class="px-4 mt-auto mb-4">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-md shadow-primary/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                Nouvelle Vente
+            </button>
+</div>
+<div class="flex flex-col gap-2 pt-4 border-t border-outline-variant/30 px-2">
+<!-- Active - Settings intent matches this page -->
+<a class="flex items-center gap-base bg-primary text-on-primary rounded-xl px-4 py-3 mx-2 font-label-md text-label-md shadow-md shadow-primary/20 cursor-pointer active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Paramètres</span>
+</a>
+<a class="flex items-center gap-base text-on-surface-variant hover:bg-surface-container-highest rounded-xl px-4 py-3 mx-2 hover:translate-x-1 transition-transform hover:bg-surface-container-highest transition-all duration-200 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Déconnexion</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-72 flex-1 flex flex-col relative h-screen">
+<!-- Shared TopNavBar -->
+<header class="bg-surface/70 dark:bg-surface-dim/70 backdrop-blur-xl w-full sticky top-0 z-40 border-b border-outline-variant/30 shadow-sm flex justify-between items-center px-container-margin h-20">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Paramètres</span>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/50 rounded-full font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Rechercher..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-primary/10 transition-colors cursor-pointer active:scale-95 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-primary/10 transition-colors cursor-pointer active:scale-95 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-on-surface-variant hover:bg-primary/10 transition-colors cursor-pointer active:scale-95 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-6 border-l border-outline-variant/30 cursor-pointer active:scale-95 transition-transform group">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant/50" data-alt="A professional headshot of a retail manager in a well-lit electronics store. The person is looking confidently at the camera, wearing a neat uniform. The background is slightly blurred showing modern tech retail shelves. The lighting is bright and clean." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp-PnlfEpXY7DspI6y6RPxXwxiDO8HGII9Tz1MMb66Xkv8OFYFhRmlbv6V1jIYBPXwzUrjTYSlgFXx51FCAmRJa5ZUSsYedJdscjtcOjLDT2wK9p-fY6pocwNiedI4nyKJfhYoRZpRw4gxcdCCApxKzuQ-5NaESlR1W5LzQzInpvHjtdSEy27cq20oqEKw2E2zfCKqQgRuYgCWSx-V1fRSKzjpJ_OgUWi_EbcHZFPLVvSOkx87NKPD"/>
+<div class="hidden lg:block">
+<p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">Profil</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<main class="flex-1 overflow-y-auto bg-background p-container-margin flex gap-container-margin relative">
+<!-- Settings Navigation Sidebar (Inner) -->
+<aside class="w-64 flex-shrink-0">
+<div class="bg-surface/70 backdrop-blur-md rounded-xl border border-outline-variant/30 shadow-sm overflow-hidden sticky top-0">
+<div class="p-4 border-b border-outline-variant/30 bg-surface-container-low/50">
+<h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Menu Paramètres</h2>
+</div>
+<ul class="flex flex-col py-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg bg-primary/10 text-primary font-label-md text-label-md relative before:absolute before:left-0 before:top-2 before:bottom-2 before:w-1 before:bg-primary before:rounded-r-full" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+                                Informations du magasin
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+                                Utilisateurs
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">badge</span>
+                                Rôles et permissions
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">sell</span>
+                                Paramètres de vente
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">inventory</span>
+                                Paramètres de stock
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">shield</span>
+                                Paramètres de garantie
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+                                Paramètres des paiements
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+                                Paramètres des reçus
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">sync</span>
+                                Paramètres de synchronisation
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">backup</span>
+                                Sauvegardes
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">history</span>
+                                Audit
+                            </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">security</span>
+                                Sécurité
+                            </a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Form Canvas -->
+<div class="flex-1 max-w-4xl">
+<div class="mb-6 flex justify-between items-center">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-1">Informations du magasin</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Gérez les détails principaux et l'identité de votre point de vente.</p>
+</div>
+<div class="flex items-center gap-2 text-secondary px-3 py-1.5 bg-secondary-container/30 rounded-full border border-secondary-container">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-label-sm text-label-sm font-medium">Toutes les modifications sont enregistrées</span>
+</div>
+</div>
+<!-- Glassmorphic Form Card -->
+<div class="bg-surface/70 backdrop-blur-md border border-outline-variant/30 rounded-xl shadow-[0px_8px_30px_rgba(0,102,255,0.04)] overflow-hidden">
+<form class="p-card-padding flex flex-col gap-8">
+<!-- Logo Upload Section -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-md text-label-md text-on-surface font-semibold border-b border-outline-variant/30 pb-2">Identité Visuelle</h3>
+<div class="flex items-start gap-6">
+<div class="w-32 h-32 rounded-lg border-2 border-dashed border-outline-variant/50 bg-surface-container flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-primary transition-colors">
+<img class="w-full h-full object-contain p-2" data-alt="The current logo of 'Dubai Phone' displayed in a square crop. It features a bright, clean design with blue tech accents, suitable for a retail invoice or receipt header." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9qdihv4cHBfUbTnsOqABXDqGFq8YZ_VzmTvYv0z-itrwV6Yg4QStoOvz1-toyxN4ngzFkjHTBBtHO_-2Vd0XAdCZlErYs14w-X9DZ_xc2EXdcwJNP0_2pgC7BkcDZHCgVS2MrPJgKofzMJdivrgNBK9hbwN8UA9sW6DB9aj-UIIGBWx4kHAuFo5gckupvQRlV1J7Q5m-m5i1KKNUaDbXGb1dF0fLn-V-n7Qze5b6OJQsu7LjZPzmn"/>
+<div class="absolute inset-0 bg-on-surface/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center text-white">
+<span class="material-symbols-outlined">upload</span>
+<span class="font-label-sm text-label-sm mt-1">Changer</span>
+</div>
+</div>
+<div class="flex flex-col justify-center gap-2 pt-2">
+<p class="font-body-md text-body-md text-on-surface-variant">Le logo sera utilisé sur les reçus, les devis et les rapports.</p>
+<p class="font-label-sm text-label-sm text-outline">Format recommandé: PNG ou JPG, fond transparent, max 2MB.</p>
+<div class="flex gap-3 mt-2">
+<button class="px-4 py-2 border border-outline-variant/50 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-colors" type="button">
+                                            Choisir un fichier
+                                        </button>
+<button class="px-4 py-2 text-error font-label-md text-label-md hover:bg-error-container/50 rounded-lg transition-colors" type="button">
+                                            Supprimer
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Basic Info Section -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-md text-label-md text-on-surface font-semibold border-b border-outline-variant/30 pb-2">Informations Générales</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Nom du Magasin <span class="text-error">*</span></label>
+<input class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" type="text" value="Dubai Phone"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Devise par défaut</label>
+<select class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm appearance-none">
+<option selected="" value="XAF">FCFA / XAF (Franc CFA)</option>
+<option value="USD">USD ($)</option>
+<option value="EUR">EUR (€)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Téléphone Principal</label>
+<input class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" type="tel" value="+237 6XX XXX XXX"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Email de Contact</label>
+<input class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" type="email" value="contact@dubaiphone.cm"/>
+</div>
+</div>
+</div>
+<!-- Location Section -->
+<div class="flex flex-col gap-4">
+<h3 class="font-label-md text-label-md text-on-surface font-semibold border-b border-outline-variant/30 pb-2">Localisation</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Ville</label>
+<input class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" type="text" value="Bafang"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Pays</label>
+<input class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" disabled="" readonly="" type="text" value="Cameroun"/>
+</div>
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Adresse Complète</label>
+<textarea class="px-4 py-2.5 bg-surface-container-lowest border border-outline-variant/50 rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all shadow-sm resize-none" rows="2">Avenue Principale, Bafang Centre, Face Marché</textarea>
+</div>
+</div>
+</div>
+<!-- Form Actions -->
+<div class="flex justify-end gap-4 pt-4 mt-2 border-t border-outline-variant/30">
+<button class="px-6 py-2.5 border border-outline-variant/50 rounded-lg text-on-surface font-label-md text-label-md hover:bg-surface-container-highest transition-colors bg-surface-container-lowest" type="button">
+                                Annuler
+                            </button>
+<button class="px-6 py-2.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-md shadow-primary/20 flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                                Enregistrer les modifications
+                            </button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,40 @@
+Implement professional sales receipts.
+
+Each completed sale must have:
+
+- unique receipt number
+- store information
+- sale date/time
+- cashier
+- customer if applicable
+- products
+- quantities
+- unit prices
+- discounts
+- total
+- payment method
+
+For serialized products:
+
+- IMEI 1
+- IMEI 2
+- serial number
+- warranty
+
+Payment methods must be displayed in French:
+
+CASH
+Orange Money
+MTN Mobile Money
+Paiement en plusieurs fois
+
+Implement:
+
+- receipt preview
+- print
+- PDF generation
+- download
+
+Create a reusable document rendering system.
+
+Do not couple receipt generation tightly to the POS UI.

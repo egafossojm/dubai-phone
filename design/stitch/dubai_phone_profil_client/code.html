@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Profile - Jean Dupont</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#faf8ff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001849",
+                        "tertiary-container": "#a06500",
+                        "primary": "#0050cb",
+                        "primary-container": "#0066ff",
+                        "on-surface-variant": "#424656",
+                        "surface-container": "#eaedff",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "outline": "#727687",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-variant": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c2c6d8",
+                        "on-tertiary-container": "#fff7f1",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006c49",
+                        "surface-tint": "#0054d6",
+                        "inverse-surface": "#283044",
+                        "on-surface": "#131b2e",
+                        "background": "#faf8ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#dae2fd",
+                        "on-primary-container": "#f8f7ff",
+                        "tertiary": "#7f4f00",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-background": "#131b2e",
+                        "surface-container-high": "#e2e7ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-dim": "#d2d9f4",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-container": "#6cf8bb",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#dae1ff",
+                        "on-secondary-container": "#00714d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f3ff",
+                        "on-secondary-fixed-variant": "#005236"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "container-margin": "24px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 border-r border-outline-variant/30 shadow-lg shadow-primary/5 bg-surface flex-col py-4 z-40">
+<div class="px-6 mb-8 flex flex-col gap-2">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Management Portal</span>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 font-label-md text-label-md transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 font-label-md text-label-md transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                Inventory
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 font-label-md text-label-md transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Sales
+            </a>
+<!-- Active State -->
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 font-label-md text-label-md active:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group" data-weight="fill" style="font-variation-settings: 'FILL' 1;">group</span>
+                Customers
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 font-label-md text-label-md transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                Purchases
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 font-label-md text-label-md transition-all active:translate-x-1 duration-200 mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<div class="px-4 mt-4">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg hover:bg-primary-container transition-colors active:scale-95">
+                New Sale
+            </button>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<header class="md:hidden w-full sticky top-0 z-50 bg-surface/70 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm shadow-primary/5 flex justify-between items-center h-16 px-6">
+<div class="flex items-center gap-4">
+<button class="text-primary active:scale-95 transition-transform duration-200 hover:bg-primary-container/10 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant active:scale-95 transition-transform duration-200 hover:bg-primary-container/10 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 flex flex-col h-full overflow-y-auto bg-surface relative">
+<!-- Top App Bar (Desktop Contextual) -->
+<div class="hidden md:flex sticky top-0 z-30 bg-surface/90 backdrop-blur-md h-16 px-container-margin items-center justify-between border-b border-outline-variant/30">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Customer Profile</h2>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high text-primary font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-primary-container/20 transition-colors border border-outline-variant/50">
+                    Edit Profile
+                 </button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg hover:bg-primary-container transition-colors">
+                    New Transaction
+                 </button>
+</div>
+</div>
+<div class="p-container-margin md:p-8 flex-1">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
+<!-- Left Sidebar: Customer Info (Bento Grid Style) -->
+<aside class="w-full lg:w-80 flex flex-col gap-6 flex-shrink-0">
+<!-- Profile Card -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col items-center text-center">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-surface-container mb-4 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a business customer in their mid-40s, looking confident. Warm, well-lit studio lighting against a clean, modern tech-blue and white background, fitting a high-end corporate identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjfr0D_BxfJu-PN4KMs6LuMCCEpu7aY_mbLPSCZxisgSkK9Ezw-08IWhaM5lacGnbKZB4AU632ifVtozjOtjvz-dYDwUyDpGZXkV3AKoHETUiPFhcGV-xjje6QpQZMJrs2gnfjA5-JFfw4qrolJ09JYFTzRbY6ibF3uKuoQeyGKaZt252GvmTpDL7DVyB1bEeJ4vuA7wYbBQAGjuX_H7MPJdXSIdrnmHdnANba1aq6FNz5pHqJnThE"/>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold mb-1">Jean Dupont</h2>
+<div class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm mb-4">
+<span class="material-symbols-outlined text-[16px]" data-icon="verified">verified</span>
+                            Premium Customer
+                        </div>
+<div class="w-full space-y-4 text-left mt-2">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5" data-icon="call">call</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Phone Number</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">+237 600 00 00 00</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5" data-icon="location_on">location_on</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Location</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Yaoundé, Cameroon</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5" data-icon="calendar_today">calendar_today</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Customer Since</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Oct 2021</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="glass-card rounded-xl p-card-padding">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Quick Actions</h3>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+<span class="font-label-sm text-label-sm">Message</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors border border-outline-variant/30 text-primary">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-sm text-label-sm">Statement</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Area -->
+<div class="flex-1 flex flex-col gap-6">
+<!-- KPI Cards (Bento Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- KPI: Total Purchases -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-primary/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</div>
+<span class="text-secondary font-label-sm text-label-sm flex items-center gap-1 bg-secondary/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span> 12%
+                                </span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Total Purchases</p>
+<p class="font-headline-lg text-headline-lg text-on-surface">2.5M <span class="text-body-md font-normal text-on-surface-variant">FCFA</span></p>
+</div>
+</div>
+<!-- KPI: Balance Due -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between border-l-4 border-l-tertiary-container">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-tertiary-container/10 p-2 rounded-lg text-tertiary-container">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Balance Due</p>
+<p class="font-headline-md text-headline-md text-on-surface font-bold">850,000 <span class="text-body-md font-normal text-on-surface-variant">FCFA</span></p>
+</div>
+</div>
+<!-- KPI: Overdue -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between border-l-4 border-l-error">
+<div class="flex justify-between items-start mb-4">
+<div class="bg-error/10 p-2 rounded-lg text-error">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline">Send Reminder</button>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-error mb-1 font-medium">Overdue</p>
+<p class="font-headline-md text-headline-md text-error font-bold">150,000 <span class="text-body-md font-normal opacity-80">FCFA</span></p>
+</div>
+</div>
+</div>
+<!-- Tabs & Detailed Content -->
+<div class="glass-card rounded-xl flex-1 flex flex-col overflow-hidden">
+<!-- Tabs Header -->
+<div class="flex border-b border-outline-variant/30 px-4 pt-2 overflow-x-auto">
+<button class="px-6 py-3 font-label-md text-label-md text-primary border-b-2 border-primary font-semibold whitespace-nowrap">
+                                Purchase History
+                            </button>
+<button class="px-6 py-3 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap">
+                                Active Credits
+                            </button>
+<button class="px-6 py-3 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap">
+                                Payment History
+                            </button>
+</div>
+<!-- Tab Content (Purchase History) -->
+<div class="p-0 overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-lowest sticky top-0 border-b border-outline-variant/30">
+<tr>
+<th class="py-3 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Date</th>
+<th class="py-3 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Item</th>
+<th class="py-3 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Amount (FCFA)</th>
+<th class="py-3 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Status</th>
+<th class="py-3 px-6 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-medium">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface">12 Nov 2023</td>
+<td class="py-4 px-6">
+<p class="font-label-md text-label-md text-on-surface">iPhone 15 Pro Max</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">IMEI: 3567890123456</p>
+</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface font-semibold">850,000</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary-container/10 text-tertiary-container border border-tertiary-container/20">
+                                                Credit
+                                            </span>
+</td>
+<td class="py-4 px-6">
+<button class="text-primary hover:text-primary-container p-1 rounded hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface">05 Oct 2023</td>
+<td class="py-4 px-6">
+<p class="font-label-md text-label-md text-on-surface">MacBook Air M2</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">SN: C02F1234XYZ</p>
+</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface font-semibold">950,000</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+                                                Paid
+                                            </span>
+</td>
+<td class="py-4 px-6">
+<button class="text-primary hover:text-primary-container p-1 rounded hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6 font-body-md text-body-md text-on-surface">22 Aug 2023</td>
+<td class="py-4 px-6">
+<p class="font-label-md text-label-md text-on-surface">AirPods Pro Gen 2</p>
+</td>
+<td class="py-4 px-6 font-label-md text-label-md text-on-surface font-semibold">180,000</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+                                                Paid
+                                            </span>
+</td>
+<td class="py-4 px-6">
+<button class="text-primary hover:text-primary-container p-1 rounded hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

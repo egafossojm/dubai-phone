@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dubai Phone
 
-## Getting Started
+Application professionnelle de gestion retail pour un magasin d'électronique au Cameroun.
 
-First, run the development server:
+## Objectif
+
+Gérer le cycle opérationnel d'un magasin physique :
+
+- produits et variantes
+- stock / IMEI
+- ventes et POS
+- crédits clients
+- achats et fournisseurs
+- retours et garanties
+
+Cette phase inclut la fondation technique, l'authentification, le catalogue,
+le stock, les achats et la **gestion clients / crédits** (paiements d'échéances).
+La création de vente à crédit reste liée au POS (prompt 009).
+
+## Stack
+
+| Couche | Technologie |
+| --- | --- |
+| Framework | Next.js (App Router) |
+| Langage | TypeScript |
+| UI | Tailwind CSS + shadcn/ui (base) |
+| Validation | Zod |
+| Formulaires | React Hook Form |
+| Base de données | PostgreSQL + Prisma |
+| Qualité | ESLint + Prettier |
+| Tests | Vitest + Testing Library |
+| Offline / PWA | `@ducanh2912/next-pwa` |
+
+## Prérequis
+
+- Node.js 20.19+ (recommandé : Node 24 — voir `.nvmrc`)
+- npm 10+
+- PostgreSQL 14+ (pour les phases suivantes)
+
+## Démarrage
 
 ```bash
+cp .env.example .env
+npm install
+npx prisma generate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000/login](http://localhost:3000/login).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Comptes de démo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Créés par `npx prisma db seed` (fichier `prisma/seed.ts`).  
+Documentés aussi dans `docs/database/README.md`.
 
-## Learn More
+**Mot de passe :** défini dans `.env` (`SEED_USER_PASSWORD`).  
+Ce fichier n’est **pas** versionné par git. `.env.example` indique seulement le nom de la variable, sans la valeur.
 
-To learn more about Next.js, take a look at the following resources:
+| E-mail | Rôle |
+| --- | --- |
+| `admin@dubai-phone.local` | Super administrateur |
+| `manager@dubai-phone.local` | Manager |
+| `caisse@dubai-phone.local` | Vendeur / Caissier |
+| `stock@dubai-phone.local` | Responsable stock |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ces comptes ne sont **pas** de vrais utilisateurs magasin. Ne pas les utiliser en production.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
+| Commande | Description |
+| --- | --- |
+| `npm run dev` | Serveur de développement |
+| `npm run build` | Build de production |
+| `npm run start` | Serveur de production |
+| `npm run lint` | ESLint |
+| `npm run format` | Prettier (écriture) |
+| `npm run format:check` | Prettier (vérification) |
+| `npm run typecheck` | Vérification TypeScript |
+| `npm test` | Tests unitaires (Vitest) |
+| `npm run test:coverage` | Tests avec couverture |
+| `npm run db:generate` | Génère le client Prisma |
+| `npm run db:migrate` | Applique les migrations |
+| `npm run db:studio` | Ouvre Prisma Studio |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+src/
+  app/                 # Routes Next.js (App Router)
+  components/
+    layout/            # Shell applicatif
+    shared/            # États loading / erreur / vide
+    ui/                # Composants UI de base (shadcn-style)
+  lib/
+    api/               # Réponses API standardisées
+    db/                # Client Prisma
+    errors/            # Erreurs domaine
+    env.ts             # Validation des variables d'environnement
+    utils.ts           # Utilitaires (cn, etc.)
+prisma/
+  schema.prisma        # Schéma fondation (sans modèles métier)
+```
+
+## Variables d'environnement
+
+Voir `.env.example`.
+
+`DATABASE_URL` est optionnelle au démarrage de l'UI shell, mais obligatoire pour toute opération base de données.
+
+## Langue
+
+- Interface utilisateur : **français**
+- Identifiants techniques : **anglais**
+- Devise métier : **FCFA / XAF**
+
+## Prochaine étape
+
+Ne pas enchaîner automatiquement. Attendre la phase suivante pour l'architecture métier et les premiers domaines.

@@ -1,0 +1,45 @@
+iDesign the supplier and purchasing module of a French-language electronics store management application in Cameroon.
+
+Create:
+
+1. Supplier list
+2. Supplier profile
+3. Purchase orders
+4. Purchase order detail
+5. Create purchase order
+6. Goods reception
+7. Reception detail
+8. Supplier invoice
+9. Purchase history
+
+Purchase workflow:
+
+Supplier
+→ Purchase Order
+→ Goods Receipt
+→ Product Verification
+→ IMEI / Serial Registration
+→ Inventory Entry
+→ Supplier Invoice
+
+For smartphone reception, provide a dedicated interface for entering:
+- IMEI 1
+- IMEI 2
+- serial number
+- condition
+- purchase cost
+- warranty
+- supplier
+
+Show purchase statuses:
+- Brouillon
+- Commandée
+- Partiellement reçue
+- Reçue
+- Annulée
+
+Create professional tables and forms.
+
+The UI must clearly distinguish ordered quantity from received quantity.
+
+Use FCFA.

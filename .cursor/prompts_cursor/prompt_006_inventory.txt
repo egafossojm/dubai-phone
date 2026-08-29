@@ -1,0 +1,44 @@
+Implement the inventory domain.
+
+Inventory must be movement-based.
+
+Implement:
+
+- stock movements
+- purchase receipts
+- sales deductions
+- customer returns
+- supplier returns
+- manual adjustments
+- reservations
+- reservation releases
+
+Never modify inventory silently.
+
+Every inventory mutation must create a stock movement.
+
+Use database transactions for inventory-critical operations.
+
+Implement:
+
+- inventory list
+- product inventory detail
+- movement history
+- serialized inventory
+- IMEI history
+- stock adjustment
+
+For adjustments:
+
+- require permission
+- require reason
+- record user
+- create audit event
+
+Prevent:
+
+- negative stock unless explicitly allowed by business rules
+- duplicate inventory movements
+- duplicate serialized devices
+
+Write comprehensive tests for inventory consistency.

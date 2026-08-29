@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Détail de l'Activité - Audit Log</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0050cb",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c2c6d8",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-fixed": "#dae1ff",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#a06500",
+                        "inverse-primary": "#b3c5ff",
+                        "background": "#faf8ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-container": "#eaedff",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-fixed": "#001849",
+                        "surface-container-highest": "#dae2fd",
+                        "on-tertiary-container": "#fff7f1",
+                        "tertiary": "#7f4f00",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "secondary-container": "#6cf8bb",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-container": "#0066ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-variant": "#dae2fd",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006c49",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d2d9f4",
+                        "on-background": "#131b2e",
+                        "surface": "#faf8ff",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#283044",
+                        "outline": "#727687",
+                        "on-surface-variant": "#424656",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-on-surface": "#eef0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "card-padding": "20px",
+                        "container-margin": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .diff-added {
+            background-color: rgba(108, 248, 187, 0.2);
+            color: #005236;
+        }
+        .diff-removed {
+            background-color: rgba(255, 218, 214, 0.5);
+            color: #93000a;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex items-center justify-center p-gutter md:p-container-margin">
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-40 flex items-center justify-center p-gutter md:p-container-margin">
+<!-- Modal Content -->
+<main class="glass-card w-full max-w-4xl rounded-xl flex flex-col max-h-[90vh] overflow-hidden z-50">
+<!-- Header -->
+<header class="p-card-padding border-b border-outline-variant/30 flex justify-between items-start bg-surface-container-lowest/50">
+<div class="flex flex-col gap-base">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">edit_document</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Modification de Prix Produit</h1>
+</div>
+<div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant">
+<span class="bg-surface-variant px-2 py-1 rounded text-on-surface">Réf: ACT-2023-8472</span>
+<span>•</span>
+<span>Produit: iPhone 14 Pro Max 256GB</span>
+</div>
+</div>
+<button aria-label="Fermer" class="text-on-surface-variant hover:text-error transition-colors p-1 rounded hover:bg-error-container/20">
+<span class="material-symbols-outlined">close</span>
+</button>
+</header>
+<!-- Body -->
+<div class="p-card-padding overflow-y-auto flex-1 flex flex-col gap-container-margin">
+<!-- Metadata Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-container-lowest p-gutter rounded-lg border border-outline-variant/20 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">person</span> Utilisateur
+                        </span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Jean Dupont</span>
+<span class="font-label-sm text-label-sm text-primary">Manager</span>
+</div>
+<div class="bg-surface-container-lowest p-gutter rounded-lg border border-outline-variant/20 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Horodatage
+                        </span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">14 Nov 2023</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">14:32:45 WAT</span>
+</div>
+<div class="bg-surface-container-lowest p-gutter rounded-lg border border-outline-variant/20 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Localisation
+                        </span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Bafang, CM</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Boutique Principale</span>
+</div>
+<div class="bg-surface-container-lowest p-gutter rounded-lg border border-outline-variant/20 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">devices</span> Appareil &amp; Réseau
+                        </span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">iPad Pro (Safari)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">IP: 197.149.x.x</span>
+</div>
+</section>
+<!-- Comparison Section -->
+<section class="flex flex-col gap-gutter">
+<h2 class="font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">difference</span>
+                        Détails des Modifications
+                    </h2>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden shadow-sm">
+<!-- Table Header -->
+<div class="grid grid-cols-3 bg-surface-container-low p-gutter border-b border-outline-variant/20 font-label-sm text-label-sm text-on-surface-variant">
+<div>Champ Modifié</div>
+<div>Ancienne Valeur</div>
+<div>Nouvelle Valeur</div>
+</div>
+<!-- Table Rows -->
+<div class="grid grid-cols-3 p-gutter border-b border-outline-variant/10 items-center hover:bg-surface-container-lowest/50 transition-colors">
+<div class="font-body-md text-body-md text-on-surface font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-outline">payments</span>
+                                Prix de Vente
+                            </div>
+<div class="font-body-md text-body-md diff-removed px-2 py-1 rounded w-fit line-through decoration-error/50">
+                                850,000 FCFA
+                            </div>
+<div class="font-body-md text-body-md diff-added px-2 py-1 rounded w-fit font-semibold flex items-center gap-1">
+                                825,000 FCFA
+                                <span class="material-symbols-outlined text-[16px] text-secondary-container" style="font-variation-settings: 'FILL' 1;">arrow_downward</span>
+</div>
+</div>
+<div class="grid grid-cols-3 p-gutter items-center hover:bg-surface-container-lowest/50 transition-colors">
+<div class="font-body-md text-body-md text-on-surface font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-outline">notes</span>
+                                Note Interne
+                            </div>
+<div class="font-body-md text-body-md text-on-surface-variant italic px-2 py-1">
+                                (Vide)
+                            </div>
+<div class="font-body-md text-body-md diff-added px-2 py-1 rounded w-fit">
+                                "Ajustement prix promo fin d'année"
+                            </div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer / Actions -->
+<footer class="p-card-padding border-t border-outline-variant/30 bg-surface-container-low flex justify-between items-center rounded-b-xl">
+<button class="px-4 py-2 font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors rounded-lg flex items-center gap-2 border border-outline-variant/30 glass-card">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                    Retour à la liste
+                </button>
+<button class="px-6 py-2 font-label-md text-label-md text-on-primary bg-primary hover:bg-surface-tint transition-colors rounded-lg flex items-center gap-2 shadow-sm shadow-primary/20 active:scale-95">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                    Exporter en PDF
+                </button>
+</footer>
+</main>
+</div>
+</body></html>

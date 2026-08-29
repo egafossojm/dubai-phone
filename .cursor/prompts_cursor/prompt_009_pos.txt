@@ -1,0 +1,61 @@
+Implement the professional point-of-sale module.
+
+The POS must support:
+
+- product search
+- SKU search
+- IMEI search
+- serial number search
+- cart
+- quantity
+- customer selection
+- discounts
+- payment
+- receipt generation
+- sale completion
+
+Payment methods:
+
+CASH
+ORANGE_MONEY
+MTN_MOBILE_MONEY
+INSTALLMENT
+
+For installment:
+
+- initial payment
+- remaining balance
+- installment schedule
+- due dates
+
+For serialized products:
+
+- select exact serialized device
+- verify availability
+- associate device with sale
+- associate device with customer
+
+A sale must be processed transactionally.
+
+When completing a sale:
+
+1. validate user permission
+2. validate products
+3. validate stock
+4. validate serialized items
+5. validate discount
+6. calculate total
+7. process payment
+8. create sale
+9. create sale items
+10. create payment records
+11. create stock movements
+12. update serialized status
+13. create audit event
+14. generate receipt reference
+
+The operation must be idempotent.
+
+Do not create duplicate sales when a request is retried.
+
+Write extensive integration tests.

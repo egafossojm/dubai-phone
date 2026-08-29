@@ -1,0 +1,66 @@
+Design the complete product management interface for a professional electronics store management application.
+
+The interface must be in French.
+
+Products include:
+- smartphones
+- mobile phones
+- accessories
+- gadgets
+- electronic equipment
+
+The product model must support:
+- product
+- category
+- brand
+- SKU
+- variant
+- purchase cost
+- selling price TTC
+- stock
+- serialized products
+- IMEI 1
+- IMEI 2
+- serial number
+- condition
+- warranty
+- supplier
+- product status
+
+Create the following screens:
+
+1. Product list
+2. Product detail
+3. Create product
+4. Edit product
+5. Product variant management
+6. Serialized inventory
+7. IMEI detail
+8. Product stock history
+
+Product list should support:
+- search
+- filters
+- category
+- brand
+- status
+- stock status
+- serialized/non-serialized
+- sorting
+- pagination
+
+Use professional tables and clear status badges.
+
+Create realistic examples such as:
+- Apple iPhone 15
+- Samsung Galaxy S25
+- Xiaomi Redmi Note
+- AirPods
+- USB-C charger
+- Power bank
+- Phone case
+
+Use FCFA prices.
+
+Do not add an e-commerce storefront.
+This is an internal business management application.

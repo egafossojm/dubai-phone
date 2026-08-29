@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dubai Phone ERP - Détails Inventaire</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--tw-colors-outline-variant, #c2c6d8);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.04);
+        }
+    </style>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#6cf8bb",
+                    "outline": "#727687",
+                    "on-secondary-fixed": "#002113",
+                    "on-background": "#131b2e",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#eef0ff",
+                    "tertiary-container": "#a06500",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-tertiary-container": "#fff7f1",
+                    "inverse-surface": "#283044",
+                    "surface-variant": "#dae2fd",
+                    "inverse-primary": "#b3c5ff",
+                    "surface-container-highest": "#dae2fd",
+                    "tertiary": "#7f4f00",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffddb8",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-tertiary-fixed": "#2a1700",
+                    "error": "#ba1a1a",
+                    "on-primary-container": "#f8f7ff",
+                    "on-error": "#ffffff",
+                    "surface": "#faf8ff",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-primary-fixed": "#001849",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-tint": "#0054d6",
+                    "surface-container": "#eaedff",
+                    "outline-variant": "#c2c6d8",
+                    "primary-container": "#0066ff",
+                    "surface-container-low": "#f2f3ff",
+                    "on-secondary": "#ffffff",
+                    "primary-fixed": "#dae1ff",
+                    "on-surface-variant": "#424656",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "secondary-fixed-dim": "#4edea3",
+                    "background": "#faf8ff",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "secondary": "#006c49",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e2e7ff",
+                    "on-secondary-container": "#00714d",
+                    "surface-dim": "#d2d9f4",
+                    "on-primary": "#ffffff",
+                    "primary": "#0050cb",
+                    "on-surface": "#131b2e",
+                    "surface-bright": "#faf8ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "gutter": "16px",
+                    "container-margin": "24px",
+                    "card-padding": "20px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "body-lg": ["Inter", "sans-serif"],
+                    "headline-lg-mobile": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "display-lg": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                    "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                    "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex">
+<!-- JSON Component: SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface/70 backdrop-blur-xl border-r border-outline-variant shadow-sm flex flex-col py-base z-50">
+<!-- Brand Header -->
+<div class="px-container-margin py-gutter flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined icon-fill">storefront</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Dubai Phone</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Electronics ERP</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 px-base mt-gutter space-y-1">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<!-- Inventory (Active Match) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg font-bold hover:bg-primary-container/90 transition-colors scale-[0.98]" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-md font-label-md">Inventory</span>
+</a>
+<!-- Sales (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="text-label-md font-label-md">Sales</span>
+</a>
+<!-- Customers (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-label-md font-label-md">Customers</span>
+</a>
+<!-- Repairs (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="text-label-md font-label-md">Repairs</span>
+</a>
+<!-- Settings (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</nav>
+<!-- CTA -->
+<div class="px-base mt-auto">
+<button class="w-full bg-primary text-on-primary flex items-center justify-center gap-2 py-3 rounded-lg hover:opacity-90 transition-opacity shadow-sm">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="text-label-md font-label-md">New Sale</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- JSON Component: TopNavBar -->
+<header class="flex justify-between items-center w-full px-container-margin py-base bg-surface/70 backdrop-blur-xl border-b border-outline-variant shadow-sm sticky top-0 z-40">
+<!-- Left Side: Brand/Context -->
+<div class="flex items-center gap-gutter">
+<span class="text-headline-md font-headline-md font-black text-primary">Dubai Phone ERP</span>
+<!-- Navigation Links (Locations) -->
+<nav class="hidden lg:flex items-center gap-base border-l border-outline-variant pl-gutter">
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors px-2 py-1 rounded hover:bg-surface-container" href="#">Bafang</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors px-2 py-1 rounded hover:bg-surface-container" href="#">Yaoundé</a>
+<a class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors px-2 py-1 rounded hover:bg-surface-container" href="#">Douala</a>
+</nav>
+</div>
+<!-- Right Side: Search & Actions -->
+<div class="flex items-center gap-gutter">
+<!-- Search Bar Placeholder (Left side of right cluster) -->
+<div class="relative hidden md:block w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full text-label-md font-label-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Rechercher produit..." type="text"/>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+</div>
+<!-- Profile Image -->
+<div class="w-10 h-10 rounded-full bg-surface-container border border-outline-variant overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="Manager Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX6zOSsXWjzAMYS2Qe8c1bEsM3fERCC-6Zcq8yaZWxujh7-JLHVzpFDNXBzlfmHOF3z9383-Qn7I3UCC7a42tdClfr-umF-3Luu9LqjhEjZvQkWWQKdVqvxrDCmabQPrfwnEsrCFBuV8gdxVNeYQ6vp_QkIWVzbJcOcN7AE_OvDFjY4vkQKyNexT5rvhyxrumO9mVh5pcU93E0X651cOSnoNiJCric9Pktmq3UvkvYsI3rPAHrarkJ"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas: Product Details -->
+<main class="flex-1 px-container-margin py-container-margin flex flex-col gap-gutter bg-surface-container-low/30">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Smartphone / Apple</span>
+<span class="bg-secondary-container text-on-secondary-fixed-variant px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                            En Stock
+                        </span>
+</div>
+<h2 class="text-headline-lg font-headline-lg text-on-background flex items-center gap-3">
+                        iPhone 15 Pro Max
+                        <span class="text-headline-md font-headline-md text-on-surface-variant font-normal">256Go Titane Naturel</span>
+</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 flex items-center gap-4">
+<span>SKU: AP-IP15PM-256-TN</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">barcode</span> 194253123456</span>
+</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="glass-panel text-on-surface px-4 py-2.5 rounded-lg text-label-md font-label-md hover:bg-surface-container-lowest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">print</span>
+                        Étiquettes
+                    </button>
+<button class="bg-primary text-on-primary px-5 py-2.5 rounded-lg text-label-md font-label-md font-bold hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">edit_square</span>
+                        Ajuster Stock
+                    </button>
+</div>
+</div>
+<!-- Key Metrics Grid -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-base">
+<!-- Metric 1 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col gap-1">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[20px]">inventory</span>
+<span class="text-label-md font-label-md">Stock Actuel</span>
+</div>
+<span class="text-headline-lg font-headline-lg text-on-background">42</span>
+<span class="text-label-sm font-label-sm text-secondary flex items-center gap-1 mt-auto pt-2">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +5 depuis hier
+                    </span>
+</div>
+<!-- Metric 2 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col gap-1 border-l-4 border-l-secondary-fixed">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+<span class="text-label-md font-label-md">Disponible</span>
+</div>
+<span class="text-headline-lg font-headline-lg text-on-background">38</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-auto pt-2">Prêt à la vente</span>
+</div>
+<!-- Metric 3 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col gap-1 border-l-4 border-l-tertiary-fixed-dim">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[20px]">shopping_cart_checkout</span>
+<span class="text-label-md font-label-md">Réservé</span>
+</div>
+<span class="text-headline-lg font-headline-lg text-on-background">4</span>
+<span class="text-label-sm font-label-sm text-tertiary mt-auto pt-2">Commandes en cours</span>
+</div>
+<!-- Metric 4 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col gap-1">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+<span class="text-label-md font-label-md">Coût Moyen (CUMP)</span>
+</div>
+<span class="text-headline-md font-headline-md text-on-background">785 000</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-auto pt-2">FCFA / Unité</span>
+</div>
+<!-- Metric 5 -->
+<div class="glass-panel p-card-padding rounded-xl flex flex-col gap-1 bg-surface-variant/30">
+<div class="flex items-center gap-2 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+<span class="text-label-md font-label-md">Valeur Totale</span>
+</div>
+<span class="text-headline-md font-headline-md text-primary font-bold">32 970 000</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-auto pt-2">FCFA (Est.)</span>
+</div>
+</div>
+<!-- Bento Grid Structure for Main Content -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mt-2">
+<!-- Left Column (Span 2): Store Distribution & IMEI -->
+<div class="lg:col-span-2 flex flex-col gap-gutter">
+<!-- Inventory by Store -->
+<div class="glass-panel rounded-xl overflow-hidden">
+<div class="px-card-padding py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest/50">
+<h3 class="text-headline-md font-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">store</span>
+                                Répartition par Magasin
+                            </h3>
+</div>
+<div class="p-card-padding">
+<div class="space-y-4">
+<!-- Store 1 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-background">Boutique Principale - Yaoundé</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Magasin &amp; Réserve</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-4">
+<div class="w-32 bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full" style="width: 60%"></div>
+</div>
+<span class="text-headline-md font-headline-md w-8 text-right">25</span>
+</div>
+</div>
+<!-- Store 2 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-background">Succursale - Douala</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Magasin</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-4">
+<div class="w-32 bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-primary h-full opacity-80" style="width: 35%"></div>
+</div>
+<span class="text-headline-md font-headline-md w-8 text-right">15</span>
+</div>
+</div>
+<!-- Store 3 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-background">Point Relais - Bafang</p>
+<p class="text-label-sm font-label-sm text-error">Stock Critique</p>
+</div>
+</div>
+<div class="text-right flex items-center gap-4">
+<div class="w-32 bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-error h-full" style="width: 5%"></div>
+</div>
+<span class="text-headline-md font-headline-md w-8 text-right text-error">2</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Serialized Units (IMEI) -->
+<div class="glass-panel rounded-xl overflow-hidden flex-1">
+<div class="px-card-padding py-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest/50">
+<h3 class="text-headline-md font-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">qr_code</span>
+                                Numéros de Série (IMEI)
+                            </h3>
+<div class="relative w-48">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 bg-surface-container-lowest border border-outline-variant rounded-md text-label-sm font-label-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Filtrer IMEI..." type="text"/>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider border-b border-outline-variant">
+<th class="px-card-padding py-3">IMEI 1 / IMEI 2</th>
+<th class="px-card-padding py-3">Statut</th>
+<th class="px-card-padding py-3">Localisation</th>
+<th class="px-card-padding py-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md divide-y divide-outline-variant/50">
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="px-card-padding py-3">
+<div class="font-medium text-on-background">35 123456 789012 3</div>
+<div class="text-label-sm text-on-surface-variant">35 123456 789012 4</div>
+</td>
+<td class="px-card-padding py-3">
+<span class="inline-flex items-center gap-1 bg-secondary-container/50 text-on-secondary-fixed-variant px-2 py-1 rounded text-label-sm font-label-sm">
+                                                Disponible
+                                            </span>
+</td>
+<td class="px-card-padding py-3 text-on-surface-variant">Yaoundé</td>
+<td class="px-card-padding py-3 text-right">
+<button class="text-primary hover:bg-primary-container p-1 rounded transition-colors" title="Copier IMEI">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest/50 transition-colors">
+<td class="px-card-padding py-3">
+<div class="font-medium text-on-background">35 987654 321098 7</div>
+</td>
+<td class="px-card-padding py-3">
+<span class="inline-flex items-center gap-1 bg-tertiary-container/20 text-on-tertiary-fixed-variant px-2 py-1 rounded text-label-sm font-label-sm">
+                                                Réservé
+                                            </span>
+</td>
+<td class="px-card-padding py-3 text-on-surface-variant">Douala</td>
+<td class="px-card-padding py-3 text-right">
+<button class="text-primary hover:bg-primary-container p-1 rounded transition-colors">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</td>
+</tr>
+<!-- More rows would go here in a real app -->
+</tbody>
+</table>
+<div class="px-card-padding py-3 border-t border-outline-variant text-center">
+<a class="text-label-md font-label-md text-primary hover:underline" href="#">Voir les 42 numéros de série</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Span 1): History & Settings -->
+<div class="flex flex-col gap-gutter">
+<!-- Settings & Alerts -->
+<div class="glass-panel rounded-xl overflow-hidden border-t-4 border-t-primary">
+<div class="px-card-padding py-4 border-b border-outline-variant bg-surface-container-lowest/50">
+<h3 class="text-headline-md font-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">warning</span>
+                                Paramètres d'Alerte
+                            </h3>
+</div>
+<div class="p-card-padding space-y-4">
+<div>
+<label class="block text-label-sm font-label-sm text-on-surface-variant mb-1">Seuil de stock bas (Global)</label>
+<div class="flex items-center gap-2">
+<input class="w-20 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded-md text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none text-center" type="number" value="5"/>
+<span class="text-body-md font-body-md text-on-surface-variant">unités</span>
+<button class="ml-auto text-primary hover:bg-primary-container px-3 py-1.5 rounded-md text-label-sm font-label-sm transition-colors border border-transparent hover:border-primary-container">Enregistrer</button>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/50">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="relative w-10 h-5 bg-primary rounded-full transition-colors">
+<div class="absolute right-1 top-1 w-3 h-3 bg-white rounded-full transition-transform"></div>
+</div>
+<span class="text-label-md font-label-md text-on-background group-hover:text-primary transition-colors">Notifications par email actives</span>
+</label>
+</div>
+</div>
+</div>
+<!-- Recent Movement History -->
+<div class="glass-panel rounded-xl overflow-hidden flex-1">
+<div class="px-card-padding py-4 border-b border-outline-variant bg-surface-container-lowest/50">
+<h3 class="text-headline-md font-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                                Mouvements Récents
+                            </h3>
+</div>
+<div class="p-0">
+<div class="divide-y divide-outline-variant/50">
+<!-- Movement Item -->
+<div class="p-card-padding flex gap-3 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-label-md font-label-md text-on-background">Vente en boutique</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium text-error">-1</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Aujourd'hui, 14:30 • Yaoundé</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-75">Réf: VTE-2023-1092</p>
+</div>
+</div>
+<!-- Movement Item -->
+<div class="p-card-padding flex gap-3 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-fixed-variant flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-label-md font-label-md text-on-background">Réception Fournisseur</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium text-secondary">+10</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Hier, 09:15 • Entrepôt Principal</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-75">BL-APPLE-8874</p>
+</div>
+</div>
+<!-- Movement Item -->
+<div class="p-card-padding flex gap-3 hover:bg-surface-container-lowest/50 transition-colors">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-label-md font-label-md text-on-background">Transfert Inter-magasins</p>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-medium">5</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">12 Oct 2023 • Yaoundé -&gt; Bafang</p>
+<p class="text-label-sm font-label-sm text-on-surface-variant opacity-75">TRF-00921</p>
+</div>
+</div>
+</div>
+<div class="px-card-padding py-3 border-t border-outline-variant text-center bg-surface-container-lowest/30">
+<button class="text-label-md font-label-md text-primary hover:underline">Voir tout l'historique</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,91 @@
+Design a professional point-of-sale interface for a French-language electronics retail store in Cameroon.
+
+The POS must prioritize speed, clarity and minimal user interaction.
+
+The store sells:
+- smartphones
+- mobile phones
+- accessories
+- gadgets
+- electronic equipment
+
+Currency: FCFA.
+
+Payment methods:
+- CASH
+- Orange Money
+- MTN Mobile Money
+- Paiement en plusieurs fois
+
+Important:
+The POS must support offline operation.
+
+Design the interface with these major areas:
+
+LEFT / MAIN AREA:
+- product search
+- search by product name
+- search by SKU
+- search by IMEI
+- search by serial number
+- category filters
+- product results
+- product cards or compact product rows
+- stock availability
+
+RIGHT / CART AREA:
+- selected products
+- quantities
+- unit price
+- discounts
+- subtotal
+- total
+- customer selection
+- payment button
+
+For serialized products:
+- display IMEI
+- display serial number
+- require selecting the specific device when appropriate
+
+Payment workflow:
+1. Review cart
+2. Select customer
+3. Apply discount if permitted
+4. Select payment method
+5. Enter payment details
+6. Confirm transaction
+7. Generate receipt
+
+For installment payments, display:
+- total amount
+- initial payment
+- remaining balance
+- installment schedule
+- due dates
+
+Add a highly visible connection indicator:
+- En ligne
+- Hors ligne
+- Synchronisation en cours
+- Synchronisation échouée
+
+The interface must clearly communicate when a sale is stored locally and waiting for synchronization.
+
+Design:
+- fast
+- professional
+- minimal
+- keyboard friendly
+- responsive
+- optimized for desktop and tablet
+- no unnecessary decoration
+
+Include:
+- empty cart
+- insufficient stock
+- invalid IMEI
+- offline state
+- payment error
+- successful sale
+- synchronization pending state

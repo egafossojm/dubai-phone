@@ -1,0 +1,59 @@
+Review the current project and design the technical architecture for the electronics store management application.
+
+Do not implement all business modules.
+
+First inspect the existing codebase.
+
+Produce an architecture document covering:
+
+1. frontend architecture
+2. backend architecture
+3. domain modules
+4. database architecture
+5. authentication
+6. authorization
+7. RBAC
+8. audit
+9. POS
+10. offline storage
+11. synchronization
+12. error handling
+13. validation
+14. testing
+15. deployment
+16. observability
+
+Define clear domain boundaries.
+
+Recommended domains:
+
+- authentication
+- users
+- roles
+- products
+- categories
+- brands
+- suppliers
+- purchases
+- inventory
+- customers
+- credit
+- sales
+- payments
+- returns
+- warranties
+- receipts
+- dashboard
+- audit
+- settings
+- synchronization
+
+Document dependencies between domains.
+
+Explicitly identify which operations require database transactions.
+
+Explicitly identify which operations must be idempotent.
+
+Do not implement business logic yet.
+
+At the end, create an architecture decision record and explain any tradeoffs. 

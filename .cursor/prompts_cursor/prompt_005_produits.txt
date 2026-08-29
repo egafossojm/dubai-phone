@@ -1,0 +1,54 @@
+Implement the complete product management domain.
+
+Features:
+
+- categories
+- brands
+- products
+- product variants
+- SKU
+- purchase cost
+- selling price TTC
+- stock status
+- supplier
+- warranty
+- condition
+- active/inactive status
+
+Support:
+
+serialized products
+non-serialized products
+
+Serialized products must support:
+
+- IMEI 1
+- IMEI 2
+- serial number
+
+Implement:
+
+- list
+- search
+- filters
+- create
+- edit
+- detail
+- variant management
+- serialization management
+
+Use Zod validation.
+
+Implement server-side authorization.
+
+Do not allow duplicate SKU.
+
+Do not allow duplicate IMEI.
+
+Do not allow duplicate serial numbers when uniqueness applies.
+
+Write unit and integration tests.
+
+Use the Stitch design as the visual reference.
+
+Do not redesign the UI arbitrarily.

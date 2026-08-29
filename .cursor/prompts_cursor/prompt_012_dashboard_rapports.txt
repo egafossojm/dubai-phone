@@ -1,0 +1,33 @@
+iImplement the management dashboard.
+
+Metrics:
+
+- CA today
+- CA month
+- number of sales
+- estimated gross margin
+- average basket
+- low-stock products
+- top products
+- payment method distribution
+- customer credit outstanding
+- recent sales
+- sales by salesperson
+
+The dashboard must respect permissions.
+
+Do not expose sensitive financial information to users without permission.
+
+Implement filters for:
+
+- today
+- this week
+- this month
+- custom date range
+
+Ensure calculations are based on authoritative database records.
+
+Do not calculate business-critical financial metrics solely from frontend state.
+
+Write tests for dashboard calculations.
+

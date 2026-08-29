@@ -1,0 +1,409 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Phonify Cameroon - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#a06500",
+                      "on-primary-container": "#f8f7ff",
+                      "background": "#faf8ff",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-secondary-container": "#00714d",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#dae2fd",
+                      "tertiary-fixed": "#ffddb8",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#b3c5ff",
+                      "surface": "#faf8ff",
+                      "primary-container": "#0066ff",
+                      "on-primary-fixed": "#001849",
+                      "on-secondary-fixed": "#002113",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-tertiary-fixed": "#2a1700",
+                      "surface-container": "#eaedff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-surface-variant": "#424656",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "secondary-container": "#6cf8bb",
+                      "primary": "#0050cb",
+                      "tertiary": "#7f4f00",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#dae1ff",
+                      "outline": "#727687",
+                      "on-error": "#ffffff",
+                      "on-surface": "#131b2e",
+                      "surface-container-low": "#f2f3ff",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#131b2e",
+                      "surface-tint": "#0054d6",
+                      "surface-bright": "#faf8ff",
+                      "inverse-surface": "#283044",
+                      "on-tertiary-container": "#fff7f1",
+                      "secondary": "#006c49",
+                      "surface-variant": "#dae2fd",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-container-high": "#e2e7ff",
+                      "surface-dim": "#d2d9f4",
+                      "outline-variant": "#c2c6d8",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "24px",
+                      "card-padding": "20px",
+                      "gutter": "16px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .glass-card:hover {
+            background-color: rgba(255, 255, 255, 0.85);
+            box-shadow: 0px 12px 40px rgba(0, 102, 255, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-full flex flex-col md:flex-row overflow-hidden font-body-md">
+<!-- Mobile TopNav (Visible only on small screens, SideNav replaces on desktop usually, but per instructions, using both as provided in layout shell concepts, adapting to responsive needs) -->
+<nav class="md:hidden sticky top-0 z-50 flex justify-between items-center px-container-margin h-16 w-full bg-surface/70 dark:bg-surface/70 backdrop-blur-md shadow-sm border-b border-white/20 dark:border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Dubai Phone</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline-variant hover:bg-primary-container/20 dark:hover:bg-primary-fixed-dim/10 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">local_shipping</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md shadow-sm">Ajouter une Vente</button>
+<img class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A close-up, brightly lit professional headshot of a confident young retail manager in a modern tech store setting. The background is a blurred view of sleek smartphones displayed on illuminated glass shelves. The overall color palette features crisp whites and subtle Tech Blue accents, conveying a premium, trustworthy, and modern corporate environment in Cameroon." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7IQb6kKV0bA-PhLc-SW8fIMMkRA9HfdezptfMGA8Z8jg282n0YNHppx_ln2uFsoxx4-JC6TD60Hlxbp2OOLZswo033Hrp8Hgj13yuucb054qaPovIUCs6Pn_OgCdKWAlD6sI2e9HPpLbrS_7Sl2LxWLB2nH6C8dblJGC-2Gh2e6cGsLlq82Rn9jFzLCcovz5EzitE7LHNS7GPRwY2E9hw0kXPUYcXjN9E4-JpV_xnagNeZJZYwleP">
+</div>
+</nav>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 border-r border-outline-variant dark:border-none bg-surface-container dark:bg-surface-container-high shadow-md docked left-0 h-screen w-64 z-40">
+<div class="flex items-center gap-3 mb-8 px-2">
+<img class="w-10 h-10 rounded-lg object-cover bg-white p-1 shadow-sm" data-alt="A stylized, modern, minimalist vector logo icon representing a sleek smartphone silhouette integrated with a subtle map pin or signal waves. The design uses a flat, two-tone color scheme centered around vibrant Tech Blue and crisp white, placed on a light neutral background to ensure high contrast and a premium, precise brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3gtvH9Db_OTRWFKBvY3zI18NkWaMEKZYgPi-InjltIAZ_3y4eY-SSKGEZAjJtGiqmmDaIhomzB9IHDQi2rXFRPCI1HBmzsIB5zjdB6vucazaCzJzBDocHH842fgO33TUikYEnidkQ4XumehmKXbQRXqQlUvzZ3Sg1igA3ksq6nPQDU3SqTNHwrw6aUmOQJ3L7wN5xvGWNd8C9jjRWFgPcj66d5xX74POy59h6CYShj5JElpcBgRJs">
+<div>
+<h2 class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed">Dubai Phone</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Bafang • Solde: 2.4M F CFA</p>
+</div>
+</div>
+<button class="mb-6 w-full py-3 bg-primary text-on-primary rounded-xl font-label-md text-label-md shadow-sm hover:shadow-md transition-shadow flex items-center justify-center gap-2"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span> Nouvel Inventaire</button>
+<nav class="flex-1 space-y-2"><a class="flex items-center gap-3 px-4 py-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high Active: translate-x-1 transition-transform duration-200" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span> Tableau de Bord</a><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inventory_2</span> Inventaire</a><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">point_of_sale</span> Ventes</a><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span> Clients</a><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">build</span> Suivi Réparations</a><a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span> Paramètres</a></nav>
+<div class="mt-auto pt-6 border-t border-outline-variant dark:border-none">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant rounded-xl font-label-md text-label-md hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_center</span>
+                Help Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-full overflow-y-auto bg-surface-container-low">
+<!-- Desktop TopNav Header -->
+<header class="hidden md:flex sticky top-0 z-30 justify-between items-center px-container-margin py-4 bg-surface/70 backdrop-blur-md border-b border-white/20 shadow-sm">
+<div class="flex-1 max-w-xl relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow" placeholder="Rechercher inventaire, IMEI, ou clients..." type="text">
+</div>
+<div class="flex items-center gap-4 ml-4">
+<button class="text-on-surface-variant hover:bg-primary-container/20 transition-colors p-2 rounded-full relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-surface" data-alt="A small, circular avatar image of a professional retail manager wearing a crisp blue shirt, set against a bright, neutral background. The lighting is soft and even, typical of a modern corporate identity asset." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8FlS-PikcF1KL9-xopz0NbML-5Rx9rN7NypVXOMza8YQlOP2-TbmyDDBbdUDf8kTxN4rCq1gt2UwhZh-wfgG3zmJdDQXVir_g29RQ7_TA065ygyJ_IBgFoe3kEOIz3A5YnuU9RoGTvYppXR2XJbNmInsqX-XsIziTMVzJkhTc7ejGSiF4TCGIjFZZ8_fiFFviIQhAo64JN9bVvNpBFWOdF3PIyxY8tfBk7au9Ovj7qMeY_pKcf8tT">
+</div>
+</header>
+<div class="p-container-margin lg:p-8 flex-1 space-y-gutter lg:space-y-6 max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-2">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Aperçu</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Performance d'aujourd'hui et indicateurs clés.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 glass-card rounded-lg font-label-md text-label-md text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">calendar_today</span> Ce Mois</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:shadow-md transition-shadow flex items-center gap-2"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">download</span> Exporter</button>
+</div>
+</div>
+<!-- KPIs Bento Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter lg:gap-6">
+<!-- Revenue KPI -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between relative overflow-hidden group transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container rounded-lg text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+<span class="flex items-center text-secondary font-label-sm text-label-sm bg-secondary-container px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span> +12.5%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Revenu Total</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">18.4M <span class="text-body-md text-outline font-normal">F CFA</span></h3>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+</div>
+<!-- Sales Volume KPI -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between relative overflow-hidden group transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-container rounded-lg text-on-tertiary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">devices</span>
+</div>
+<span class="flex items-center text-secondary font-label-sm text-label-sm bg-secondary-container px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span> +8.2%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Unités Vendues</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">342</h3>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-tertiary transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+</div>
+<!-- Active Repairs KPI -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between relative overflow-hidden group transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-variant rounded-lg text-on-surface">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">build_circle</span>
+</div>
+<span class="flex items-center text-outline font-label-sm text-label-sm bg-surface-container-high px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">horizontal_rule</span> 0%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Réparations Actives</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">45</h3>
+</div>
+</div>
+<!-- Walk-ins KPI -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between relative overflow-hidden group transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-container rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">directions_walk</span>
+</div>
+<span class="flex items-center text-error font-label-sm text-label-sm bg-error-container px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_down</span> -2.1%
+                        </span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Visites Estimées</p>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">1,204</h3>
+</div>
+</div>
+</div>
+<!-- Main Charts & Data Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter lg:gap-6">
+<!-- Revenue Chart (Spans 2 columns) -->
+<div class="lg:col-span-2 glass-card rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Croissance du Revenu</h2>
+<button class="p-1 hover:bg-surface-container rounded transition-colors text-outline">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Chart Placeholder Container -->
+<div class="flex-1 min-h-[300px] w-full relative bg-surface-container-lowest rounded-lg border border-outline-variant/50 overflow-hidden flex items-end p-4 gap-2">
+<!-- Simulated Bar Chart using HTML/CSS for visual layout purpose -->
+<div class="flex-1 bg-primary-container/20 rounded-t-sm h-[40%] hover:bg-primary-container/40 transition-colors relative group">
+<div class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-surface-inverse text-inverse-on-surface text-label-sm py-1 px-2 rounded pointer-events-none transition-opacity">1.2M</div>
+</div>
+<div class="flex-1 bg-primary-container/30 rounded-t-sm h-[55%] hover:bg-primary-container/50 transition-colors relative group"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[45%] hover:bg-primary-container/60 transition-colors relative group"></div>
+<div class="flex-1 bg-primary-container/50 rounded-t-sm h-[70%] hover:bg-primary-container/70 transition-colors relative group"></div>
+<div class="flex-1 bg-primary-container/60 rounded-t-sm h-[65%] hover:bg-primary-container/80 transition-colors relative group"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[90%] hover:bg-primary/90 transition-colors relative group shadow-[0_0_15px_rgba(0,80,203,0.3)]"></div>
+<div class="flex-1 bg-primary-container/40 rounded-t-sm h-[50%] hover:bg-primary-container/60 transition-colors relative group"></div>
+</div>
+<div class="flex justify-between mt-2 text-label-sm text-outline px-2"><span class="">Lun</span><span class="">Mar</span><span class="">Mer</span><span class="">Jeu</span><span class="">Ven</span><span class="">Sam</span><span class="">Dim</span></div>
+</div>
+<!-- Top Brands Sidebar -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-md text-headline-md text-on-surface">Top Marques</h2>
+</div>
+<div class="space-y-4 flex-1">
+<!-- Brand Item -->
+<div class="flex items-center gap-3 p-2 hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">
+                                S
+                            </div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Samsung</h4>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">45%</span>
+</div>
+<!-- Brand Item -->
+<div class="flex items-center gap-3 p-2 hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">
+                                A
+                            </div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Apple</h4>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-1.5 overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 30%;"></div>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">30%</span>
+</div>
+<!-- Brand Item -->
+<div class="flex items-center gap-3 p-2 hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">
+                                T
+                            </div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Tecno</h4>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 15%;"></div>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">15%</span>
+</div>
+<!-- Brand Item -->
+<div class="flex items-center gap-3 p-2 hover:bg-surface-container rounded-lg transition-colors cursor-pointer">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center font-bold text-on-surface">
+                                I
+                            </div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface">Infinix</h4>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full mt-1.5 overflow-hidden">
+<div class="bg-outline h-full rounded-full" style="width: 10%;"></div>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface">10%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Leaderboard Section -->
+<div class="glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="p-card-padding border-b border-white/40 flex justify-between items-center bg-surface-container-lowest/50">
+<h2 class="font-headline-md text-headline-md text-on-surface">Classement du Personnel</h2>
+<button class="text-primary font-label-md text-label-md hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider"><th class="p-4 font-semibold">Rang</th><th class="p-4 font-semibold">Employé</th><th class="p-4 font-semibold">Ventes (Unités)</th><th class="p-4 font-semibold">Revenu Généré</th><th class="p-4 font-semibold text-right">Tendance</th></tr>
+</thead>
+<tbody class="divide-y divide-white/40">
+<tr class="hover:bg-surface-container-lowest/80 transition-colors">
+<td class="p-4">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold">1</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a smiling African male retail worker in his 20s, wearing a branded tech store uniform shirt. The lighting is bright and inviting, typical of a modern retail environment, highlighting a friendly and approachable demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuClk_4zqcZeIp03gtWG_vpyXia2LWFSg9sVMH4uC94BwpAvh2ZhbwORiXx5kyyOZHo55sFvcjUKxhfbZfEO1TpwXWzW8AKhlz644yfkzPfx28hbwAcFlkcVEa7LXbON3Y_hkwkVebMzZXDeOx0jgwpMBclBGyAdJ5T6zdJAG5IQS3nxUeXKvP2l3O7Wjl6OA6AQnaP07O6lj3q7sC-OlnHZkID7nEmCQUFOyf-v16jq2iA1dXzpoA0T">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Jean-Paul Biya</p>
+<p class="font-label-sm text-label-sm text-outline">Senior Rep</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-on-surface">142</td>
+<td class="p-4 font-label-md text-label-md text-on-surface">4.2M <span class="text-outline font-normal text-label-sm">F CFA</span></td>
+<td class="p-4 text-right">
+<span class="inline-flex items-center text-secondary bg-secondary-container/50 px-2 py-1 rounded-full text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest/80 transition-colors">
+<td class="p-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold">2</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of an engaged African female sales associate in her 30s, wearing a neat corporate uniform. She has a focused expression, softly lit against a blurred background of retail display units, conveying professionalism and competence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5arLBuQRlD1F7WxjEhc0KPHY-QkHiqOW7-JWo3bqoU3C-1BmR1Z2w97T1LQfPYra8SiaIgiVKGERFRK3NfiX7upnSfmeqNOYmj4GIRb0E7xzFeE3c2XLD5QUSy6QEuviXk-9e5CAocRABpmA9S0JTnz-J_uSbTdJfr6v0OiSgMRcfyF06gfj7vZg_8zZrtllBg2RQei54siH4fSYfDFide1OIu-etI2xYxwfmlXV-prZ7uax9hpkh">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Marie Claire</p>
+<p class="font-label-sm text-label-sm text-outline">Sales Rep</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-on-surface">98</td>
+<td class="p-4 font-label-md text-label-md text-on-surface">3.1M <span class="text-outline font-normal text-label-sm">F CFA</span></td>
+<td class="p-4 text-right">
+<span class="inline-flex items-center text-secondary bg-secondary-container/50 px-2 py-1 rounded-full text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest/80 transition-colors">
+<td class="p-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold">3</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a young African male inventory specialist, looking confidently at the camera. He is in a brightly lit electronics warehouse setting with shelves slightly visible in the blurred background. Modern, clean corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiybRTMEecBSENoUx8yEAkdPqb63uhcEF7p6ZCFK3hDd8J5lKGMQbrW-2_qFlOyNUGMOV4ATN6A61fcmgYTx9RYXagoHMr8SxDRUm09fgH2cEkA3v7k0gYEyw4UOta0nnWjNEexg0kzfi0T2761Bh9DCKT8jHUojITookgiYlYlVxLodRCGAr__fZoA93uw7vgrUOpZosLq3tUGnIcg5KIMJ-3s0nQsAmd26owdZhzYG8UWwIa4ssB">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Samuel Eto'o</p>
+<p class="font-label-sm text-label-sm text-outline">Junior Rep</p>
+</div>
+</div>
+</td>
+<td class="p-4 font-body-md text-on-surface">75</td>
+<td class="p-4 font-label-md text-label-md text-on-surface">2.0M <span class="text-outline font-normal text-label-sm">F CFA</span></td>
+<td class="p-4 text-right">
+<span class="inline-flex items-center text-error bg-error-container/50 px-2 py-1 rounded-full text-label-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">arrow_downward</span>
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

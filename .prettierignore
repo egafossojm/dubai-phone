@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+build
+coverage
+public/sw.js
+public/workbox-*.js
+public/sw.js.map
+public/workbox-*.js.map
+prisma/migrations

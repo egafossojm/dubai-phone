@@ -1,0 +1,46 @@
+Design the returns, refunds and warranty management module.
+
+Language: French.
+Currency: FCFA.
+
+The store sells serialized smartphones and non-serialized accessories.
+
+Create:
+
+1. Return list
+2. Return request
+3. Return detail
+4. Warranty lookup
+5. IMEI warranty history
+6. Refund workflow
+7. Exchange workflow
+
+When looking up a serialized product, display:
+
+- product
+- IMEI 1
+- IMEI 2
+- serial number
+- customer
+- sale date
+- warranty start
+- warranty expiration
+- warranty status
+- sale reference
+
+Return reasons:
+- Produit défectueux
+- Produit incorrect
+- Client insatisfait
+- Problème technique
+- Autre
+
+Return statuses:
+- Demande
+- En cours
+- Accepté
+- Refusé
+- Remboursé
+- Échangé
+
+Design clear confirmation dialogs for refunds and inventory changes.

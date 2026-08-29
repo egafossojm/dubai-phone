@@ -1,0 +1,45 @@
+Perform a complete security and audit implementation review.
+
+Inspect the entire application.
+
+Verify:
+
+- authentication
+- authorization
+- backend permission enforcement
+- input validation
+- SQL injection protection
+- XSS protection
+- CSRF considerations
+- secure session handling
+- password security
+- rate limiting
+- sensitive data exposure
+- audit logging
+- financial transaction integrity
+- inventory integrity
+- offline transaction integrity
+- idempotency
+- error handling
+
+Every sensitive business action must be auditable.
+
+Verify that frontend manipulation cannot bypass:
+
+- discounts
+- refunds
+- inventory adjustments
+- role restrictions
+- credit payments
+- product price restrictions
+
+Do not merely report vulnerabilities.
+
+Fix them where appropriate.
+
+After changes:
+
+- run tests
+- run lint
+- run type checking
+- document security decisions

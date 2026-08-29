@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profil Utilisateur - Dubai Phone ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#0050cb",
+                      "error-container": "#ffdad6",
+                      "outline-variant": "#c2c6d8",
+                      "secondary-fixed": "#6ffbbe",
+                      "primary-fixed": "#dae1ff",
+                      "surface-tint": "#0054d6",
+                      "on-tertiary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#a06500",
+                      "inverse-primary": "#b3c5ff",
+                      "background": "#faf8ff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "surface-container": "#eaedff",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-primary-fixed": "#001849",
+                      "surface-container-highest": "#dae2fd",
+                      "on-tertiary-container": "#fff7f1",
+                      "tertiary": "#7f4f00",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "secondary-container": "#6cf8bb",
+                      "on-secondary-fixed": "#002113",
+                      "on-secondary-fixed-variant": "#005236",
+                      "surface-container-high": "#e2e7ff",
+                      "primary-container": "#0066ff",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#f8f7ff",
+                      "surface-variant": "#dae2fd",
+                      "on-surface": "#131b2e",
+                      "surface-container-low": "#f2f3ff",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#006c49",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d2d9f4",
+                      "on-background": "#131b2e",
+                      "surface": "#faf8ff",
+                      "surface-bright": "#faf8ff",
+                      "on-secondary-container": "#00714d",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "inverse-surface": "#283044",
+                      "outline": "#727687",
+                      "on-surface-variant": "#424656",
+                      "secondary-fixed-dim": "#4edea3",
+                      "inverse-on-surface": "#eef0ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "card-padding": "20px",
+                      "container-margin": "24px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        
+        .glass-input {
+            background-color: #ffffff;
+            border: 1px solid theme('colors.outline-variant');
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .glass-input:focus {
+            border-color: theme('colors.primary');
+            box-shadow: 0 0 0 3px theme('colors.primary-fixed');
+            outline: none;
+        }
+        
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: theme('colors.primary');
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: theme('colors.primary');
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: theme('colors.outline-variant');
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 3rem;
+            height: 1.5rem;
+            background-color: theme('colors.outline-variant');
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+        .toggle-checkbox:checked {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- Side Nav (Hidden on Mobile) -->
+<nav class="hidden md:flex flex-col h-full py-base bg-surface-container-low dark:bg-surface-dim fixed left-0 top-0 w-64 border-r border-outline-variant/20 shadow-lg shadow-primary/5 z-50">
+<div class="px-gutter mb-8 flex items-center space-x-3">
+<img alt="Dubai Phone Logo" class="w-10 h-10 rounded-lg object-cover" data-alt="A clean, minimalist abstract geometric logo representing a tech company in bright corporate blue and white, set against a light background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmOO4Z0xQm2L3u7kDr3fa6rZzoqBKQgOD4SDE6AKwHmG1EdBoXDwUGnUTEPgsmZXVl29F2_ClMjpY-JCgfHSz-rBJHrTHzNr5SyfGB5vEGo_QtXyFWHU-p5EMpnJySckjLL9c-YiY__gsobc0XoKMn0Qbh8dE719DItwsG7kawhjziRvIHBe6fsiI55GF-2GX2wyi_yfZy64IVBbUe_3vm8z0EJXv2kYPlu1YlwdcwvgrS33jTDIIy"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Electronics ERP</p>
+</div>
+</div>
+<ul class="flex-1 space-y-1">
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>Dashboard</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">inventory_2</span>Inventory</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">point_of_sale</span>Sales</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">group</span>Customers</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">shopping_cart</span>Purchases</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">keyboard_return</span>Returns</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md transition-all duration-200 ease-in-out" href="#"><span class="material-symbols-outlined mr-3" data-weight="fill" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>Administration</a></li>
+</ul>
+<div class="mt-auto">
+<ul class="space-y-1">
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">help</span>Help Center</a></li>
+<li><a class="flex items-center px-4 py-3 mx-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#"><span class="material-symbols-outlined mr-3">logout</span>Logout</a></li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- Top App Bar (Mobile Only for Navigation, Contextual on Desktop) -->
+<header class="flex justify-between items-center h-16 px-gutter w-full sticky top-0 z-40 bg-surface-container-lowest/70 dark:bg-inverse-surface/70 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm md:hidden">
+<div class="flex items-center space-x-3 text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:bg-primary-container/10 p-2 rounded-full transition-colors active:scale-95 transition-transform" data-icon="menu">menu</span>
+<span class="font-headline-md text-headline-md font-bold">Dubai Phone</span>
+</div>
+<img alt="Store Manager Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant/30" data-alt="A professional headshot of a corporate manager in a modern office environment, wearing a dark suit against a brightly lit glass background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIdxf4HdJZ7fRdrn1mLEsGt1H0qyD_01sANOvCJsjWwCLWq5QJtWQqdafZ2RIRnv82NDaehUnhDwbVjmpvfi3C3tvhnyL15ssVx9lt-errlmp0x9OuEUneI_9Jr4ctoxQALbZnb_s8RfQFmsDLoiL2FkzIJoeZYIjDuZerArwwOg8ACN5YSD4v4mpSygb7Kdnb0sH0R5YYnC6SOV4MW6HX4DNxIMWDWxpmOtYNifzcgK_VdSo5bkwu"/>
+</header>
+<!-- Page Header -->
+<div class="px-container-margin py-8 md:pt-12 bg-gradient-to-r from-surface to-surface-container-low border-b border-outline-variant/20">
+<div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center space-x-6">
+<div class="relative">
+<img alt="Jean Dupont" class="w-24 h-24 rounded-xl object-cover shadow-md border-2 border-surface-container-lowest" data-alt="A high-quality, professional portrait of a tech sales manager in a bright, modern retail environment. He is smiling confidently, wearing a clean, dark blue polo shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi10JwxuKa0jbDIYyBvKfmNsGDrkTVDS5DGk0D3nEqm4sPb7P3ylTzspwL4i8wnlnFNQuxdMwe3fqbvIuaVYNeM43f9bpoUfwosDjSayw1VpedXw54vQpAlXTYDU20_P-BcFTlOUyMnrS-aYIFafQz6GWbLembD5yFyEZ7w1HSEZOebiPpitlvd-wbjMPT0S9yTpASPqYlWX1vjgOsGXHPU4JBCBNhhdTWUFxz-0Zyl2RcluhufSMg"/>
+<button class="absolute -bottom-2 -right-2 bg-primary text-on-primary p-1.5 rounded-full shadow-lg hover:bg-surface-tint transition-colors active:scale-95">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Jean Dupont</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex items-center mt-1">
+<span class="material-symbols-outlined text-sm mr-1">storefront</span> Manager - Boutique Centre Ville
+                        </p>
+<div class="mt-2 flex items-center space-x-2">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm rounded-full flex items-center">
+<span class="material-symbols-outlined text-xs mr-1" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span> Actif
+                            </span>
+<span class="px-2 py-1 bg-primary-container/10 text-primary font-label-sm text-label-sm rounded-full border border-primary/20">
+                                Administrateur
+                            </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2 mt-4 md:mt-0">
+<div class="flex items-center space-x-3">
+<span class="font-label-md text-label-md text-on-surface-variant">Statut du compte</span>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="toggle" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="toggle"></label>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-outline">Dernière connexion: Il y a 2 heures</p>
+</div>
+</div>
+</div>
+<!-- Form Content -->
+<main class="flex-1 p-container-margin max-w-5xl mx-auto w-full">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Forms -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Informations Personnelles -->
+<div class="glass-panel rounded-xl p-card-padding">
+<div class="flex items-center mb-6">
+<span class="material-symbols-outlined text-primary mr-2" data-weight="fill" style="font-variation-settings: 'FILL' 1;">person</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Informations Personnelles</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Nom complet</label>
+<input class="glass-input w-full rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface" type="text" value="Jean Dupont"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Identifiant (Username)</label>
+<input class="glass-input w-full rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface" type="text" value="j.dupont"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Email</label>
+<input class="glass-input w-full rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface" type="email" value="jean.dupont@dubaiphone.cm"/>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Téléphone</label>
+<input class="glass-input w-full rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface" type="tel" value="+237 6 00 00 00 00"/>
+</div>
+</div>
+</div>
+<!-- Assignation & Rôle -->
+<div class="glass-panel rounded-xl p-card-padding">
+<div class="flex items-center mb-6">
+<span class="material-symbols-outlined text-primary mr-2" data-weight="fill" style="font-variation-settings: 'FILL' 1;">badge</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Assignation &amp; Rôle</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Rôle Système</label>
+<div class="relative">
+<select class="glass-input w-full rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface appearance-none">
+<option>Super Administrateur</option>
+<option selected="">Administrateur Boutique</option>
+<option>Vendeur</option>
+<option>Magasinier</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant block">Boutique Assignée</label>
+<div class="relative">
+<select class="glass-input w-full rounded-lg px-3 py-2 font-body-md text-body-md text-on-surface appearance-none">
+<option>Douala Akwa</option>
+<option selected="">Yaoundé Centre Ville</option>
+<option>Bafoussam Marché A</option>
+<option>Toutes (Global)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Sécurité -->
+<div class="glass-panel rounded-xl p-card-padding border-l-4 border-l-tertiary-container">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-tertiary-container mr-2" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lock</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Sécurité</h3>
+</div>
+<button class="text-primary font-label-md text-label-md hover:text-surface-tint transition-colors flex items-center">
+<span class="material-symbols-outlined text-sm mr-1">key</span> Changer le mot de passe
+                            </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Un email de réinitialisation peut également être envoyé directement à l'utilisateur.</p>
+</div>
+</div>
+<!-- Right Column: Sidebar info -->
+<div class="space-y-6">
+<!-- Permissions Preview -->
+<div class="glass-panel rounded-xl p-card-padding">
+<h4 class="font-label-md text-label-md text-on-surface uppercase tracking-wider mb-4 border-b border-outline-variant/30 pb-2">Aperçu des Permissions</h4>
+<ul class="space-y-3">
+<li class="flex items-start">
+<span class="material-symbols-outlined text-secondary text-sm mt-0.5 mr-2">check_circle</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ventes &amp; Caisses</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Création, annulation, clôture de caisse.</p>
+</div>
+</li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-secondary text-sm mt-0.5 mr-2">check_circle</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Inventaire (Boutique)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Ajustement des stocks locaux, transferts.</p>
+</div>
+</li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-secondary text-sm mt-0.5 mr-2">check_circle</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Gestion Personnel</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Vue sur les vendeurs de la boutique.</p>
+</div>
+</li>
+<li class="flex items-start opacity-50">
+<span class="material-symbols-outlined text-error text-sm mt-0.5 mr-2">cancel</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Paramètres Globaux</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Non autorisé.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Activity Summary -->
+<div class="glass-panel rounded-xl p-card-padding">
+<h4 class="font-label-md text-label-md text-on-surface uppercase tracking-wider mb-4 border-b border-outline-variant/30 pb-2">Activité Récente</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="w-8 h-8 rounded bg-primary-container/20 flex items-center justify-center mr-3">
+<span class="material-symbols-outlined text-primary text-sm">point_of_sale</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Ventes du jour</p>
+<p class="font-headline-md text-headline-md font-bold text-on-surface">24</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">trending_up</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mr-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">receipt_long</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">CA Généré (Auj.)</p>
+<p class="font-headline-md text-headline-md font-bold text-on-surface">1.2M <span class="text-sm font-normal">FCFA</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="mt-8 flex justify-end items-center space-x-4 border-t border-outline-variant/20 pt-6">
+<button class="px-6 py-2.5 rounded-lg border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors active:scale-95">
+                    Annuler
+                </button>
+<button class="px-6 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-md shadow-primary/20 hover:bg-surface-tint hover:shadow-lg transition-all active:scale-95 flex items-center">
+<span class="material-symbols-outlined text-sm mr-2" data-weight="fill" style="font-variation-settings: 'FILL' 1;">save</span>
+                    Enregistrer les modifications
+                </button>
+</div>
+</main>
+</div>
+</body></html>

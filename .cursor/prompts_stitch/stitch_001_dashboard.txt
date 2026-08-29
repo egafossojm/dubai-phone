@@ -1,0 +1,64 @@
+Design the main dashboard of a professional French-language electronics store management application used in Cameroon.
+
+The application manages:
+- smartphones
+- mobile phones
+- accessories
+- gadgets
+- electronic equipment
+- inventory
+- purchases
+- sales
+- customers
+- customer credit
+- suppliers
+- returns
+- warranties
+
+Currency: FCFA / XAF.
+
+Design a desktop-first responsive dashboard for managers and administrators.
+
+The dashboard should immediately answer:
+
+- How much did the store sell today?
+- How much did it sell this month?
+- How many sales were completed?
+- What is the estimated gross profit?
+- What products are selling best?
+- Which products have low stock?
+- How much customer credit is outstanding?
+- What payment methods are being used?
+- Which salespeople are performing best?
+
+Create:
+
+1. Sidebar navigation
+2. Top header
+3. Store selector area
+4. Global search
+5. User profile menu
+6. KPI cards:
+   - CA aujourd'hui
+   - CA du mois
+   - Nombre de ventes
+   - Marge estimée
+   - Crédit client en cours
+7. Sales trend chart
+8. Top selling products
+9. Low stock alerts
+10. Recent sales
+11. Payment method breakdown
+12. Customer credit summary
+13. Recent activity
+14. Quick actions
+
+Use realistic French labels and realistic FCFA amounts.
+
+Include:
+- loading state
+- empty state
+- error state
+- responsive tablet layout
+
+Do not invent features outside the described business requirements.

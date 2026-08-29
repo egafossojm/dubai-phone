@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dubai Phone ERP - Détails Fournisseur</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f2f3ff",
+                        "on-secondary-fixed": "#002113",
+                        "primary": "#0050cb",
+                        "secondary": "#006c49",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#f8f7ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c6d8",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "background": "#faf8ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "inverse-primary": "#b3c5ff",
+                        "on-tertiary-container": "#fff7f1",
+                        "surface": "#faf8ff",
+                        "primary-fixed": "#dae1ff",
+                        "primary-container": "#0066ff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#00714d",
+                        "tertiary-container": "#a06500",
+                        "tertiary": "#7f4f00",
+                        "surface-tint": "#0054d6",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-surface": "#131b2e",
+                        "secondary-fixed": "#6ffbbe",
+                        "secondary-fixed-dim": "#4edea3",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "inverse-surface": "#283044",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#424656",
+                        "surface-variant": "#dae2fd",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-highest": "#dae2fd",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "outline": "#727687",
+                        "on-primary-fixed": "#001849",
+                        "surface-container-high": "#e2e7ff",
+                        "on-background": "#131b2e",
+                        "surface-container": "#eaedff",
+                        "secondary-container": "#6cf8bb",
+                        "tertiary-fixed-dim": "#ffb95f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "container-margin": "24px",
+                        "card-padding": "20px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .dark .glass-card {
+            background-color: rgba(40, 48, 68, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background dark:bg-inverse-surface text-on-background dark:text-inverse-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface-container-lowest/70 dark:bg-surface-container/70 backdrop-blur-md border-b border-outline-variant shadow-sm flex justify-between items-center px-6 z-40">
+<div class="hidden">Dubai Phone ERP</div>
+<div class="flex items-center gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface" href="#">Rapports</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface" href="#">Support</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md py-2 px-4 rounded-lg transition-colors shadow-sm">Nouvelle Vente</button>
+<div class="flex gap-2">
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-container-high rounded-full p-2 cursor-pointer transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-container-high rounded-full p-2 cursor-pointer transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<img alt="Profil Utilisateur" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small, professional avatar image of an African retail tech manager in a bright, modern office setting. Light mode aesthetic with sharp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVvnFUkyk7GxlDA5BWNu3ZQTr5OvQO1SbRvBuzWriDsbRyfIcy0lINawLQj0K6VL1dPYKOXurFHdXE5epuD1xTNru0Mlev7XnuuklSwx8lKsmiBIfFg_CDtOD0mFbLbMnSxtdj_aGbJdjTgV51fH6FXbqYYOPvT5VqnVECU53OipiS-SjJIDR1xxN83HJqFxvdSM4acQG4cAmhsXiNF6XkWnCulHDip4ZboFD_Ka_ak8wglcZC9yMA"/>
+</div>
+</nav>
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-inverse-surface bg-surface-container-low/70 backdrop-blur-xl border-r border-outline-variant shadow-sm flex flex-col p-4 z-50">
+<div class="mb-8 px-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">smartphone</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gestion d'Électronique</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Tableau de bord</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Inventaire</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Ventes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span>Fournisseurs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span>Achats</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Paramètres</span>
+</a>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg shadow-sm hover:bg-surface-tint transition-colors mb-4">
+            Nouveau Scan
+        </button>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>Déconnexion</span>
+</a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="ml-64 pt-16 p-container-margin min-h-screen">
+<!-- Header -->
+<header class="flex justify-between items-end mb-8">
+<div>
+<a class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                    Retour à la liste
+                </a>
+<h2 class="font-headline-lg text-headline-lg text-on-surface flex items-center gap-3">
+                    Samsung Electronics West Africa
+                    <span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Actif
+                    </span>
+</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1">ID Fournisseur: SUP-2023-089</p>
+</div>
+<div class="flex gap-3">
+<button class="glass-card font-label-md text-label-md px-4 py-2 rounded-lg text-primary flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">edit</span> Modifier
+                </button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg shadow-sm hover:bg-surface-tint transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">shopping_cart</span> Nouvelle Commande
+                </button>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Contact & Info (Col 4) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<div class="glass-card rounded-xl p-card-padding">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">contact_page</span>
+                        Informations
+                    </h3>
+<div class="space-y-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Contact Principal</p>
+<p class="font-body-md text-body-md text-on-surface font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">person</span> Amadou Diallo
+                            </p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Téléphone</p>
+<p class="font-body-md text-body-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">call</span> +237 6 99 99 99 99
+                            </p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Email</p>
+<p class="font-body-md text-body-md text-primary flex items-center gap-2 cursor-pointer hover:underline">
+<span class="material-symbols-outlined text-outline">mail</span> a.diallo@samsung-wa.com
+                            </p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Adresse</p>
+<p class="font-body-md text-body-md text-on-surface flex items-start gap-2">
+<span class="material-symbols-outlined text-outline mt-0.5">location_on</span>
+<span>Zone Industrielle de Bonabéri<br/>Douala, Cameroun</span>
+</p>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-xl p-card-padding">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+                        Solde Financier
+                    </h3>
+<div class="flex items-end justify-between mb-2">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Solde Dû</p>
+<p class="font-display-lg text-display-lg text-error mt-1">4.5M <span class="text-body-lg text-on-surface-variant">FCFA</span></p>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-4 overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 65%;"></div>
+</div>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Limite: 10M FCFA</span>
+<span class="text-error font-medium">65% Utilisé</span>
+</div>
+<button class="w-full mt-6 glass-card font-label-md text-label-md py-2 rounded-lg text-on-surface border border-outline-variant hover:bg-surface-variant transition-colors">
+                        Effectuer un Paiement
+                    </button>
+</div>
+</div>
+<!-- Main KPIs & Activity (Col 8) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+<!-- KPI Row -->
+<div class="grid grid-cols-3 gap-gutter">
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Volume Total (YTD)</span>
+<span class="material-symbols-outlined text-primary bg-primary/10 p-1.5 rounded-lg">shopping_bag</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface">124.5M <span class="text-body-md text-on-surface-variant">FCFA</span></p>
+<p class="font-label-sm text-label-sm text-secondary flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12% vs N-1
+                        </p>
+</div>
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Délai Moyen</span>
+<span class="material-symbols-outlined text-tertiary bg-tertiary/10 p-1.5 rounded-lg">local_shipping</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface">3.2 <span class="text-body-md text-on-surface-variant">Jours</span></p>
+<p class="font-label-sm text-label-sm text-secondary flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -0.5 Jours
+                        </p>
+</div>
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">Taux de Retour</span>
+<span class="material-symbols-outlined text-error bg-error/10 p-1.5 rounded-lg">assignment_return</span>
+</div>
+<p class="font-headline-lg text-headline-lg text-on-surface">1.8%</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1 mt-2">
+                            Objectif: &lt; 2.0%
+                        </p>
+</div>
+</div>
+<!-- Commandes en cours -->
+<div class="glass-card rounded-xl p-card-padding flex-grow">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Commandes en Cours</h3>
+<a class="font-label-md text-label-md text-primary hover:underline" href="#">Voir tout</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/50">
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant font-medium">N° Commande</th>
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant font-medium">Date</th>
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant font-medium">Montant</th>
+<th class="pb-3 font-label-md text-label-md text-on-surface-variant font-medium">Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-variant/30 transition-colors">
+<td class="py-4 font-body-md text-body-md text-primary font-medium cursor-pointer">PO-2311-045</td>
+<td class="py-4 font-body-md text-body-md text-on-surface">12 Nov 2023</td>
+<td class="py-4 font-body-md text-body-md text-on-surface font-medium">1,250,000 FCFA</td>
+<td class="py-4">
+<span class="bg-primary/10 text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-full">En Transit</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-variant/30 transition-colors">
+<td class="py-4 font-body-md text-body-md text-primary font-medium cursor-pointer">PO-2311-038</td>
+<td class="py-4 font-body-md text-body-md text-on-surface">05 Nov 2023</td>
+<td class="py-4 font-body-md text-body-md text-on-surface font-medium">850,000 FCFA</td>
+<td class="py-4">
+<span class="bg-surface-variant text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded-full">En Préparation</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-variant/30 transition-colors">
+<td class="py-4 font-body-md text-body-md text-primary font-medium cursor-pointer">PO-2310-092</td>
+<td class="py-4 font-body-md text-body-md text-on-surface">28 Oct 2023</td>
+<td class="py-4 font-body-md text-body-md text-on-surface font-medium">3,400,000 FCFA</td>
+<td class="py-4">
+<span class="bg-secondary/10 text-secondary font-label-sm text-label-sm px-2.5 py-1 rounded-full">Livré Partiel</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Produits Fournis -->
+<div class="col-span-12 glass-card rounded-xl p-card-padding">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Top Produits Fournis</h3>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">filter_list</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Product Card -->
+<div class="border border-outline-variant/50 rounded-lg p-4 flex gap-4 items-center bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors">
+<div class="w-16 h-16 rounded bg-surface-variant flex-shrink-0 flex items-center justify-center">
+<img alt="Galaxy S23" class="w-12 h-12 object-contain" data-alt="A clean, isolated product shot of a modern Samsung Galaxy smartphone against a light gray background, high tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrd4C6oAHw5TfYB9Ols4vhJG41u4w7uzlnlJqf5puBgdFNDVUGH49FgBcGgeGz1Y24SL1C20ujoqIasU8F5CF4RfW5y-kMx-zFHibQNalgVhkdOPQB1QIfLlcMbXEz0W5Wqat0nK4DVxGlqpoq-n1x6zLe-UHaF2-0POz899DsKNI-8ZKFrrU9x-jSRvfCbBuevWOD6phjh1ykkdKi1H_uaJ_biGCNIDgvMHrJtVVCkRTrw_29sxBd"/>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-bold line-clamp-1">Galaxy S23 Ultra</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">SKU: SAM-S23U-256</p>
+<p class="font-body-md text-body-md text-primary font-semibold">680,000 FCFA</p>
+</div>
+</div>
+<!-- Product Card -->
+<div class="border border-outline-variant/50 rounded-lg p-4 flex gap-4 items-center bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors">
+<div class="w-16 h-16 rounded bg-surface-variant flex-shrink-0 flex items-center justify-center">
+<img alt="Galaxy A54" class="w-12 h-12 object-contain" data-alt="A clean, isolated product shot of a modern Samsung A series smartphone against a light gray background, high tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4ugTULzJClM5khxh8puH7uNpvjmlu5ZdwrzbugSqcEHRFVLhkEjEtR7E6aq7LSyoK8IpLAGYl6Ayr24z3VewsExud1ddPR9Q4YY3swSHcWVXDQz_Gn0TH-MoYSSkP4Y6CToGQ3mv7dOK5b6KsuQzMJE7roHWOL7n24rsrcjxiq81X2mw5ALv-egcPsBo50pp1heNce5MJHmsNT3Ppu4gq0mwFfV2HDpHvzgGjE20L_znhLfxGSnYA"/>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-bold line-clamp-1">Galaxy A54 5G</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">SKU: SAM-A54-128</p>
+<p class="font-body-md text-body-md text-primary font-semibold">245,000 FCFA</p>
+</div>
+</div>
+<!-- Product Card -->
+<div class="border border-outline-variant/50 rounded-lg p-4 flex gap-4 items-center bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors">
+<div class="w-16 h-16 rounded bg-surface-variant flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[32px]">earbuds</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-bold line-clamp-1">Galaxy Buds 2 Pro</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">SKU: SAM-B2P-BLK</p>
+<p class="font-body-md text-body-md text-primary font-semibold">120,000 FCFA</p>
+</div>
+</div>
+<!-- Product Card -->
+<div class="border border-outline-variant/50 rounded-lg p-4 flex gap-4 items-center bg-surface-container-lowest/50 hover:bg-surface-container-low transition-colors">
+<div class="w-16 h-16 rounded bg-surface-variant flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant text-[32px]">watch</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-bold line-clamp-1">Galaxy Watch 6</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">SKU: SAM-W6-44M</p>
+<p class="font-body-md text-body-md text-primary font-semibold">185,000 FCFA</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

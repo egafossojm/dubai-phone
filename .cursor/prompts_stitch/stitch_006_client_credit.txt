@@ -1,0 +1,52 @@
+Design the customer management and customer credit module.
+
+Language: French.
+Market: Cameroon.
+Currency: FCFA.
+
+Create:
+
+1. Customer list
+2. Customer profile
+3. Customer purchase history
+4. Customer credit overview
+5. Credit detail
+6. Installment schedule
+7. Payment history
+
+Customer profile should display:
+
+- full name
+- phone number
+- email
+- address
+- total purchases
+- outstanding balance
+- payment history
+- active installments
+- overdue installments
+
+Credit detail should display:
+
+- sale
+- original amount
+- initial payment
+- remaining balance
+- installment schedule
+- due dates
+- payments
+- status
+
+Statuses:
+- Payé
+- Partiellement payé
+- En attente
+- En retard
+
+Make overdue balances visually obvious without making the interface alarming.
+
+Provide actions:
+- Enregistrer un paiement
+- Voir la vente
+- Voir l'échéancier
+- Imprimer le reçu

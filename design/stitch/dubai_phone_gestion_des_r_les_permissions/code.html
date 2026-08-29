@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestion des Rôles et Permissions - Dubai Phone</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0050cb",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c2c6d8",
+                        "secondary-fixed": "#6ffbbe",
+                        "primary-fixed": "#dae1ff",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#a06500",
+                        "inverse-primary": "#b3c5ff",
+                        "background": "#faf8ff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "surface-container": "#eaedff",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-fixed": "#001849",
+                        "surface-container-highest": "#dae2fd",
+                        "on-tertiary-container": "#fff7f1",
+                        "tertiary": "#7f4f00",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "secondary-container": "#6cf8bb",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#005236",
+                        "surface-container-high": "#e2e7ff",
+                        "primary-container": "#0066ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-variant": "#dae2fd",
+                        "on-surface": "#131b2e",
+                        "surface-container-low": "#f2f3ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#006c49",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d2d9f4",
+                        "on-background": "#131b2e",
+                        "surface": "#faf8ff",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-container": "#00714d",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#283044",
+                        "outline": "#727687",
+                        "on-surface-variant": "#424656",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-on-surface": "#eef0ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "card-padding": "20px",
+                        "container-margin": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #0050cb;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #0050cb;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- SideNavBar (Web) -->
+<aside class="hidden md:flex flex-col h-full py-base fixed left-0 top-0 h-full w-64 border-r border-outline-variant/20 shadow-lg shadow-primary/5 bg-surface-container-low dark:bg-surface-dim z-50">
+<div class="px-gutter mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">DP</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Electronics ERP</p>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                        Inventory
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+                        Sales
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                        Customers
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                        Purchases
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="keyboard_return">keyboard_return</span>
+                        Returns
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 bg-primary text-on-primary rounded-lg mx-2 transition-all duration-200 ease-in-out font-label-md text-label-md shadow-md" href="#">
+<span class="material-symbols-outlined" data-icon="admin_panel_settings">admin_panel_settings</span>
+                        Administration
+                    </a>
+</li>
+</ul>
+</nav>
+<div class="mt-auto border-t border-outline-variant/20 pt-4">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                        Help Center
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 px-4 text-on-surface-variant hover:bg-surface-container-high mx-2 rounded-lg hover:bg-primary-container/20 hover:text-primary transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                        Logout
+                    </a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full md:ml-64 flex flex-col min-h-screen bg-background">
+<!-- TopNavBar (Mobile) -->
+<header class="md:hidden flex justify-between items-center h-16 px-gutter w-full sticky top-0 z-40 bg-surface-container-lowest/70 dark:bg-inverse-surface/70 backdrop-blur-xl shadow-sm">
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md text-primary dark:text-primary-fixed-dim">Dubai Phone</span>
+</div>
+<div class="flex items-center gap-4 text-primary">
+<span class="material-symbols-outlined cursor-pointer active:scale-95 transition-transform" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer active:scale-95 transition-transform" data-icon="settings">settings</span>
+<img alt="Store Manager Profile" class="w-8 h-8 rounded-full object-cover" data-alt="A small circular profile picture of a professional store manager in a bright tech retail environment. Modern, clean styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHZzA0d1tPUko_GyXwMImrvTeLKMmvw2Z4Z96DfJ4erIFBfD0h7TPCXydZiTZ74jDnkokY-n1em2rsmH2HlxwVvkD-dMqeva_ZAw2OD_nh-i6fpUXGP_EfgtJaH8sEHtiTbWBLuPOAzhV4zbJonPFOvhBhX6tkAoGkQpRYxudPJCkUfzZ6W8HVyMfvhH3bMMvTqacV491nNl9lN33bo_2kEZHXopPrvfmUzOGGCzT8-EWg1Y4_Q_hX"/>
+</div>
+</header>
+<!-- Page Header -->
+<div class="px-container-margin py-8 md:py-10">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Gestion des Rôles et Permissions</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Configurez les accès détaillés pour chaque rôle au sein du système ERP. Les rôles système sont verrouillés pour garantir la stabilité opérationnelle.</p>
+</div>
+<button class="bg-primary hover:bg-surface-tint text-on-primary font-label-md text-label-md py-3 px-6 rounded-lg shadow-md transition-colors flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                    Enregistrer les modifications
+                </button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-container-margin">
+<!-- Role Selector Sidebar -->
+<div class="lg:col-span-1 flex flex-col gap-4">
+<div class="glass-card rounded-xl p-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Rôles Système</h3>
+<ul class="space-y-2">
+<li>
+<button class="w-full text-left flex justify-between items-center px-4 py-3 rounded-lg bg-surface-container-high border border-outline-variant/30 text-on-background font-label-md text-label-md opacity-75 cursor-not-allowed">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="shield">shield</span>
+                                        Super Administrateur
+                                    </div>
+<span class="material-symbols-outlined text-outline" data-icon="lock">lock</span>
+</button>
+</li>
+<li>
+<button class="w-full text-left flex justify-between items-center px-4 py-3 rounded-lg bg-primary/10 border border-primary text-primary font-label-md text-label-md shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+                                        Manager
+                                    </div>
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</li>
+</ul>
+</div>
+<div class="glass-card rounded-xl p-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Rôles Personnalisés</h3>
+<button class="text-primary hover:text-surface-tint"><span class="material-symbols-outlined" data-icon="add_circle">add_circle</span></button>
+</div>
+<ul class="space-y-2">
+<li>
+<button class="w-full text-left flex justify-between items-center px-4 py-3 rounded-lg hover:bg-surface-container hover:text-primary text-on-background font-label-md text-label-md transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="point_of_sale">point_of_sale</span>
+                                        Vendeur / Caissier
+                                    </div>
+</button>
+</li>
+<li>
+<button class="w-full text-left flex justify-between items-center px-4 py-3 rounded-lg hover:bg-surface-container hover:text-primary text-on-background font-label-md text-label-md transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="inventory">inventory</span>
+                                        Gestionnaire de stock
+                                    </div>
+</button>
+</li>
+</ul>
+</div>
+</div>
+<!-- Matrix Canvas -->
+<div class="lg:col-span-3 glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="p-card-padding border-b border-outline-variant/20 bg-surface-container-lowest/50 flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="manage_accounts">manage_accounts</span>
+                                Permissions : Manager
+                            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Gère les opérations quotidiennes du magasin et supervise le personnel.</p>
+</div>
+</div>
+<div class="overflow-x-auto p-4">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="border-b border-outline-variant/30">
+<th class="p-3 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider bg-surface-container/50 sticky left-0 z-10">Module</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Lecture</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Création</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Modification</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant text-error">Suppression</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant text-tertiary">Validation</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Remboursement</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Remise</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Ajust. Stock</th>
+<th class="p-3 font-label-sm text-label-sm text-center text-on-surface-variant">Financière</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Ventes Row -->
+<tr class="hover:bg-primary-container/5 transition-colors group">
+<td class="p-3 font-label-md text-label-md text-on-background bg-surface-container-lowest/80 group-hover:bg-primary-container/10 sticky left-0 z-10 border-r border-outline-variant/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70" data-icon="point_of_sale">point_of_sale</span>
+                                        Ventes
+                                    </td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-error focus:ring-error bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-tertiary focus:ring-tertiary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+</tr>
+<!-- Inventaire Row -->
+<tr class="hover:bg-primary-container/5 transition-colors group">
+<td class="p-3 font-label-md text-label-md text-on-background bg-surface-container-lowest/80 group-hover:bg-primary-container/10 sticky left-0 z-10 border-r border-outline-variant/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70" data-icon="inventory_2">inventory_2</span>
+                                        Inventaire
+                                    </td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-error focus:ring-error bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+</tr>
+<!-- Clients Row -->
+<tr class="hover:bg-primary-container/5 transition-colors group">
+<td class="p-3 font-label-md text-label-md text-on-background bg-surface-container-lowest/80 group-hover:bg-primary-container/10 sticky left-0 z-10 border-r border-outline-variant/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70" data-icon="group">group</span>
+                                        Clients
+                                    </td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-error focus:ring-error bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+</tr>
+<!-- Achats Row -->
+<tr class="hover:bg-primary-container/5 transition-colors group">
+<td class="p-3 font-label-md text-label-md text-on-background bg-surface-container-lowest/80 group-hover:bg-primary-container/10 sticky left-0 z-10 border-r border-outline-variant/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70" data-icon="shopping_cart">shopping_cart</span>
+                                        Achats
+                                    </td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-error focus:ring-error bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input checked="" class="w-5 h-5 rounded border-outline text-tertiary focus:ring-tertiary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+</tr>
+<!-- Administration Row -->
+<tr class="hover:bg-primary-container/5 transition-colors group">
+<td class="p-3 font-label-md text-label-md text-on-background bg-surface-container-lowest/80 group-hover:bg-primary-container/10 sticky left-0 z-10 border-r border-outline-variant/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary/70" data-icon="admin_panel_settings">admin_panel_settings</span>
+                                        Administration
+                                    </td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-error focus:ring-error bg-surface cursor-pointer" type="checkbox"/></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center bg-surface-container-low/50"></td>
+<td class="p-3 text-center"><input class="w-5 h-5 rounded border-outline text-primary focus:ring-primary bg-surface cursor-pointer" type="checkbox"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,86 @@
+Design and implement the database schema for the electronics store management application.
+
+First inspect the project and architecture documents.
+
+Do not implement UI.
+
+The database must support:
+
+USERS
+ROLES
+PERMISSIONS
+
+PRODUCTS
+PRODUCT_VARIANTS
+CATEGORIES
+BRANDS
+PRODUCT_SERIALS
+
+SUPPLIERS
+PURCHASE_ORDERS
+PURCHASE_ORDER_ITEMS
+GOODS_RECEIPTS
+GOODS_RECEIPT_ITEMS
+
+INVENTORY
+STOCK_MOVEMENTS
+
+CUSTOMERS
+CUSTOMER_CREDIT
+INSTALLMENTS
+CUSTOMER_PAYMENTS
+
+SALES
+SALE_ITEMS
+SALE_DISCOUNTS
+PAYMENTS
+
+RETURNS
+RETURN_ITEMS
+REFUNDS
+
+WARRANTIES
+
+AUDIT_LOGS
+
+SYNC_QUEUE / SYNC_METADATA where appropriate.
+
+Requirements:
+
+- strong foreign keys
+- indexes
+- unique constraints
+- timestamps
+- soft deletion only where appropriate
+- immutable financial records where appropriate
+- immutable audit records
+- unique identifiers
+- idempotency support
+- transaction support
+
+Serialized products must support:
+
+- IMEI 1
+- IMEI 2
+- serial number
+- status
+- purchase reference
+- sale reference
+- customer reference
+- warranty
+
+Stock must never be represented only by a mutable quantity.
+
+Stock movements must provide traceability.
+
+Design the schema carefully before implementing migrations.
+
+Then:
+
+1. create migrations
+2. create seed data
+3. create representative test data
+4. verify constraints
+5. run database tests
+
+Do not implement frontend screens.

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Créer un Bon de Commande - Dubai Phone ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "surface-container-low": "#f2f3ff",
+                            "on-secondary-fixed": "#002113",
+                            "primary": "#0050cb",
+                            "secondary": "#006c49",
+                            "error": "#ba1a1a",
+                            "on-primary-container": "#f8f7ff",
+                            "on-secondary-fixed-variant": "#005236",
+                            "on-primary": "#ffffff",
+                            "on-secondary": "#ffffff",
+                            "outline-variant": "#c2c6d8",
+                            "inverse-on-surface": "#eef0ff",
+                            "on-tertiary-fixed": "#2a1700",
+                            "background": "#faf8ff",
+                            "on-primary-fixed-variant": "#003fa4",
+                            "inverse-primary": "#b3c5ff",
+                            "on-tertiary-container": "#fff7f1",
+                            "surface": "#faf8ff",
+                            "primary-fixed": "#dae1ff",
+                            "primary-container": "#0066ff",
+                            "on-error": "#ffffff",
+                            "on-secondary-container": "#00714d",
+                            "tertiary-container": "#a06500",
+                            "tertiary": "#7f4f00",
+                            "surface-tint": "#0054d6",
+                            "primary-fixed-dim": "#b3c5ff",
+                            "on-surface": "#131b2e",
+                            "secondary-fixed": "#6ffbbe",
+                            "secondary-fixed-dim": "#4edea3",
+                            "error-container": "#ffdad6",
+                            "on-error-container": "#93000a",
+                            "on-tertiary": "#ffffff",
+                            "surface-bright": "#faf8ff",
+                            "inverse-surface": "#283044",
+                            "surface-dim": "#d2d9f4",
+                            "surface-container-lowest": "#ffffff",
+                            "on-surface-variant": "#424656",
+                            "surface-variant": "#dae2fd",
+                            "tertiary-fixed": "#ffddb8",
+                            "surface-container-highest": "#dae2fd",
+                            "on-tertiary-fixed-variant": "#653e00",
+                            "outline": "#727687",
+                            "on-primary-fixed": "#001849",
+                            "surface-container-high": "#e2e7ff",
+                            "on-background": "#131b2e",
+                            "surface-container": "#eaedff",
+                            "secondary-container": "#6cf8bb",
+                            "tertiary-fixed-dim": "#ffb95f"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "gutter": "16px",
+                            "container-margin": "24px",
+                            "card-padding": "20px",
+                            "base": "8px"
+                    },
+                    "fontFamily": {
+                            "display-lg": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "label-sm": ["Inter"],
+                            "label-md": ["Inter"],
+                            "body-md": ["Inter"],
+                            "headline-md": ["Inter"],
+                            "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        
+        .glass-input {
+            background-color: #ffffff;
+            border: 1px solid var(--tw-colors-outline-variant);
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .glass-input:focus {
+            border-color: var(--tw-colors-primary);
+            box-shadow: 0 0 0 4px rgba(0, 80, 203, 0.1);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface-container-lowest/70 backdrop-blur-md border-b border-outline-variant shadow-sm flex justify-between items-center px-6 z-40 hidden md:flex">
+<!-- Search Bar PlaceHolder -->
+<div class="flex-1 max-w-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-full bg-surface-container border-none focus:ring-2 focus:ring-primary text-body-md font-body-md" placeholder="Rechercher..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="flex gap-4">
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md cursor-pointer transition-all" href="#">Rapports</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label-md text-label-md cursor-pointer transition-all" href="#">Support</a>
+</nav>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-surface-container-high rounded-full p-2 cursor-pointer transition-all text-primary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container-high rounded-full p-2 cursor-pointer transition-all text-primary">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md shadow-sm hover:bg-surface-tint transition-colors">
+                Nouvelle Vente
+            </button>
+<img alt="Profil Utilisateur" class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed" data-alt="A small, circular profile picture of a professional African retail manager in a well-lit office setting. The image should be bright, corporate modern style with a subtle tech blue tint in the lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPPCWLue74GwBsCVEj4-GB8RW69E9q-yAY2ea1-GSyR6R_2tbdsEL1nIAF6MJZ8oHAdN5dZBDQLdLHeKNdhPdGcCP4BVOyHcN9YcqRRi7Kgbu9f0oDCeXo5JA1fsc_5rrJqzgk7W0xAlfLCXUOC2h4twadEoayjavhmklzajvfa8ykdxsEp2Er_UcxDxRcLt8KFgM1oLgcSEih1dVo3am5m-Jqv80195nVOBdkxH-59v01uN0J8P9G"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low/70 backdrop-blur-xl border-r border-outline-variant shadow-sm flex flex-col p-4 z-50">
+<div class="mb-8 flex items-center gap-3 px-2">
+<img alt="Logo Dubai Phone" class="w-10 h-10 rounded-lg object-cover" data-alt="A sleek, modern logo for 'Dubai Phone' electronics store. The logo should feature sharp geometric shapes, predominantly in tech blue and silver, against a clean white background, conveying trust and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlG6aDsqTqHtqoh2-HKGNKEaCI-p3AGf1yjl_1OlAfzlFJC6LXFXJ2X97ghqCWWADZfYs0Z03bmrnZauM5vo5PovUKwdSExBF88kQv9ZBXMqPDUSlIvGJXp6CNJl2S0qttYttHNM8U_k7_3hSS3CrYzVChsd6FJYXg3wX6mTOHzbgtVydCSzgZBi480XvCMxRdsNIgTpOVjQ2X2OabcmQQ0XHQIAhKSwrQzzwkc7SpYrT3FqX7r56g"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gestion d'Électronique</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-xl font-label-md text-label-md mb-8 flex items-center justify-center gap-2 hover:bg-surface-tint hover:text-on-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+            Nouveau Scan
+        </button>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Tableau de bord
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+                Inventaire
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Ventes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Fournisseurs
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+                Achats
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Paramètres
+            </a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-error hover:bg-error-container transition-colors duration-200 active:scale-95 transition-transform font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Déconnexion
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-16 min-h-screen p-container-margin md:p-8">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg text-primary mb-2">Créer un Bon de Commande</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Saisissez les détails de la commande fournisseur.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 rounded-full border border-outline-variant text-on-surface bg-surface hover:bg-surface-variant transition-colors font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="save">save</span>
+                        Enregistrer en brouillon
+                    </button>
+<button class="px-6 py-2.5 rounded-full bg-primary text-on-primary shadow-sm hover:bg-surface-tint transition-colors font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="check_circle">check_circle</span>
+                        Confirmer la commande
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Provider Info & Settings (1 column wide on large screens) -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Fournisseur Card -->
+<div class="glass-card rounded-xl p-card-padding">
+<h3 class="font-headline-md text-headline-md text-on-background mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="storefront">storefront</span>
+                            Détails Fournisseur
+                        </h3>
+<div class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Sélectionner un Fournisseur *</label>
+<div class="relative">
+<select class="w-full glass-input rounded-lg px-4 py-2.5 appearance-none font-body-md text-body-md text-on-background cursor-pointer">
+<option disabled="" selected="" value="">Choisir...</option>
+<option value="1">Samsung Electronics MEA</option>
+<option value="2">Apple Distribution</option>
+<option value="3">Xiaomi Global</option>
+<option value="4">Oppo Distribution AF</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Date de la commande</label>
+<input class="w-full glass-input rounded-lg px-4 py-2.5 font-body-md text-body-md text-on-background" type="date" value="2023-10-27"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Date de livraison prévue</label>
+<input class="w-full glass-input rounded-lg px-4 py-2.5 font-body-md text-body-md text-on-background" type="date"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Référence interne</label>
+<input class="w-full glass-input rounded-lg px-4 py-2.5 font-body-md text-body-md text-on-background" placeholder="Ex: BC-2023-10-001" type="text"/>
+</div>
+</div>
+</div>
+<!-- Notes Card -->
+<div class="glass-card rounded-xl p-card-padding flex-1">
+<h3 class="font-headline-md text-headline-md text-on-background mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="notes">notes</span>
+                            Notes &amp; Instructions
+                        </h3>
+<textarea class="w-full h-32 glass-input rounded-lg p-3 font-body-md text-body-md resize-none" placeholder="Instructions de livraison, conditions spéciales..."></textarea>
+</div>
+</div>
+<!-- Right Column: Products & Total (2 columns wide on large screens) -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Products List Card -->
+<div class="glass-card rounded-xl p-card-padding flex-1">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="inventory_2">inventory_2</span>
+                                Articles Commandés
+                            </h3>
+<button class="flex items-center gap-1 text-primary hover:text-surface-tint font-label-md text-label-md transition-colors bg-primary-container/30 px-3 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                                Ajouter Produit
+                            </button>
+</div>
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-4 pb-2 border-b border-outline-variant text-on-surface-variant font-label-sm text-label-sm px-2">
+<div class="col-span-5">Produit</div>
+<div class="col-span-2 text-center">Quantité</div>
+<div class="col-span-3 text-right">Prix Unitaire Est.</div>
+<div class="col-span-2 text-right">Total</div>
+</div>
+<!-- Products List -->
+<div class="flex flex-col gap-2 mt-3" id="product-list">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-4 items-center bg-surface-container-lowest py-3 px-2 rounded-lg border border-transparent hover:border-outline-variant transition-colors group">
+<div class="col-span-5 flex items-center gap-3">
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-error transition-all p-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+</button>
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="smartphone">smartphone</span>
+</div>
+<div class="flex-1">
+<input class="w-full bg-transparent border-b border-dashed border-outline-variant focus:border-primary focus:outline-none font-body-md text-body-md text-on-background py-1" type="text" value="Samsung Galaxy S23 Ultra 256GB"/>
+</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<input class="w-16 text-center glass-input rounded-md py-1 px-2 font-body-md text-body-md" type="number" value="15"/>
+</div>
+<div class="col-span-3 flex justify-end items-center gap-1">
+<input class="w-28 text-right glass-input rounded-md py-1 px-2 font-body-md text-body-md" type="number" value="650000"/>
+<span class="text-on-surface-variant font-label-sm">FCFA</span>
+</div>
+<div class="col-span-2 text-right font-label-md text-label-md text-on-background pr-2">
+                                    9 750 000
+                                </div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-4 items-center bg-surface-container-lowest py-3 px-2 rounded-lg border border-transparent hover:border-outline-variant transition-colors group">
+<div class="col-span-5 flex items-center gap-3">
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-error transition-all p-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+</button>
+<div class="w-10 h-10 bg-surface-variant rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="earbuds">earbuds</span>
+</div>
+<div class="flex-1">
+<input class="w-full bg-transparent border-b border-dashed border-outline-variant focus:border-primary focus:outline-none font-body-md text-body-md text-on-background py-1" type="text" value="Samsung Galaxy Buds 2 Pro"/>
+</div>
+</div>
+<div class="col-span-2 flex justify-center">
+<input class="w-16 text-center glass-input rounded-md py-1 px-2 font-body-md text-body-md" type="number" value="30"/>
+</div>
+<div class="col-span-3 flex justify-end items-center gap-1">
+<input class="w-28 text-right glass-input rounded-md py-1 px-2 font-body-md text-body-md" type="number" value="85000"/>
+<span class="text-on-surface-variant font-label-sm">FCFA</span>
+</div>
+<div class="col-span-2 text-right font-label-md text-label-md text-on-background pr-2">
+                                    2 550 000
+                                </div>
+</div>
+<!-- Empty Row for adding -->
+<div class="grid grid-cols-12 gap-4 items-center border border-dashed border-outline-variant py-3 px-2 rounded-lg bg-surface-container-lowest/50 mt-2">
+<div class="col-span-5 pl-8">
+<input class="w-full bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface-variant italic" placeholder="Rechercher un produit..." type="text"/>
+</div>
+<div class="col-span-7"></div>
+</div>
+</div>
+</div>
+<!-- Summary Card -->
+<div class="glass-card rounded-xl p-card-padding bg-gradient-to-br from-surface-container-lowest to-surface-container-low">
+<div class="flex flex-col ml-auto w-full md:w-1/2">
+<div class="flex justify-between py-2 border-b border-outline-variant/50">
+<span class="text-on-surface-variant font-body-md text-body-md">Sous-total</span>
+<span class="font-label-md text-label-md">12 300 000 FCFA</span>
+</div>
+<div class="flex justify-between py-2 border-b border-outline-variant/50">
+<span class="text-on-surface-variant font-body-md text-body-md">Frais de livraison est.</span>
+<span class="font-label-md text-label-md text-on-surface-variant">À définir</span>
+</div>
+<div class="flex justify-between py-4 mt-2">
+<span class="font-headline-md text-headline-md text-on-background">Total Estimé</span>
+<span class="font-headline-md text-headline-md text-primary">12 300 000 FCFA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Spacer for mobile -->
+<div class="h-20 md:hidden"></div>
+</div>
+</main>
+<!-- Simple JS for demonstration -->
+<script>
+        // In a real app, this would handle calculations and dynamic row addition
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Bon de commande page loaded");
+        });
+    </script>
+</body></html>

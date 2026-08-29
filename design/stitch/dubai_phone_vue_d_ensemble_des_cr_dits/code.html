@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aperçu du Crédit Client - Dubai Phone</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#faf8ff",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001849",
+                        "tertiary-container": "#a06500",
+                        "primary": "#0050cb",
+                        "primary-container": "#0066ff",
+                        "on-surface-variant": "#424656",
+                        "surface-container": "#eaedff",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "outline": "#727687",
+                        "inverse-on-surface": "#eef0ff",
+                        "surface-variant": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#c2c6d8",
+                        "on-tertiary-container": "#fff7f1",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006c49",
+                        "surface-tint": "#0054d6",
+                        "inverse-surface": "#283044",
+                        "on-surface": "#131b2e",
+                        "background": "#faf8ff",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#dae2fd",
+                        "on-primary-container": "#f8f7ff",
+                        "tertiary": "#7f4f00",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "on-background": "#131b2e",
+                        "surface-container-high": "#e2e7ff",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#b3c5ff",
+                        "surface-dim": "#d2d9f4",
+                        "on-secondary-fixed": "#002113",
+                        "secondary-container": "#6cf8bb",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary-fixed-dim": "#4edea3",
+                        "primary-fixed": "#dae1ff",
+                        "on-secondary-container": "#00714d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f3ff",
+                        "on-secondary-fixed-variant": "#005236"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "container-margin": "24px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Side Navigation (Web) -->
+<nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 border-r border-outline-variant/30 shadow-lg shadow-primary/5 bg-surface flex-col py-4 z-40">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Management Portal</p>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 transition-all shadow-sm" href="#">
+<span class="material-symbols-outlined filled">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Purchases</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg px-4 py-3 mx-2 transition-all mt-auto mb-4" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="px-4">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg hover:bg-primary/90 transition-colors shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Sale
+            </button>
+</div>
+</nav>
+<!-- Top Navigation (Mobile) -->
+<header class="md:hidden w-full sticky top-0 z-50 border-b border-outline-variant/30 shadow-sm shadow-primary/5 bg-surface/70 backdrop-blur-xl flex justify-between items-center h-16 px-6">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Dubai Phone</h1>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-primary-container/10 p-2 rounded-full transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/50">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A professional headshot of a retail manager in a bright, modern corporate setting. The lighting is soft and even, highlighting a friendly yet serious expression. The background is slightly blurred but suggests a high-tech retail store environment. The color palette features neutral tones with subtle blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZsFWXGj4qR4AIlgnx4QRSR5AwnqUVLy3usMDVjtRVCCaoqTAGCtl4nBmdaYwJ9RwLEdbETTqyIF9_TCS_I8OYK4PF16W30N4xd7A6k0urWC9x9fUOUwsE3dbvdej-BE3dcJLgCdPrRk2djAlQ4LpV39H0rhA2UclrW5Ldzte_k-6E4-NIlU5iBwzDeQZ2ZWXGq7f96dhZZrHIsC9z-izEmjZo8m_dKC14-kkGZ8AgH4BF_vkGXB_E"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-container-margin min-h-screen">
+<!-- Header Section -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Aperçu du Crédit Client</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Gérez vos créances et suivez les paiements à venir.</p>
+</div>
+<div class="flex gap-3">
+<button class="glass-card px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">download</span>
+                    Exporter
+                </button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+                    Nouveau Client
+                </button>
+</div>
+</div>
+<!-- Global Statistics (Bento Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Total Receivables Card -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between border-l-4 border-l-primary relative overflow-hidden">
+<div class="absolute -right-6 -top-6 text-primary/5">
+<span class="material-symbols-outlined" style="font-size: 120px;">account_balance_wallet</span>
+</div>
+<div class="flex items-center gap-3 mb-4 z-10">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Créances Totales</h3>
+</div>
+<div class="z-10">
+<p class="font-display-lg text-display-lg text-on-surface mb-1">15.4M <span class="font-headline-md text-headline-md text-on-surface-variant">FCFA</span></p>
+<p class="font-label-sm text-label-sm text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +2.4% ce mois
+                    </p>
+</div>
+</div>
+<!-- Collected this month Card -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between border-l-4 border-l-secondary relative overflow-hidden">
+<div class="absolute -right-6 -top-6 text-secondary/5">
+<span class="material-symbols-outlined" style="font-size: 120px;">check_circle</span>
+</div>
+<div class="flex items-center gap-3 mb-4 z-10">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">price_check</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Collecté (Ce mois)</h3>
+</div>
+<div class="z-10">
+<p class="font-headline-lg text-headline-lg text-on-surface mb-1">4.2M <span class="font-body-lg text-body-lg text-on-surface-variant">FCFA</span></p>
+<div class="w-full bg-surface-variant rounded-full h-1.5 mt-2 mb-1">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Objectif: 6.5M FCFA (65%)</p>
+</div>
+</div>
+<!-- At Risk Card -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col justify-between border-l-4 border-l-error relative overflow-hidden">
+<div class="absolute -right-6 -top-6 text-error/5">
+<span class="material-symbols-outlined" style="font-size: 120px;">warning</span>
+</div>
+<div class="flex items-center gap-3 mb-4 z-10">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Montant à Risque</h3>
+</div>
+<div class="z-10">
+<p class="font-headline-lg text-headline-lg text-error mb-1">1.2M <span class="font-body-lg text-body-lg text-on-surface-variant">FCFA</span></p>
+<p class="font-label-sm text-label-sm text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                        &gt; 30 jours de retard
+                    </p>
+</div>
+</div>
+</div>
+<!-- Detailed Sections -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Top Debtors List -->
+<section class="glass-card rounded-xl flex flex-col">
+<div class="p-card-padding border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">Principaux Débiteurs</h3>
+<button class="text-primary font-label-md text-label-md hover:underline">Voir tout</button>
+</div>
+<div class="p-4 flex-1">
+<ul class="flex flex-col gap-2">
+<!-- Debtor 1 -->
+<li class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-label-md text-label-md">SA</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Société Alpha</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ID: CLI-1042</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-error">450,000 FCFA</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Retard de 15 jours</p>
+</div>
+</li>
+<!-- Debtor 2 -->
+<li class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md">MC</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Mairie de Centre</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ID: CLI-0891</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">320,000 FCFA</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Échéance aujourd'hui</p>
+</div>
+</li>
+<!-- Debtor 3 -->
+<li class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md">EK</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Entreprise Kotto</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ID: CLI-1105</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-error">215,000 FCFA</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Retard de 42 jours</p>
+</div>
+</li>
+<!-- Debtor 4 -->
+<li class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded-lg transition-colors border border-transparent hover:border-outline-variant/20">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md text-label-md">IB</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ibrahim Boutiques</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">ID: CLI-0933</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">180,000 FCFA</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Dans 3 jours</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<!-- Upcoming Payments (Timeline) -->
+<section class="glass-card rounded-xl flex flex-col">
+<div class="p-card-padding border-b border-outline-variant/30 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface">Paiements Attendus (Semaine)</h3>
+<div class="flex gap-2">
+<button class="p-1 rounded bg-surface-variant text-on-surface-variant hover:bg-surface-container-high"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="p-1 rounded bg-surface-variant text-on-surface-variant hover:bg-surface-container-high"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</div>
+</div>
+<div class="p-card-padding flex-1">
+<div class="relative border-l-2 border-outline-variant/30 ml-3 space-y-6 pb-4">
+<!-- Timeline Item 1 -->
+<div class="relative pl-6">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-secondary border-2 border-surface"></div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Aujourd'hui</p>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="font-label-md text-label-md text-on-surface">Facture #F23-091</p>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-[10px]">Échu</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Mairie de Centre</p>
+<p class="font-label-md text-label-md text-on-surface mt-2">320,000 FCFA</p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-6">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-surface"></div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Mercredi, 15 Nov</p>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<p class="font-label-md text-label-md text-on-surface">Facture #F23-095</p>
+<span class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary font-label-sm text-[10px]">À venir</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Ibrahim Boutiques</p>
+<p class="font-label-md text-label-md text-on-surface mt-2">180,000 FCFA</p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-6">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-outline-variant border-2 border-surface"></div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Vendredi, 17 Nov</p>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/20 shadow-sm opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start mb-2">
+<p class="font-label-md text-label-md text-on-surface">Facture #F23-102</p>
+<span class="px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-[10px]">Planifié</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Tech Solutions Sarl</p>
+<p class="font-label-md text-label-md text-on-surface mt-2">550,000 FCFA</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

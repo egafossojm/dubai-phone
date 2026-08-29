@@ -1,0 +1,54 @@
+Design the inventory management module of a professional electronics store management application.
+
+Language: French.
+Currency: FCFA.
+Market: Cameroon.
+
+The inventory system is based on stock movements.
+
+A stock movement can be:
+- purchase receipt
+- sale
+- customer return
+- supplier return
+- manual adjustment
+- reservation
+- release
+
+Create:
+
+1. Inventory dashboard
+2. Inventory list
+3. Stock movement history
+4. Product inventory detail
+5. Serialized inventory
+6. IMEI history
+7. Stock adjustment modal
+8. Low-stock view
+
+The product inventory detail should display:
+
+- current stock
+- available stock
+- reserved stock
+- product cost
+- selling price
+- inventory value
+- movement history
+
+For serialized products display:
+- IMEI 1
+- IMEI 2
+- serial number
+- status
+- supplier
+- purchase date
+- sale date
+- customer
+- warranty
+
+Use a professional ERP-style interface.
+
+Prioritize traceability and clarity.
+
+Include empty, loading, error and confirmation states.

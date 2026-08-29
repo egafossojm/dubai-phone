@@ -1,0 +1,51 @@
+Implement customer and customer-credit management.
+
+Customers must support:
+
+- name
+- phone
+- email
+- address
+- purchase history
+
+Credit sales must support:
+
+- total amount
+- initial payment
+- remaining balance
+- installments
+- due dates
+- customer payments
+- status
+
+Statuses:
+
+PAID
+PARTIALLY_PAID
+PENDING
+OVERDUE
+
+Implement:
+
+- customer list
+- customer detail
+- credit summary
+- credit detail
+- installment schedule
+- payment registration
+- payment history
+
+Every payment must be traceable.
+
+Prevent overpayment unless explicitly supported.
+
+Use database transactions.
+
+Write tests for:
+
+- full payment
+- partial payment
+- multiple payments
+- overdue installments
+- completed credit
+- invalid payment amount

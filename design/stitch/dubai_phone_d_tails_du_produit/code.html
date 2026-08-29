@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dubai Phone - Détail Produit</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom Scrollbar for IMEI list */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #c2c6d8;
+            border-radius: 10px;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-primary": "#b3c5ff",
+                      "surface-dim": "#d2d9f4",
+                      "on-secondary-container": "#00714d",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#6cf8bb",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#002113",
+                      "outline-variant": "#c2c6d8",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-background": "#131b2e",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "background": "#faf8ff",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#fff7f1",
+                      "surface-bright": "#faf8ff",
+                      "tertiary-container": "#a06500",
+                      "primary": "#0050cb",
+                      "on-surface-variant": "#424656",
+                      "on-primary-fixed": "#001849",
+                      "primary-fixed": "#dae1ff",
+                      "tertiary-fixed": "#ffddb8",
+                      "secondary": "#006c49",
+                      "on-primary-container": "#f8f7ff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "surface-container": "#eaedff",
+                      "surface-container-high": "#e2e7ff",
+                      "outline": "#727687",
+                      "inverse-on-surface": "#eef0ff",
+                      "surface-container-highest": "#dae2fd",
+                      "on-error": "#ffffff",
+                      "surface": "#faf8ff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "surface-variant": "#dae2fd",
+                      "surface-tint": "#0054d6",
+                      "on-tertiary-fixed": "#2a1700",
+                      "surface-container-low": "#f2f3ff",
+                      "on-error-container": "#93000a",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#283044",
+                      "primary-container": "#0066ff",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-surface": "#131b2e",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "tertiary": "#7f4f00",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "24px",
+                      "card-padding": "20px",
+                      "base": "8px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}]
+              }
+      }
+          }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Shared Component JSON Blueprint) -->
+<aside class="hidden md:flex bg-surface-container-lowest text-primary font-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant shadow-sm flex flex-col h-full py-base px-gutter z-50">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-3 py-6 mb-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary icon-fill">storefront</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-primary tracking-tight leading-none">Dubai Phone</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Gestion d'Électronique</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="mb-6 px-2">
+<button class="w-full bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg shadow-sm flex items-center justify-center gap-2 transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Nouveau Rapport
+            </button>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Tableau de bord</span>
+</a>
+<!-- Active (Inventaire) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold bg-secondary-container/30 border-r-4 border-primary transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined icon-fill">inventory_2</span>
+<span class="font-label-md text-label-md">Inventaire</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Ventes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Clients</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-label-md text-label-md">Réparations</span>
+</a>
+</nav>
+<!-- Footer / Settings -->
+<div class="mt-auto pt-4 border-t border-outline-variant/50">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Paramètres</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component JSON Blueprint) -->
+<header class="hidden md:flex bg-surface/70 backdrop-blur-md text-primary font-label-md fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant shadow-sm flex justify-between items-center h-16 px-container-margin transition-all">
+<!-- Search -->
+<div class="flex-1 max-w-md relative focus-within:ring-2 focus-within:ring-primary/20 rounded-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-0 text-on-surface placeholder:text-on-surface-variant font-body-md pl-10 pr-4 py-2 rounded-lg focus:ring-0 focus:outline-none transition-colors hover:bg-surface-container h-10" placeholder="Rechercher un produit, IMEI..." type="text"/>
+</div>
+<!-- Center Nav Links -->
+<div class="flex items-center space-x-6 mx-8">
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#">Bafang</a>
+<!-- Active Location Example -->
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Yaoundé</a>
+<a class="text-on-surface-variant hover:text-primary transition-all" href="#">Douala</a>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-surface-container-high p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-primary hover:bg-surface-container-high p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="hidden lg:flex bg-primary/10 text-primary hover:bg-primary/20 font-label-md text-label-md py-2 px-4 rounded-lg transition-colors items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">search</span>
+                Rechercher
+            </button>
+<!-- Profile -->
+<div class="h-9 w-9 rounded-full bg-primary-container border border-outline-variant overflow-hidden cursor-pointer ml-2 shadow-sm">
+<img alt="Profil Utilisateur" class="w-full h-full object-cover" data-alt="A professional headshot of an African store manager in a brightly lit modern electronics shop, looking confident and approachable. The lighting is soft and cinematic, emphasizing a clean, modern aesthetic with subtle corporate blue accents in the background. High resolution, shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDUubIOhNYWCnVybW19ogcgS8KjyuJTGUgm1Ed6DqtzbzZ4p8l4FZMU8ws_XaI3i25MC4w-vGzb-zZEOsIt6tDNakIhHF67Xp4LLdOJSu_KirnVoTKIfCeQuEdeubX2RFeqI1_cHnvi3L8UKv3ytyCrryOAk4Y0i1CQXolQO2Up_JfnqTkn3X15tLhIes1vcQiDvJwt3Yb1rv5432eH2ks_wXVdycHRJiXOf15MUqHmUiAAH3KPMqk"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 md:mt-16 p-container-margin max-w-7xl mx-auto">
+<!-- Breadcrumbs & Header Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<nav class="flex items-center space-x-2 text-label-sm font-label-sm text-on-surface-variant mb-3">
+<a class="hover:text-primary transition-colors" href="#">Inventaire</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Smartphones</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface">Apple</span>
+</nav>
+<div class="flex items-center gap-4">
+<h2 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">iPhone 15 Pro</h2>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm border border-secondary/20 shadow-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                        En Stock
+                    </span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">qr_code_2</span>
+                    Réf: APPL-IP15P-256-TN
+                </p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="bg-white/70 backdrop-blur-md border border-outline-variant text-on-surface hover:text-primary hover:border-primary hover:bg-surface-container-lowest px-4 py-2.5 rounded-lg font-label-md text-label-md transition-all shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                    Modifier
+                </button>
+<button class="bg-white/70 backdrop-blur-md border border-outline-variant text-on-surface hover:text-primary hover:border-primary hover:bg-surface-container-lowest px-4 py-2.5 rounded-lg font-label-md text-label-md transition-all shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">print</span>
+                    Imprimer Étiquette
+                </button>
+<button class="bg-primary hover:bg-primary/90 text-on-primary px-5 py-2.5 rounded-lg font-label-md text-label-md transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">inventory</span>
+                    Ajuster Stock
+                </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Hero Image Card (Span 4) -->
+<div class="md:col-span-12 lg:col-span-4 bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgba(0,80,203,0.06)] rounded-xl p-card-padding flex flex-col relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-50 z-0"></div>
+<div class="relative z-10 flex-1 flex items-center justify-center bg-surface-container-lowest rounded-lg p-4 border border-outline-variant/30 overflow-hidden">
+<img alt="iPhone 15 Pro Image" class="w-full h-auto object-contain max-h-64 drop-shadow-xl group-hover:scale-105 transition-transform duration-500" data-alt="A pristine, highly detailed studio shot of an iPhone 15 Pro in Natural Titanium finish. The phone is angled slightly to show both the screen and the textured titanium edge. Soft, diffused lighting highlights the premium materials against a clean, abstract white background with subtle blue-toned ambient shadows. High resolution, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpsyQC6lG8kIwCO0M50W43usrDE53HgVcvyMxDlCnhNWit1sCTemG3YfrTDDksYC-o_Kg-Cq_uO6aS0tMRP_OzYrgbzP77PNVYws9WP7hKnUd458daTXJu1oTAczOrtqkL6pzBwV8qVRNJ6sec3tN4U8-qLoOLZIxWz3UxS8WK-i1SB5mKzU1OXfKAQw6T8aCGvn4X5oPSyQtlV2D7dxMenwYHIjt0dhgt-0NIdSh9RrK8h3NIJqcV"/>
+</div>
+<div class="relative z-10 mt-4 flex justify-center gap-2">
+<!-- Thumbnails -->
+<button class="w-12 h-12 rounded-md border-2 border-primary bg-surface-container-lowest p-1 overflow-hidden">
+<img alt="Thumbnail 1" class="w-full h-full object-cover rounded-sm" data-alt="Close up macro shot of the triple camera system on the back of a titanium smartphone. Highly detailed lenses, soft reflections, studio lighting, clean tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRMKFtZ_bSq8-GP3zVQIAOEd5wgnFNB26mIUTfDnTX-QdpV9DpQkH4IPcJvFj3i_ryg2AMhTEKjnq54XKQcxC2QpqGEkzJGWIgzSazLP1Z4RalvGUOiuC_9eHjIomlHYWSkf2huL-8fl_tencD07DBfOEpsp_zXUreFuCtM-xMVFmYqCVs76RrqEcbQ6FqTMU0svbsrR-vKGWUpSnUGejyWBTc9QP_Eo2GVaXMAWnS9XRjjHSm118e"/>
+</button>
+<button class="w-12 h-12 rounded-md border border-outline-variant hover:border-primary/50 bg-surface-container-lowest p-1 overflow-hidden transition-colors">
+<img alt="Thumbnail 2" class="w-full h-full object-cover rounded-sm" data-alt="Side profile view of a modern titanium smartphone showing the action button and volume rockers. Sleek lines, metallic sheen, neutral light background, professional product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtlRJN1EDUQA6qrSYlMljm-t6BnNSHS2DNBJltZnmAx4eXIqEq6B0aAu2wg0WdkgJ2shN-7zzNW73YWXe6bhHwB-nAcEoS262FgFKKfpKzv5dRMhY5a4WcdNhREsWWXL_BJ3JIizTiZdQxJD4e0pl5hZwgWPmFLrZRT_VpRDa3pxg6L4Zip-R3omoWMp1oHub2OE64fbz14HPB-kVMjy-CCPjzjg0kGiktP8p_rv4t7cOJgbUzW9lY"/>
+</button>
+</div>
+</div>
+<!-- Pricing & Core Stats Card (Span 8) -->
+<div class="md:col-span-12 lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Financials -->
+<div class="bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgba(0,80,203,0.06)] rounded-xl p-card-padding flex flex-col justify-between">
+<div>
+<h3 class="text-label-md font-label-md text-on-surface-variant mb-1 uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">sell</span>
+                            Tarification Actuelle
+                        </h3>
+<div class="mt-4">
+<p class="text-sm text-on-surface-variant font-medium">Prix de Vente Unitaire</p>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-display-lg font-display-lg text-on-surface tracking-tight">850 000</span>
+<span class="text-headline-md font-headline-md text-on-surface-variant">FCFA</span>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/30 grid grid-cols-2 gap-4">
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Prix d'Achat (Cout Moyen)</p>
+<p class="text-body-lg font-body-lg text-on-surface font-semibold">650 000 FCFA</p>
+</div>
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-1">Marge Brute</p>
+<div class="flex items-center gap-2">
+<p class="text-body-lg font-body-lg text-secondary font-bold">200 000 FCFA</p>
+<span class="bg-secondary-container/50 text-secondary px-2 py-0.5 rounded text-[11px] font-bold">+23.5%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stock Overview -->
+<div class="bg-primary/5 backdrop-blur-xl border border-primary/10 shadow-[0_8px_30px_rgba(0,80,203,0.06)] rounded-xl p-card-padding flex flex-col relative overflow-hidden">
+<div class="absolute -right-6 -top-6 text-primary/10 rotate-12 pointer-events-none">
+<span class="material-symbols-outlined" style="font-size: 160px; font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<h3 class="text-label-md font-label-md text-primary mb-1 uppercase tracking-wider relative z-10">Volume Inventaire</h3>
+<div class="mt-4 relative z-10 flex-1">
+<p class="text-sm text-on-surface-variant font-medium">Stock Total Global</p>
+<div class="flex items-baseline gap-2 mt-1 mb-6">
+<span class="text-display-lg font-display-lg text-primary tracking-tight">24</span>
+<span class="text-body-lg font-body-lg text-on-surface-variant">unités</span>
+</div>
+<!-- Stock Distribution Bar -->
+<div class="space-y-2">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface">Répartition par Boutique</span>
+</div>
+<div class="w-full h-3 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 60%;" title="Yaoundé: 15"></div>
+<div class="h-full bg-primary-container border-l border-white/50" style="width: 30%;" title="Douala: 7"></div>
+<div class="h-full bg-tertiary-container border-l border-white/50" style="width: 10%;" title="Bafang: 2"></div>
+</div>
+<div class="flex justify-between text-[11px] text-on-surface-variant mt-1">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span>Yaoundé (15)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary-container"></span>Douala (7)</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span>Bafang (2)</span>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- End Top Row Grid -->
+<!-- Variants Card (Span 4) -->
+<div class="md:col-span-12 lg:col-span-4 bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgba(0,80,203,0.06)] rounded-xl p-card-padding flex flex-col">
+<h3 class="text-headline-md font-headline-md text-on-surface mb-4">Variantes</h3>
+<!-- Storage -->
+<div class="mb-6">
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-2">Capacité de Stockage</p>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-lg border-2 border-primary bg-primary/5 text-primary font-label-md flex flex-col items-start min-w-[100px]">
+<span>256 Go</span>
+<span class="text-[11px] font-normal mt-0.5">15 en stock</span>
+</button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface hover:border-primary/50 font-label-md flex flex-col items-start min-w-[100px] transition-colors">
+<span>512 Go</span>
+<span class="text-[11px] font-normal mt-0.5 text-on-surface-variant">9 en stock</span>
+</button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest text-outline opacity-50 cursor-not-allowed font-label-md flex flex-col items-start min-w-[100px]">
+<span>1 To</span>
+<span class="text-[11px] font-normal mt-0.5">Rupture</span>
+</button>
+</div>
+</div>
+<!-- Colors -->
+<div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-2">Couleur Finition</p>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest border border-outline-variant/50 hover:border-primary/30 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-[#b8b3a9] border border-black/10 shadow-inner"></div>
+<span class="font-body-md text-on-surface">Titane Naturel</span>
+</div>
+<span class="bg-secondary-container/50 text-secondary px-2 py-0.5 rounded text-[11px] font-medium">8 dispo</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest border border-outline-variant/50 hover:border-primary/30 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-[#2d323b] border border-black/10 shadow-inner"></div>
+<span class="font-body-md text-on-surface">Titane Bleu</span>
+</div>
+<span class="bg-secondary-container/50 text-secondary px-2 py-0.5 rounded text-[11px] font-medium">10 dispo</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-container-lowest border border-outline-variant/50 hover:border-primary/30 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-[#1b1b1b] border border-black/10 shadow-inner"></div>
+<span class="font-body-md text-on-surface">Titane Noir</span>
+</div>
+<span class="bg-secondary-container/50 text-secondary px-2 py-0.5 rounded text-[11px] font-medium">6 dispo</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Serialized Inventory (IMEIs) (Span 8) -->
+<div class="md:col-span-12 lg:col-span-8 bg-white/70 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgba(0,80,203,0.06)] rounded-xl flex flex-col overflow-hidden">
+<!-- Header -->
+<div class="p-4 border-b border-outline-variant/40 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest/50">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">barcode_scanner</span>
+                            Inventaire Sérialisé (IMEI)
+                        </h3>
+<p class="text-label-sm text-on-surface-variant mt-1">Gérez les unités spécifiques en stock.</p>
+</div>
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface border border-outline-variant text-on-surface text-sm rounded-md pl-9 pr-3 py-1.5 focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Scanner ou taper IMEI..." type="text"/>
+</div>
+</div>
+<!-- Table Container with Scroll -->
+<div class="overflow-x-auto flex-1 custom-scrollbar max-h-[320px] bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface sticky top-0 z-10 shadow-sm">
+<tr>
+<th class="py-3 px-4 text-label-sm font-label-md text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Numéro IMEI / Série</th>
+<th class="py-3 px-4 text-label-sm font-label-md text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Variante</th>
+<th class="py-3 px-4 text-label-sm font-label-md text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Localisation</th>
+<th class="py-3 px-4 text-label-sm font-label-md text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Statut</th>
+<th class="py-3 px-4 text-label-sm font-label-md text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-3 px-4">
+<div class="font-mono text-sm text-on-surface font-medium">358901245678901</div>
+<div class="text-[11px] text-on-surface-variant">Entré le: 12 Oct 2023</div>
+</td>
+<td class="py-3 px-4">
+<span class="text-sm text-on-surface">256 Go, T. Naturel</span>
+</td>
+<td class="py-3 px-4 text-sm text-on-surface-variant">Vitrine Avant, Yaoundé</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 bg-secondary-container/40 text-secondary px-2.5 py-1 rounded-full text-[12px] font-medium border border-secondary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        En Magasin
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-3 px-4">
+<div class="font-mono text-sm text-on-surface font-medium">358901245678902</div>
+<div class="text-[11px] text-on-surface-variant">Entré le: 12 Oct 2023</div>
+</td>
+<td class="py-3 px-4">
+<span class="text-sm text-on-surface">256 Go, T. Bleu</span>
+</td>
+<td class="py-3 px-4 text-sm text-on-surface-variant">Réserve Sec, Yaoundé</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 bg-secondary-container/40 text-secondary px-2.5 py-1 rounded-full text-[12px] font-medium border border-secondary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        En Magasin
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-variant/30 transition-colors group">
+<td class="py-3 px-4">
+<div class="font-mono text-sm text-on-surface font-medium">358901245678915</div>
+<div class="text-[11px] text-on-surface-variant">Entré le: 05 Sep 2023</div>
+</td>
+<td class="py-3 px-4">
+<span class="text-sm text-on-surface">512 Go, T. Noir</span>
+</td>
+<td class="py-3 px-4 text-sm text-on-surface-variant">Transfert, Douala</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 bg-tertiary-container/20 text-tertiary px-2.5 py-1 rounded-full text-[12px] font-medium border border-tertiary/20">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                                        En Transit
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 (Sold) -->
+<tr class="bg-surface-container/30 hover:bg-surface-variant/30 transition-colors group">
+<td class="py-3 px-4">
+<div class="font-mono text-sm text-on-surface-variant font-medium line-through decoration-outline-variant">358901245678800</div>
+<div class="text-[11px] text-on-surface-variant">Vendu le: 24 Oct 2023</div>
+</td>
+<td class="py-3 px-4">
+<span class="text-sm text-on-surface-variant">256 Go, T. Naturel</span>
+</td>
+<td class="py-3 px-4 text-sm text-on-surface-variant">-</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 bg-surface-variant text-on-surface-variant px-2.5 py-1 rounded-full text-[12px] font-medium border border-outline-variant/30">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                        Vendu
+                                    </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-on-surface-variant hover:text-primary p-1 rounded-md transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined text-[20px]">receipt</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Footer Action -->
+<div class="p-3 border-t border-outline-variant/40 bg-surface-container-lowest text-center">
+<button class="text-primary font-label-md text-sm hover:underline flex items-center justify-center gap-1 w-full">
+                        Voir les 24 IMEIs
+                        <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Supplier & Warranty Info (Span 12 for wide screens, otherwise stacking) -->
+<div class="md:col-span-12 bg-surface-container-low border border-outline-variant/50 shadow-sm rounded-xl p-card-padding flex flex-col md:flex-row gap-6 lg:gap-12">
+<!-- Supplier -->
+<div class="flex-1 flex gap-4 items-start">
+<div class="w-12 h-12 rounded-lg bg-white border border-outline-variant/50 flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[28px]">local_shipping</span>
+</div>
+<div>
+<h4 class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider mb-1">Fournisseur Principal</h4>
+<p class="text-body-lg font-body-lg text-on-surface font-semibold">Global Tech Distributors Llc.</p>
+<div class="mt-2 text-sm text-on-surface-variant flex flex-col gap-1">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">call</span> +971 4 123 4567</span>
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">mail</span> orders@globaltech.ae</span>
+</div>
+</div>
+</div>
+<div class="hidden md:block w-px bg-outline-variant/50 self-stretch"></div>
+<!-- Warranty -->
+<div class="flex-1 flex gap-4 items-start">
+<div class="w-12 h-12 rounded-lg bg-white border border-outline-variant/50 flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[28px]">verified</span>
+</div>
+<div>
+<h4 class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider mb-1">Garantie &amp; Politique</h4>
+<p class="text-body-lg font-body-lg text-on-surface font-semibold">12 Mois (Apple Standard)</p>
+<div class="mt-2 text-sm text-on-surface-variant space-y-1">
+<p class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-secondary">check</span>
+                                Remplacement DOA sous 7 jours.
+                            </p>
+<p class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] mt-0.5 text-secondary">check</span>
+                                Prise en charge SAV en boutique certifiée.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- End Main Grid -->
+</main>
+</body></html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Orientation 2: Operational &amp; Stock</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#a06500",
+                      "on-primary-container": "#f8f7ff",
+                      "background": "#faf8ff",
+                      "secondary-fixed": "#6ffbbe",
+                      "on-secondary-container": "#00714d",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#dae2fd",
+                      "tertiary-fixed": "#ffddb8",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#b3c5ff",
+                      "surface": "#faf8ff",
+                      "primary-container": "#0066ff",
+                      "on-primary-fixed": "#001849",
+                      "on-secondary-fixed": "#002113",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-tertiary-fixed": "#2a1700",
+                      "surface-container": "#eaedff",
+                      "secondary-fixed-dim": "#4edea3",
+                      "on-secondary-fixed-variant": "#005236",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-surface-variant": "#424656",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "secondary-container": "#6cf8bb",
+                      "primary": "#0050cb",
+                      "tertiary": "#7f4f00",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#dae1ff",
+                      "outline": "#727687",
+                      "on-error": "#ffffff",
+                      "on-surface": "#131b2e",
+                      "surface-container-low": "#f2f3ff",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#131b2e",
+                      "surface-tint": "#0054d6",
+                      "surface-bright": "#faf8ff",
+                      "inverse-surface": "#283044",
+                      "on-tertiary-container": "#fff7f1",
+                      "secondary": "#006c49",
+                      "surface-variant": "#dae2fd",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "surface-container-high": "#e2e7ff",
+                      "surface-dim": "#d2d9f4",
+                      "outline-variant": "#c2c6d8",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin": "24px",
+                      "card-padding": "20px",
+                      "gutter": "16px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(0, 102, 255, 0.08);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[style*="font-variation-settings: 'FILL' 1;"] {
+             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<nav aria-label="Sidebar Navigation" class="hidden md:flex flex-col h-screen w-64 py-6 px-4 border-r border-outline-variant bg-surface">
+<!-- Header -->
+<div class="mb-8 px-2 flex items-center space-x-3">
+<img alt="Store Logo" class="w-10 h-10 rounded-full object-cover shadow-sm border border-outline-variant/30" data-alt="A modern, high-tech circular logo for a technology retail store, featuring a stylized tech blue emblem on a crisp white background. The design is clean, corporate, and minimalist, suited for a high-paced retail environment in light mode. High-resolution vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBA2cajHooRc_xBHevzQ-kxgyueXujH46zM-98d6johdBfMkpYpsXzyOTxfh9vXF6HCTT8miGDqdOxOBAxjjRZZOJGnQrpbIFNb9mDTOztWwMA6dS75ZOkoQ2hXwXRAYnuF-ZRm3bJISaK31o4vayt1eHWZhK_wl_z5--IzawVE7f-y13QAGdIOHxPsVShWO7LQHh3K3J4AEYbJ_74FavnsHSAPX9io33713lPXtZ3WEcCGWXCBSr-P"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-black text-primary truncate">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant truncate">XAF Balance: 2.4M</p>
+</div>
+</div>
+<!-- Main Tabs -->
+<ul class="flex-1 space-y-2">
+<li>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<li>
+<a aria-current="page" class="flex items-center space-x-3 px-3 py-2 rounded-xl bg-primary-container text-on-primary-container translate-x-1 transition-transform duration-200 shadow-sm" href="#">
+<span aria-hidden="true" class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-md text-label-md">Inventory</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-md text-label-md">Sales</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">build</span>
+<span class="font-label-md text-label-md">Repair Tracking</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+</ul>
+<!-- Footer / CTA -->
+<div class="mt-auto space-y-4 pt-4">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg shadow-md hover:bg-primary/90 transition-colors flex justify-center items-center space-x-2">
+<span aria-hidden="true" class="material-symbols-outlined text-[20px]">add</span>
+<span>New Inventory</span>
+</button>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center space-x-3 px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">help_center</span>
+<span class="font-label-md text-label-md">Help Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar (Responsive) -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-container-margin h-16 w-full bg-surface/70 backdrop-blur-md border-b border-outline-variant/30 shadow-sm md:border-b md:border-outline-variant/30">
+<!-- Left: Brand / Title (Mobile) or Search (Desktop) -->
+<div class="flex items-center flex-1">
+<span class="md:hidden font-headline-md text-headline-md font-bold text-primary mr-4">Dubai Phone</span>
+<!-- Desktop Search (on_left) -->
+<div class="hidden md:flex relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow" placeholder="Search inventory, IMEIs, or repairs..." type="text"/>
+</div>
+</div>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center space-x-2 md:space-x-4">
+<button aria-label="Notifications" class="p-2 text-on-surface-variant hover:bg-primary-container/20 transition-colors rounded-full relative">
+<span aria-hidden="true" class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button aria-label="Shipping" class="p-2 text-on-surface-variant hover:bg-primary-container/20 transition-colors rounded-full">
+<span aria-hidden="true" class="material-symbols-outlined">local_shipping</span>
+</button>
+<button class="hidden md:flex bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg shadow-sm hover:scale-[0.98] transition-transform duration-150">
+                    Add Sale
+                </button>
+<button class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant focus:outline-none focus:ring-2 focus:ring-primary ml-2">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="A professional headshot of an African tech store manager in a crisp blue button-down shirt. The background is a brightly lit, modern retail environment. The image is high contrast and clear, conveying approachability and competence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjE4nNm4JU71wjzkDonO1Yx5MEUwlH8BwMF2xttNrI9KW2_F8PbvZmE8-ierf6wp9CqkeNzqW5lyLSlmvGgepUM7a2--RsHXxopqGbhfMuZiwm0jLNk7m_HOeenM1_9bY2xfCJom_nlL4HtZtQ97zIjAGWiMN5-6-VMSdjYVWguqQ6FcbjaWKijn4Qo1yplYohjs9MNC55ok1IbCrEgTfDo74yKVWMF7uJSiUBx_BBENQ35uClr4G"/>
+</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter md:p-container-margin bg-surface">
+<div class="max-w-7xl mx-auto space-y-gutter md:space-y-container-margin">
+<!-- Page Header & Quick Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between space-y-4 md:space-y-0">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Vue Opérationnelle</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Real-time stock and logistics monitoring.</p>
+</div>
+<div class="flex space-x-3">
+<button class="flex items-center space-x-2 px-4 py-2 glass-card rounded-lg text-primary font-label-md text-label-md hover:bg-primary-container/10 transition-colors">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+<span>Transfer Stock</span>
+</button>
+<button class="flex items-center space-x-2 px-4 py-2 bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-md hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_box</span>
+<span>Add New Stock</span>
+</button>
+</div>
+</div>
+<!-- Alerts & KPI Top Row (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter md:gap-container-margin">
+<!-- Low Stock Alerts -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col md:col-span-2 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center space-x-2 text-error">
+<span class="material-symbols-outlined">warning</span>
+<h3 class="font-headline-md text-headline-md">Alertes Stock Bas</h3>
+</div>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-1 rounded-full">3 Critical</span>
+</div>
+<ul class="space-y-3 flex-1 overflow-y-auto pr-2">
+<li class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Samsung Galaxy S23 Ultra (256GB, Phantom Black)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">SKU: SG-23U-256-PB</p>
+</div>
+<div class="text-right">
+<p class="font-headline-md text-headline-md text-error">2 <span class="text-label-sm font-label-sm text-on-surface-variant">left</span></p>
+</div>
+</li>
+<li class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+<div>
+<p class="font-label-md text-label-md text-on-surface">iPhone 14 Pro Max (128GB, Deep Purple)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">SKU: IP-14PM-128-DP</p>
+</div>
+<div class="text-right">
+<p class="font-headline-md text-headline-md text-error">0 <span class="text-label-sm font-label-sm text-on-surface-variant">left</span></p>
+</div>
+</li>
+<li class="flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Anker PowerCore 20K Power Bank</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">SKU: AK-PC-20K</p>
+</div>
+<div class="text-right">
+<p class="font-headline-md text-headline-md text-error">5 <span class="text-label-sm font-label-sm text-on-surface-variant">left</span></p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Warranty & Repair Summary -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col relative overflow-hidden group hover:shadow-lg transition-shadow">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+<div class="flex items-center space-x-2 text-tertiary mb-6">
+<span class="material-symbols-outlined">build_circle</span>
+<h3 class="font-headline-md text-headline-md">Réparations &amp; Garanties</h3>
+</div>
+<div class="grid grid-cols-2 gap-4 flex-1">
+<div class="flex flex-col justify-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pending Repairs</p>
+<p class="font-display-lg text-display-lg text-on-surface">14</p>
+</div>
+<div class="flex flex-col justify-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Active Warranties</p>
+<p class="font-display-lg text-display-lg text-on-surface">342</p>
+</div>
+<div class="col-span-2 pt-2 mt-auto">
+<button class="w-full text-center text-primary font-label-md text-label-md hover:underline decoration-primary">View repair queue →</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Row: Categories & Incoming Shipments -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter md:gap-container-margin">
+<!-- Categories Overview -->
+<div class="glass-card rounded-xl p-card-padding">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center"><span class="material-symbols-outlined mr-2 text-primary">category</span>Stock par Catégorie</h3>
+<div class="space-y-4">
+<!-- Category: Smartphones -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Smartphones</span>
+<span class="text-on-surface-variant">850 Units</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 70%"></div>
+</div>
+</div>
+<!-- Category: Accessories -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Accessories</span>
+<span class="text-on-surface-variant">1,240 Units</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-secondary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- Category: Tablets -->
+<div>
+<div class="flex justify-between font-label-md text-label-md mb-1">
+<span class="text-on-surface">Tablets</span>
+<span class="text-on-surface-variant">120 Units</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-tertiary-container h-2 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Arrivals -->
+<div class="glass-card rounded-xl p-card-padding flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center"><span class="material-symbols-outlined mr-2 text-secondary">flight_land</span>Arrivages Récents</h3>
+<button class="text-primary hover:bg-primary-container/20 p-1 rounded-full transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="space-y-4 flex-1">
+<div class="flex items-center space-x-4 p-3 bg-surface rounded-lg border border-outline-variant/30">
+<div class="w-12 h-12 rounded bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smartphone</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Tecno Spark 10 Shipment</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Arrived: Today, 09:30 AM</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-secondary">+50 Units</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Verified</p>
+</div>
+</div>
+<div class="flex items-center space-x-4 p-3 bg-surface rounded-lg border border-outline-variant/30">
+<div class="w-12 h-12 rounded bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">headphones</span>
+</div>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface">Mixed Audio Accessories</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Arrived: Yesterday, 14:15</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-secondary">+200 Units</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Verified</p>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full text-center text-primary font-label-md text-label-md hover:underline decoration-primary">View all shipments →</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

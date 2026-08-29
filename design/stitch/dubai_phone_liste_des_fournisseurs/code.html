@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fournisseurs - Dubai Phone ERP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#f2f3ff",
+                      "on-secondary-fixed": "#002113",
+                      "primary": "#0050cb",
+                      "secondary": "#006c49",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#f8f7ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "on-primary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c2c6d8",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-tertiary-fixed": "#2a1700",
+                      "background": "#faf8ff",
+                      "on-primary-fixed-variant": "#003fa4",
+                      "inverse-primary": "#b3c5ff",
+                      "on-tertiary-container": "#fff7f1",
+                      "surface": "#faf8ff",
+                      "primary-fixed": "#dae1ff",
+                      "primary-container": "#0066ff",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#00714d",
+                      "tertiary-container": "#a06500",
+                      "tertiary": "#7f4f00",
+                      "surface-tint": "#0054d6",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "on-surface": "#131b2e",
+                      "secondary-fixed": "#6ffbbe",
+                      "secondary-fixed-dim": "#4edea3",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "surface-bright": "#faf8ff",
+                      "inverse-surface": "#283044",
+                      "surface-dim": "#d2d9f4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-surface-variant": "#424656",
+                      "surface-variant": "#dae2fd",
+                      "tertiary-fixed": "#ffddb8",
+                      "surface-container-highest": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "outline": "#727687",
+                      "on-primary-fixed": "#001849",
+                      "surface-container-high": "#e2e7ff",
+                      "on-background": "#131b2e",
+                      "surface-container": "#eaedff",
+                      "secondary-container": "#6cf8bb",
+                      "tertiary-fixed-dim": "#ffb95f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "card-padding": "20px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-inverse-surface bg-surface-container-low/70 backdrop-blur-xl border-r border-outline-variant shadow-sm z-50">
+<div class="flex flex-col h-full p-4 w-full">
+<div class="mb-8 flex items-center gap-3 px-2">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold overflow-hidden shadow-sm">
+<img alt="Logo Dubai Phone" class="object-cover w-full h-full" data-alt="A modern corporate logo mark for a high-tech retail company in Cameroon. The logo uses geometric shapes intersecting dynamically, colored in striking tech blue and pristine white. The design is sleek, professional, and optimized for a light mode interface. Soft ambient studio lighting highlights the sharp vector lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOmsfIGXVc00ew13IHN4O8Cmu1e0Cvw00xLE9AGotwVRY3x348jZXY91-r_-dj0nuNCDDwJpkoqSbuT8Ohsf-iE_f5AenhFlGBIippK5MBdDXuMLx0i1IlY8Cgbxi4lihKkLcXb0O11QSTsX1P_Xgk_VPuVWmgVJyouMt6UbiusjAEF0VynW9prkku4ntR-GRspa7mHs7Bo_brfWA3xFMlojyO0mE21MM3ONOMoJdqPBpCdYnmCYbc"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Dubai Phone</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Gestion d'Électronique</p>
+</div>
+</div>
+<button class="mb-6 w-full py-3 px-4 bg-primary text-on-primary rounded-full font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                Nouveau Scan
+            </button>
+<ul class="flex flex-col gap-1 flex-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Tableau de bord</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventaire</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Ventes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-md text-label-md">Fournisseurs</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Achats</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Paramètres</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto pt-4 border-t border-outline-variant/30">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors duration-200 active:scale-95" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Déconnexion</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Web & Mobile Hybrid) -->
+<header class="sticky md:fixed top-0 right-0 w-full md:w-[calc(100%-16rem)] h-16 bg-surface-container-lowest/70 dark:bg-surface-container/70 backdrop-blur-md shadow-sm z-40">
+<div class="flex justify-between items-center px-6 h-16 w-full">
+<!-- Mobile Only Brand/Search -->
+<div class="flex items-center gap-4 md:hidden">
+<span class="font-headline-md text-headline-md font-bold text-primary">DP ERP</span>
+</div>
+<!-- Web Search & Links -->
+<div class="hidden md:flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-high border-none rounded-full font-label-md text-label-md focus:ring-2 focus:ring-primary w-64 transition-shadow" placeholder="Rechercher..." type="text"/>
+</div>
+<nav class="flex gap-4 font-label-md text-label-md">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Rapports</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Support</a>
+</nav>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="hidden md:flex bg-primary text-on-primary px-4 py-2 rounded-full font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                        Nouvelle Vente
+                    </button>
+<div class="flex gap-1">
+<button class="hover:bg-surface-container-high rounded-full p-2 cursor-pointer transition-all text-primary dark:text-inverse-primary">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-surface-container-high rounded-full p-2 cursor-pointer transition-all text-primary dark:text-inverse-primary hidden sm:block">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border border-outline-variant shadow-sm cursor-pointer ml-2">
+<img alt="Profil Utilisateur" class="object-cover w-full h-full" data-alt="A professional headshot of a young Cameroonian retail manager in a bright, modern office. The manager is wearing a crisp white shirt, smiling confidently. The background is slightly blurred with soft natural light coming from a nearby window, creating a premium corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbCvO2igyKOjm0rXCIJNobGSBaWRV4_2cGwWNDmzotbq4j_SLsudm0M_oPOw_00Z5O5SbjPNbLyDNMxkofl6CxCn10pFI6HbRkGsDgBdaZExDmeEsNYZoOpzNmfCBCMWexcbQUuTRsDCSHvvu4zKi0Ux9HxoaaTDxgXo-2b5aMU3COF7H3egKVWCMIMKh24WJqIOi8ndEbQp6cq3cTIatJ_gGEHphDZARQz71A8OAdLOQEe8RkrIHG"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content Canvas -->
+<div class="flex-1 p-gutter md:p-container-margin mt-0 md:mt-16 bg-surface overflow-x-hidden">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-1">Fournisseurs</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Gérez vos partenaires commerciaux et grossistes.</p>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2.5 rounded-lg font-label-md text-label-md flex items-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-all shadow-sm shadow-primary/20 hover:shadow-md hover:shadow-primary/30 active:scale-95 whitespace-nowrap">
+<span class="material-symbols-outlined">add_business</span>
+                    Nouveau Fournisseur
+                </button>
+</div>
+<!-- Glassmorphic KPI Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-5 shadow-sm relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-colors"></div>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Total Actifs</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-background">24</div>
+<div class="font-label-sm text-label-sm text-secondary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                        +2 ce mois
+                    </div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-5 shadow-sm relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-tertiary/10 rounded-full blur-2xl group-hover:bg-tertiary/20 transition-colors"></div>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">local_shipping</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Cmd en cours</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-on-background">12</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-1">
+                        Pour 5 fournisseurs
+                    </div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest/80 backdrop-blur-xl border border-outline-variant/50 rounded-xl p-5 shadow-sm relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-error/10 rounded-full blur-2xl group-hover:bg-error/20 transition-colors"></div>
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center text-error">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Soldes à payer</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-background">4.5M <span class="text-label-md text-on-surface-variant">FCFA</span></div>
+<div class="font-label-sm text-label-sm text-error mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                        3 factures en retard
+                    </div>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="bg-surface-container-lowest/90 backdrop-blur-xl border border-outline-variant/60 rounded-xl shadow-[0_8px_30px_rgba(0,80,203,0.04)] overflow-hidden flex flex-col">
+<!-- Toolbar -->
+<div class="p-4 border-b border-outline-variant/40 flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-container-low/30">
+<!-- Search -->
+<div class="relative w-full sm:w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-primary focus:border-primary transition-all outline-none" placeholder="Chercher un fournisseur..." type="text"/>
+</div>
+<!-- Filters -->
+<div class="flex gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0 hide-scrollbar">
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant flex items-center gap-2 hover:bg-surface-variant transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Catégorie
+                        </button>
+<button class="px-4 py-2 rounded-lg border border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant flex items-center gap-2 hover:bg-surface-variant transition-colors whitespace-nowrap">
+<span class="material-symbols-outlined text-[18px]">sort</span>
+                            Trier par
+                        </button>
+</div>
+</div>
+<!-- Table Wrapper -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50 border-b border-outline-variant/40">
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold w-1/4 min-w-[200px]">Fournisseur</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold w-1/5 min-w-[150px]">Contact</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold hidden md:table-cell">Catégorie</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold text-center w-24">Cmds</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold text-right min-w-[120px]">Solde (FCFA)</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold text-center w-28">Statut</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant font-semibold text-right w-16"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group cursor-pointer">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-primary flex items-center justify-center font-headline-md text-headline-md uppercase">
+                                            T
+                                        </div>
+<div>
+<div class="font-label-md text-label-md text-on-background font-bold">TechDistri CM</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">ID: FRN-001</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-body-md text-body-md text-on-background">Jean Michel</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">+237 699 00 11 22</div>
+</td>
+<td class="p-4 hidden md:table-cell">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-variant text-on-surface font-label-sm text-label-sm border border-outline-variant/30">
+                                        Smartphones
+                                    </span>
+</td>
+<td class="p-4 text-center">
+<span class="font-label-md text-label-md text-on-background bg-surface-container-high px-2 py-1 rounded-md">3</span>
+</td>
+<td class="p-4 text-right">
+<div class="font-label-md text-label-md text-on-background font-bold">1,250,000</div>
+</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm font-semibold border border-secondary/20">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div> Actif
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-high opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group cursor-pointer">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container text-tertiary flex items-center justify-center font-headline-md text-headline-md uppercase">
+                                            G
+                                        </div>
+<div>
+<div class="font-label-md text-label-md text-on-background font-bold">Global Tech Acc</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">ID: FRN-042</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-body-md text-body-md text-on-background">Sarah Ndi</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">+237 677 88 99 00</div>
+</td>
+<td class="p-4 hidden md:table-cell">
+<div class="flex flex-wrap gap-1">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-variant text-on-surface font-label-sm text-label-sm border border-outline-variant/30">
+                                            Accessoires
+                                        </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-variant text-on-surface font-label-sm text-label-sm border border-outline-variant/30">
+                                            Pièces
+                                        </span>
+</div>
+</td>
+<td class="p-4 text-center">
+<span class="font-label-md text-label-md text-on-surface-variant">0</span>
+</td>
+<td class="p-4 text-right">
+<div class="font-label-md text-label-md text-on-surface-variant">0</div>
+</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm font-semibold border border-secondary/20">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div> Actif
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-high opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group cursor-pointer bg-error/5">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-variant text-on-surface-variant flex items-center justify-center font-headline-md text-headline-md uppercase">
+                                            M
+                                        </div>
+<div>
+<div class="font-label-md text-label-md text-on-background font-bold">Mega Mobile Import</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">ID: FRN-015</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-body-md text-body-md text-on-background">Paul K.</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Non joignable
+                                    </div>
+</td>
+<td class="p-4 hidden md:table-cell">
+<span class="inline-flex items-center px-2.5 py-1 rounded-md bg-surface-variant text-on-surface font-label-sm text-label-sm border border-outline-variant/30">
+                                        Smartphones
+                                    </span>
+</td>
+<td class="p-4 text-center">
+<span class="font-label-md text-label-md text-on-background bg-surface-container-high px-2 py-1 rounded-md">1</span>
+</td>
+<td class="p-4 text-right">
+<div class="font-label-md text-label-md text-error font-bold">3,200,000</div>
+</td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold border border-outline-variant/50">
+<div class="w-1.5 h-1.5 rounded-full bg-outline"></div> En pause
+                                    </span>
+</td>
+<td class="p-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-high opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant/40 flex items-center justify-between bg-surface-container-low/30">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Affichage 1-3 sur 24</span>
+<div class="flex gap-1">
+<button class="p-1.5 rounded-md border border-outline-variant text-on-surface-variant hover:bg-surface-variant disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-1.5 rounded-md border border-outline-variant text-on-surface-variant hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,46 @@
+Implement supplier and purchasing management.
+
+Features:
+
+- suppliers
+- purchase orders
+- purchase order items
+- receiving
+- partial receiving
+- complete receiving
+- purchase history
+- supplier invoices
+
+Purchase workflow:
+
+DRAFT
+→ ORDERED
+→ PARTIALLY_RECEIVED
+→ RECEIVED
+→ CANCELLED
+
+Receiving must support serialized products.
+
+For serialized smartphones:
+
+- IMEI 1
+- IMEI 2
+- serial number
+- condition
+- cost
+- warranty
+
+When merchandise is received:
+
+1. validate quantities
+2. validate serials
+3. create stock movements
+4. update inventory state
+5. audit operation
+
+Use database transactions.
+
+Do not allow receiving more than ordered unless explicitly supported.
+
+Write tests for partial and complete receiving.
+

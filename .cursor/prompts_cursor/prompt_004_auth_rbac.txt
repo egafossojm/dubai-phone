@@ -1,0 +1,65 @@
+Implement authentication and authorization.
+
+Roles:
+
+- SUPER_ADMINISTRATOR
+- MANAGER
+- SALES_PERSON
+- INVENTORY_MANAGER
+
+Implement:
+
+- login
+- logout
+- session management
+- protected routes
+- backend authorization
+- role-based permissions
+- permission checks
+- secure password handling
+- validation
+- rate limiting where appropriate
+
+Permissions must be explicit.
+
+Examples:
+
+products.read
+products.create
+products.update
+products.delete
+
+sales.read
+sales.create
+sales.cancel
+sales.refund
+
+inventory.read
+inventory.adjust
+
+purchases.read
+purchases.create
+purchases.receive
+
+customers.read
+customers.create
+credit.read
+credit.payment
+
+reports.read
+
+users.read
+users.create
+users.update
+
+audit.read
+
+Never rely exclusively on frontend authorization.
+
+The backend must enforce every sensitive permission.
+
+Create tests for each role.
+
+Verify that unauthorized users cannot call protected APIs directly.
+
+Do not implement the complete POS yet.

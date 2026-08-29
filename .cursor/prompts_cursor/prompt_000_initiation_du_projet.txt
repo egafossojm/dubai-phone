@@ -1,0 +1,64 @@
+You are starting a new professional retail management application for an electronics store in Cameroon.
+
+First, read and understand the complete project context and rules available in .cursor/rules/.
+
+Do NOT implement business modules yet.
+
+Your task is to initialize the project foundation.
+
+Before changing anything:
+
+1. Inspect the repository.
+2. Inspect existing files.
+3. Identify whether a project already exists.
+4. Identify the package manager.
+5. Identify the current framework.
+6. Identify existing configuration.
+7. Identify existing dependencies.
+
+If the repository is empty, initialize a clean production-ready TypeScript application.
+
+Recommended baseline:
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+- ESLint
+- Prettier
+- PostgreSQL
+- Prisma
+- Zod
+- React Hook Form
+- PWA support
+- testing infrastructure
+
+Create a clean project structure.
+
+Do NOT create fake business functionality.
+
+Create only the foundation required for future implementation.
+
+Add:
+
+- environment variable structure
+- database configuration
+- linting
+- formatting
+- testing setup
+- basic application shell
+- error handling foundation
+- loading state foundation
+- README
+
+At the end:
+
+1. run the project
+2. run lint
+3. run tests
+4. verify TypeScript
+5. report all files created
+6. report all commands executed
+7. report any unresolved issue
+
+Do not continue to the next phase automatically.

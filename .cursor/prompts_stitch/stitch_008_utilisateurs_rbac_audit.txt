@@ -1,0 +1,47 @@
+Design the administration, users, roles and audit log module.
+
+Language: French.
+
+Roles:
+
+1. Super Administrateur
+2. Manager
+3. Vendeur / Caissier
+4. Gestionnaire de stock
+
+Create:
+
+1. User list
+2. User profile
+3. Create user
+4. Edit user
+5. Role management
+6. Permission matrix
+7. Audit log
+8. Activity detail
+
+The permission system must clearly distinguish:
+
+- lecture
+- création
+- modification
+- suppression
+- validation
+- remboursement
+- remise
+- ajustement stock
+- consultation financière
+
+Audit log should show:
+
+- utilisateur
+- action
+- date
+- heure
+- module
+- référence
+- ancienne valeur
+- nouvelle valeur
+- résultat
+
+Design a professional security-oriented administration interface.

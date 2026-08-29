@@ -1,0 +1,37 @@
+Design the settings module for a professional electronics store management application in Cameroon.
+
+Language: French.
+
+Create sections for:
+
+1. Informations du magasin
+2. Utilisateurs
+3. Rôles et permissions
+4. Paramètres de vente
+5. Paramètres de stock
+6. Paramètres de garantie
+7. Paramètres des paiements
+8. Paramètres des reçus
+9. Paramètres de synchronisation
+10. Sauvegardes
+11. Audit
+12. Sécurité
+
+Store information:
+- name
+- address
+- phone
+- email
+- logo
+- currency
+- country
+
+Currency must be FCFA / XAF.
+
+Payment methods:
+- CASH
+- Orange Money
+- MTN Mobile Money
+- Paiement en plusieurs fois
+
+Design a clean admin settings experience with clear sections and save states.

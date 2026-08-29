@@ -1,0 +1,923 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Conventions (ADR-0004 + docs/architecture/05-database.md)
+// - Technical PK: UUID
+// - Business references: separate unique `reference` fields (V-2026-000124)
+// - Money: BigInt FCFA units (no cents, no float)
+// - Stock truth: StockMovement rows (quantityOnHand on variants is a cache)
+// - Soft delete (deletedAt) only on master data, never on financial/audit/stock
+// ---------------------------------------------------------------------------
+
+enum UserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+}
+
+enum DeviceStatus {
+  IN_STOCK
+  RESERVED
+  SOLD
+  RETURNED
+  DAMAGED
+  RETURNED_TO_SUPPLIER
+  LOST
+}
+
+enum PurchaseOrderStatus {
+  DRAFT
+  ORDERED
+  PARTIALLY_RECEIVED
+  RECEIVED
+  CANCELLED
+  CLOSED
+}
+
+enum GoodsReceiptStatus {
+  DRAFT
+  POSTED
+  CANCELLED
+}
+
+enum SaleStatus {
+  DRAFT
+  COMPLETED
+  CANCELLED
+  PARTIALLY_RETURNED
+  RETURNED
+}
+
+enum SaleKind {
+  IMMEDIATE
+  INSTALLMENT
+}
+
+enum PaymentMethod {
+  CASH
+  ORANGE_MONEY
+  MTN_MOBILE_MONEY
+}
+
+enum PaymentStatus {
+  COMPLETED
+}
+
+enum CreditStatus {
+  PENDING
+  ACTIVE
+  PARTIALLY_PAID
+  OVERDUE
+  PAID
+  DEFAULTED
+  CANCELLED
+}
+
+enum InstallmentStatus {
+  DUE
+  PARTIAL
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
+enum ReturnStatus {
+  REQUESTED
+  INSPECTING
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum ReturnResolution {
+  REFUND
+  EXCHANGE
+}
+
+enum WarrantyStatus {
+  ACTIVE
+  CLAIMED
+  INSPECTING
+  RESOLVED
+  EXPIRED
+}
+
+enum StockMovementType {
+  PURCHASE_RECEIPT
+  SALE
+  CUSTOMER_RETURN
+  SUPPLIER_RETURN
+  STOCK_ADJUSTMENT
+  DAMAGED
+  LOST
+}
+
+enum DiscountScope {
+  LINE
+  SALE
+}
+
+enum DiscountType {
+  PERCENT
+  FIXED
+}
+
+enum SyncStatus {
+  PENDING
+  SYNCING
+  SYNCED
+  FAILED
+}
+
+enum NumberDocumentType {
+  SALE
+  RECEIPT
+  PURCHASE_ORDER
+  GOODS_RECEIPT
+  RETURN
+  WARRANTY
+  CREDIT
+}
+
+// ---------------------------------------------------------------------------
+// Identity / RBAC / sessions
+// ---------------------------------------------------------------------------
+
+model User {
+  id           String     @id @default(uuid())
+  email        String     @unique
+  fullName     String
+  passwordHash String
+  status       UserStatus @default(ACTIVE)
+  deletedAt    DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  roles UserRole[]
+  sessions Session[]
+
+  salesSold               Sale[]              @relation("SaleSoldBy")
+  paymentsRecorded        Payment[]           @relation("PaymentRecordedBy")
+  stockMovementsRecorded  StockMovement[]     @relation("StockMovementRecordedBy")
+  purchaseOrdersCreated   PurchaseOrder[]     @relation("PurchaseOrderCreatedBy")
+  goodsReceiptsPosted     GoodsReceipt[]      @relation("GoodsReceiptPostedBy")
+  returnsRequested        Return[]            @relation("ReturnRequestedBy")
+  refundsRecorded         Refund[]            @relation("RefundRecordedBy")
+  discountsGranted        SaleDiscount[]      @relation("DiscountGrantedBy")
+  auditLogs               AuditLog[]
+  adjustmentsNoted        StockMovement[]     @relation("StockMovementApprovedBy")
+
+  @@index([status])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Role {
+  id             String @id @default(uuid())
+  code           String @unique
+  name           String
+  maxDiscountBps Int    @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  users       UserRole[]
+  permissions RolePermission[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id          String @id @default(uuid())
+  code        String @unique
+  description String
+  createdAt   DateTime @default(now())
+
+  roles RolePermission[]
+
+  @@map("permissions")
+}
+
+model UserRole {
+  userId     String
+  roleId     String
+  assignedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+  @@id([userId, roleId])
+  @@index([roleId])
+  @@map("user_roles")
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  assignedAt   DateTime @default(now())
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Restrict)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+  @@map("role_permissions")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+// ---------------------------------------------------------------------------
+// Settings / numbering
+// ---------------------------------------------------------------------------
+
+model StoreSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  @@map("store_settings")
+}
+
+model NumberSequence {
+  id            String             @id @default(uuid())
+  documentType  NumberDocumentType
+  year          Int
+  prefix        String
+  currentValue  Int                @default(0)
+  updatedAt     DateTime           @updatedAt
+
+  @@unique([documentType, year])
+  @@map("number_sequences")
+}
+
+model IdempotencyRecord {
+  id           String   @id @default(uuid())
+  scope        String
+  key          String
+  resourceType String?
+  resourceId   String?
+  createdAt    DateTime @default(now())
+
+  @@unique([scope, key])
+  @@index([createdAt])
+  @@map("idempotency_records")
+}
+
+// ---------------------------------------------------------------------------
+// Catalog
+// ---------------------------------------------------------------------------
+
+model Brand {
+  id        String    @id @default(uuid())
+  name      String
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  products Product[]
+
+  @@index([deletedAt])
+  @@map("brands")
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  products Product[]
+
+  @@index([deletedAt])
+  @@map("categories")
+}
+
+model Product {
+  id            String        @id @default(uuid())
+  name          String
+  brandId       String
+  categoryId    String
+  isSerialized  Boolean       @default(false)
+  status        ProductStatus @default(DRAFT)
+  deletedAt     DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  brand    Brand            @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  category Category         @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  variants ProductVariant[]
+
+  @@index([brandId])
+  @@index([categoryId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("products")
+}
+
+model ProductVariant {
+  id                 String        @id @default(uuid())
+  productId          String
+  sku                String        @unique
+  barcode            String?
+  name               String
+  sellingPriceXaf    BigInt
+  costPriceXaf       BigInt        @default(0)
+  warrantyMonths     Int           @default(0)
+  status             ProductStatus @default(ACTIVE)
+  /// Cache only — authoritative stock is SUM(stock_movements.quantity).
+  quantityOnHand     Int           @default(0)
+  deletedAt          DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  product            Product            @relation(fields: [productId], references: [id], onDelete: Restrict)
+  serials            ProductSerial[]
+  stockMovements     StockMovement[]
+  saleItems          SaleItem[]
+  purchaseOrderItems PurchaseOrderItem[]
+  goodsReceiptItems  GoodsReceiptItem[]
+  returnItems        ReturnItem[]
+
+  @@index([productId])
+  @@index([barcode])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("product_variants")
+}
+
+/// Physical serialized unit (IMEI / serial). Prompt entity: PRODUCT_SERIALS.
+model ProductSerial {
+  id                  String       @id @default(uuid())
+  variantId           String
+  imei1               String?      @unique
+  imei2               String?      @unique
+  serialNumber        String?      @unique
+  status              DeviceStatus @default(IN_STOCK)
+  goodsReceiptItemId  String?
+  saleItemId          String?      @unique
+  customerId          String?
+  createdAt           DateTime     @default(now())
+  updatedAt           DateTime     @updatedAt
+
+  variant          ProductVariant    @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  goodsReceiptItem GoodsReceiptItem? @relation(fields: [goodsReceiptItemId], references: [id], onDelete: SetNull)
+  saleItem         SaleItem?         @relation(fields: [saleItemId], references: [id], onDelete: Restrict)
+  customer         Customer?         @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  warranties       Warranty[]
+  stockMovements   StockMovement[]
+  returnItems      ReturnItem[]
+
+  @@index([variantId])
+  @@index([status])
+  @@index([customerId])
+  @@index([goodsReceiptItemId])
+  @@map("product_serials")
+}
+
+// ---------------------------------------------------------------------------
+// Suppliers & purchases
+// ---------------------------------------------------------------------------
+
+model Supplier {
+  id           String    @id @default(uuid())
+  name         String
+  phone        String?
+  email        String?
+  address      String?
+  deletedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  purchaseOrders PurchaseOrder[]
+
+  @@index([deletedAt])
+  @@index([phone])
+  @@map("suppliers")
+}
+
+model PurchaseOrder {
+  id          String               @id @default(uuid())
+  reference   String               @unique
+  supplierId  String
+  status      PurchaseOrderStatus  @default(DRAFT)
+  notes       String?
+  createdById String
+  orderedAt   DateTime?
+  cancelledAt DateTime?
+  closedAt    DateTime?
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  supplier   Supplier            @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  createdBy  User                @relation("PurchaseOrderCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  items      PurchaseOrderItem[]
+  receipts   GoodsReceipt[]
+
+  @@index([supplierId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderItem {
+  id             String @id @default(uuid())
+  purchaseOrderId String
+  variantId      String
+  quantityOrdered Int
+  quantityReceived Int  @default(0)
+  unitCostXaf    BigInt
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  purchaseOrder PurchaseOrder      @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  variant       ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  receiptItems  GoodsReceiptItem[]
+
+  @@index([purchaseOrderId])
+  @@index([variantId])
+  @@map("purchase_order_items")
+}
+
+model GoodsReceipt {
+  id              String             @id @default(uuid())
+  reference       String             @unique
+  purchaseOrderId String
+  status          GoodsReceiptStatus @default(DRAFT)
+  idempotencyKey  String?            @unique
+  receivedAt      DateTime?
+  postedAt        DateTime?
+  postedById      String?
+  cancelledAt     DateTime?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  purchaseOrder PurchaseOrder      @relation(fields: [purchaseOrderId], references: [id], onDelete: Restrict)
+  postedBy      User?              @relation("GoodsReceiptPostedBy", fields: [postedById], references: [id], onDelete: Restrict)
+  items         GoodsReceiptItem[]
+  stockMovements StockMovement[]
+
+  @@index([purchaseOrderId])
+  @@index([status])
+  @@index([receivedAt])
+  @@map("goods_receipts")
+}
+
+model GoodsReceiptItem {
+  id                 String @id @default(uuid())
+  goodsReceiptId     String
+  purchaseOrderItemId String
+  variantId          String
+  quantityReceived   Int
+  unitCostXaf        BigInt
+  createdAt          DateTime @default(now())
+
+  goodsReceipt      GoodsReceipt      @relation(fields: [goodsReceiptId], references: [id], onDelete: Restrict)
+  purchaseOrderItem PurchaseOrderItem @relation(fields: [purchaseOrderItemId], references: [id], onDelete: Restrict)
+  variant           ProductVariant    @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  serials           ProductSerial[]
+  stockMovements    StockMovement[]
+
+  @@index([goodsReceiptId])
+  @@index([purchaseOrderItemId])
+  @@index([variantId])
+  @@map("goods_receipt_items")
+}
+
+// ---------------------------------------------------------------------------
+// Inventory
+// ---------------------------------------------------------------------------
+
+/// Immutable once inserted. Corrections = a new compensating movement.
+model StockMovement {
+  id                 String            @id @default(uuid())
+  type               StockMovementType
+  variantId          String
+  /// Signed quantity: + inbound, - outbound. Never zero (CHECK in SQL).
+  quantity           Int
+  productSerialId    String?
+  goodsReceiptId     String?
+  goodsReceiptItemId String?
+  saleId             String?
+  saleItemId         String?
+  returnId           String?
+  returnItemId       String?
+  reason             String?
+  recordedById       String
+  approvedById       String?
+  createdAt          DateTime          @default(now())
+
+  variant          ProductVariant    @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  productSerial    ProductSerial?    @relation(fields: [productSerialId], references: [id], onDelete: Restrict)
+  goodsReceipt     GoodsReceipt?     @relation(fields: [goodsReceiptId], references: [id], onDelete: Restrict)
+  goodsReceiptItem GoodsReceiptItem? @relation(fields: [goodsReceiptItemId], references: [id], onDelete: Restrict)
+  sale             Sale?             @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  saleItem         SaleItem?         @relation(fields: [saleItemId], references: [id], onDelete: Restrict)
+  returnRecord     Return?           @relation(fields: [returnId], references: [id], onDelete: Restrict)
+  returnItem       ReturnItem?       @relation(fields: [returnItemId], references: [id], onDelete: Restrict)
+  recordedBy       User              @relation("StockMovementRecordedBy", fields: [recordedById], references: [id], onDelete: Restrict)
+  approvedBy       User?             @relation("StockMovementApprovedBy", fields: [approvedById], references: [id], onDelete: Restrict)
+
+  @@index([variantId, createdAt])
+  @@index([productSerialId])
+  @@index([type])
+  @@index([saleId])
+  @@index([goodsReceiptId])
+  @@index([returnId])
+  @@unique([saleItemId])
+  @@unique([returnItemId])
+  /// Partial unique indexes live in SQL migration
+  /// `20260822010000_stock_movement_gr_uniques` (not expressible as Prisma @@unique):
+  /// - one PURCHASE_RECEIPT per GR item when productSerialId IS NULL
+  /// - one PURCHASE_RECEIPT per (GR item, serial) otherwise
+  /// Always apply via `prisma migrate` — `db push` will not recreate them.
+  @@map("stock_movements")
+}
+
+// ---------------------------------------------------------------------------
+// Customers / credit
+// ---------------------------------------------------------------------------
+
+model Customer {
+  id        String    @id @default(uuid())
+  fullName  String
+  /// Unique among active customers only (partial index in SQL migration).
+  phone     String
+  email     String?
+  address   String?
+  notes     String?
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  sales          Sale[]
+  credits        CustomerCredit[]
+  serialsOwned   ProductSerial[]
+  warranties     Warranty[]
+  returns        Return[]
+
+  @@index([deletedAt])
+  @@map("customers")
+}
+
+model CustomerCredit {
+  id              String       @id @default(uuid())
+  reference       String       @unique
+  saleId          String       @unique
+  customerId      String
+  totalAmountXaf  BigInt
+  downPaymentXaf  BigInt
+  remainingXaf    BigInt
+  status          CreditStatus @default(PENDING)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  sale         Sale          @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  customer     Customer      @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  installments Installment[]
+  payments     Payment[]
+
+  @@index([customerId])
+  @@index([status])
+  @@map("customer_credits")
+}
+
+model Installment {
+  id               String             @id @default(uuid())
+  creditId         String
+  sequence         Int
+  dueDate          DateTime
+  amountDueXaf     BigInt
+  amountPaidXaf    BigInt             @default(0)
+  status           InstallmentStatus  @default(DUE)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  credit      CustomerCredit      @relation(fields: [creditId], references: [id], onDelete: Restrict)
+  payments    Payment[]
+  allocations PaymentAllocation[]
+
+  @@unique([creditId, sequence])
+  @@index([dueDate])
+  @@index([status])
+  @@map("installments")
+}
+
+// ---------------------------------------------------------------------------
+// Sales / payments / receipts / discounts
+// ---------------------------------------------------------------------------
+
+model Sale {
+  id             String     @id @default(uuid())
+  reference      String     @unique
+  clientTxnId    String     @unique
+  kind           SaleKind   @default(IMMEDIATE)
+  status         SaleStatus @default(DRAFT)
+  customerId     String?
+  soldById       String
+  subtotalXaf    BigInt     @default(0)
+  discountTotalXaf BigInt   @default(0)
+  totalXaf       BigInt     @default(0)
+  notes          String?
+  completedAt    DateTime?
+  cancelledAt    DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  customer       Customer?        @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  soldBy         User             @relation("SaleSoldBy", fields: [soldById], references: [id], onDelete: Restrict)
+  items          SaleItem[]
+  discounts      SaleDiscount[]
+  payments       Payment[]
+  credit         CustomerCredit?
+  receipt        Receipt?
+  returns        Return[]
+  warranties     Warranty[]
+  stockMovements StockMovement[]
+  syncTransactions SyncTransaction[]
+
+  @@index([customerId])
+  @@index([soldById])
+  @@index([status])
+  @@index([completedAt])
+  @@index([createdAt])
+  @@map("sales")
+}
+
+model SaleItem {
+  id              String   @id @default(uuid())
+  saleId          String
+  variantId       String
+  quantity        Int
+  unitPriceXaf    BigInt
+  discountXaf     BigInt   @default(0)
+  lineTotalXaf    BigInt
+  createdAt       DateTime @default(now())
+
+  sale           Sale            @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  variant        ProductVariant  @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  serial         ProductSerial?
+  discounts      SaleDiscount[]
+  stockMovements StockMovement[]
+  returnItems    ReturnItem[]
+  warranties     Warranty[]
+
+  @@index([saleId])
+  @@index([variantId])
+  @@map("sale_items")
+}
+
+model SaleDiscount {
+  id            String        @id @default(uuid())
+  saleId        String
+  saleItemId    String?
+  scope         DiscountScope
+  type          DiscountType
+  /// Basis points (500 = 5%). Null when type = FIXED.
+  percentBps    Int?
+  amountXaf     BigInt
+  reason        String?
+  grantedById   String
+  createdAt     DateTime      @default(now())
+
+  sale      Sale      @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  saleItem  SaleItem? @relation(fields: [saleItemId], references: [id], onDelete: Restrict)
+  grantedBy User      @relation("DiscountGrantedBy", fields: [grantedById], references: [id], onDelete: Restrict)
+
+  @@index([saleId])
+  @@index([saleItemId])
+  @@map("sale_discounts")
+}
+
+/// Append-oriented inbound money (sale or installment). No VOID in MVP.
+model Payment {
+  id               String        @id @default(uuid())
+  idempotencyKey   String        @unique
+  method           PaymentMethod
+  status           PaymentStatus @default(COMPLETED)
+  amountXaf        BigInt
+  operatorReference String?
+  saleId           String?
+  creditId         String?
+  /// Primary installment when a single allocation; null if split across several.
+  installmentId    String?
+  recordedById     String
+  paidAt           DateTime      @default(now())
+  createdAt        DateTime      @default(now())
+
+  sale         Sale?               @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  credit       CustomerCredit?     @relation(fields: [creditId], references: [id], onDelete: Restrict)
+  installment  Installment?        @relation(fields: [installmentId], references: [id], onDelete: Restrict)
+  recordedBy   User                @relation("PaymentRecordedBy", fields: [recordedById], references: [id], onDelete: Restrict)
+  allocations  PaymentAllocation[]
+
+  @@index([saleId])
+  @@index([creditId])
+  @@index([installmentId])
+  @@index([method])
+  @@index([paidAt])
+  @@index([status])
+  @@map("payments")
+}
+
+/// One row per installment touched by a credit payment (supports FIFO splits).
+model PaymentAllocation {
+  id            String   @id @default(uuid())
+  paymentId     String
+  installmentId String
+  amountXaf     BigInt
+  createdAt     DateTime @default(now())
+
+  payment     Payment     @relation(fields: [paymentId], references: [id], onDelete: Restrict)
+  installment Installment @relation(fields: [installmentId], references: [id], onDelete: Restrict)
+
+  @@index([paymentId])
+  @@index([installmentId])
+  @@map("payment_allocations")
+}
+
+model Receipt {
+  id         String    @id @default(uuid())
+  saleId     String    @unique
+  reference  String    @unique
+  pdfPath    String?
+  printedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  sale Sale @relation(fields: [saleId], references: [id], onDelete: Restrict)
+
+  @@map("receipts")
+}
+
+// ---------------------------------------------------------------------------
+// Returns / refunds / warranties
+// ---------------------------------------------------------------------------
+
+model Return {
+  id              String       @id @default(uuid())
+  reference       String       @unique
+  saleId          String
+  customerId      String?
+  status          ReturnStatus @default(REQUESTED)
+  resolution      ReturnResolution?
+  reason          String?
+  requestedById   String
+  inspectedAt     DateTime?
+  completedAt     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  sale          Sale           @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  customer      Customer?      @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  requestedBy   User           @relation("ReturnRequestedBy", fields: [requestedById], references: [id], onDelete: Restrict)
+  items         ReturnItem[]
+  refunds       Refund[]
+  stockMovements StockMovement[]
+
+  @@index([saleId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("returns")
+}
+
+model ReturnItem {
+  id               String   @id @default(uuid())
+  returnId         String
+  saleItemId       String
+  variantId        String
+  productSerialId  String?
+  quantity         Int
+  restock          Boolean  @default(true)
+  createdAt        DateTime @default(now())
+
+  returnRecord  Return         @relation(fields: [returnId], references: [id], onDelete: Restrict)
+  saleItem      SaleItem       @relation(fields: [saleItemId], references: [id], onDelete: Restrict)
+  variant       ProductVariant @relation(fields: [variantId], references: [id], onDelete: Restrict)
+  productSerial ProductSerial? @relation(fields: [productSerialId], references: [id], onDelete: Restrict)
+  stockMovements StockMovement[]
+
+  @@index([returnId])
+  @@index([saleItemId])
+  @@index([productSerialId])
+  @@map("return_items")
+}
+
+/// Append-oriented outbound money. Never void a posted payment (U-08).
+model Refund {
+  id             String   @id @default(uuid())
+  idempotencyKey String   @unique
+  returnId       String
+  amountXaf      BigInt
+  method         PaymentMethod
+  recordedById   String
+  refundedAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+
+  returnRecord Return @relation(fields: [returnId], references: [id], onDelete: Restrict)
+  recordedBy   User   @relation("RefundRecordedBy", fields: [recordedById], references: [id], onDelete: Restrict)
+
+  @@index([returnId])
+  @@index([refundedAt])
+  @@map("refunds")
+}
+
+model Warranty {
+  id              String         @id @default(uuid())
+  reference       String         @unique
+  saleId          String
+  saleItemId      String?
+  productSerialId String?
+  customerId      String?
+  status          WarrantyStatus @default(ACTIVE)
+  startsAt        DateTime
+  endsAt          DateTime
+  claimedAt       DateTime?
+  resolvedAt      DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  sale          Sale           @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  saleItem      SaleItem?      @relation(fields: [saleItemId], references: [id], onDelete: Restrict)
+  productSerial ProductSerial? @relation(fields: [productSerialId], references: [id], onDelete: Restrict)
+  customer      Customer?      @relation(fields: [customerId], references: [id], onDelete: Restrict)
+
+  @@index([saleId])
+  @@index([productSerialId])
+  @@index([customerId])
+  @@index([status])
+  @@index([endsAt])
+  @@map("warranties")
+}
+
+// ---------------------------------------------------------------------------
+// Audit (append-only) + offline sync
+// ---------------------------------------------------------------------------
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String
+  beforeJson String?
+  afterJson  String?
+  reason     String?
+  requestId  String?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([action])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+model SyncTransaction {
+  id           String     @id @default(uuid())
+  clientTxnId  String     @unique
+  status       SyncStatus @default(PENDING)
+  payloadJson  String
+  errorMessage String?
+  saleId       String?
+  attempts     Int        @default(0)
+  lastAttemptAt DateTime?
+  syncedAt     DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  sale Sale? @relation(fields: [saleId], references: [id], onDelete: Restrict)
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("sync_transactions")
+}
