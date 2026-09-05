@@ -4,44 +4,46 @@
 
 | Élément | Choix recommandé |
 | --- | --- |
-| Application | 1 process Node (`next start`) derrière reverse proxy |
-| Base | PostgreSQL managé ou VM dédiée |
-| Fichiers (reçus PDF) | Disque local ou object storage simple plus tard |
+| Application | 1 process Node (`next start`) ou image Docker `standalone` derrière reverse proxy TLS |
+| Base | PostgreSQL managé ou conteneur |
+| Fichiers (reçus PDF) | Générés à la demande (pas de stockage objet MVP) |
 | Environnements | `development`, `staging` (si possible), `production` |
 
-**Hors MVP :** Kubernetes, multi-région, service mesh.
+**Hors MVP :** Kubernetes, multi-région, service mesh, multi-instances sans Redis.
 
-Variables : `.env.example` déjà amorcé (`DATABASE_URL`, `NEXT_PUBLIC_*`).  
-À ajouter en phase auth : `AUTH_SECRET`, paramètres cookie, etc.
+Runbooks détaillés : **`docs/ops/`**.
+
+Variables : `.env.example` + validation `src/lib/env.ts`  
+(`DATABASE_URL` **obligatoire** en production ; sessions sans JWT secret).
 
 ---
 
-## 2. Pipeline de release (cible)
+## 2. Pipeline de release
 
 ```text
-lint → typecheck → unit tests → (integration) → build → migrate → deploy
+lint → typecheck → unit/integration tests → build → backup → migrate deploy → deploy → smoke
 ```
 
-Commandes déjà présentes dans le projet (rappel pour plus tard) :
-
 ```bash
-source ~/.nvm/nvm.sh && nvm use   # Node 24 via .nvmrc
+source ~/.nvm/nvm.sh && nvm use
 npm run lint
 npm run typecheck
 npm test
 npm run build
 ```
 
-Ne pas exécuter ces commandes pour **cette** phase documentation.
+CI (`.github/workflows/ci.yml`) : migrate + seed + typecheck + lint + test + **build** + **docker build**.
 
 ---
 
 ## 3. Migrations en prod
 
 1. Backup DB  
-2. `prisma migrate deploy`  
+2. `npm run db:migrate:deploy` (`prisma migrate deploy`)  
 3. Déployer l’app compatible  
-4. Smoke test (`/api/health`, login)
+4. Smoke : `/api/health`, `/api/ready`, login  
+
+Détail : `docs/ops/03-migrations.md`.
 
 ---
 
@@ -49,19 +51,22 @@ Ne pas exécuter ces commandes pour **cette** phase documentation.
 
 | Signal | MVP |
 | --- | --- |
-| Health | `GET /api/health` (existe) |
-| Logs app | stdout JSON / lignes structurées |
-| Erreurs | log + corrélation `requestId` |
-| Métriques | basiques plus tard (latence, 5xx) |
-| APM complet | FUTURE |
+| Liveness | `GET /api/health` |
+| Readiness | `GET /api/ready` (Postgres + au moins une migration Prisma terminée → sinon 503) |
+| Logs app | stdout JSON via `src/lib/logger.ts` (`LOG_LEVEL`) ; erreurs client en JSON structuré |
+| Boot | `src/instrumentation.ts` charge `env` (fail-fast prod sans `DATABASE_URL`) |
+| Erreurs API | `unhandled_api_error` + message générique client |
+| Métriques / APM | FUTURE |
 | Audit métier | table `AuditLog` (pas un substitut de logs ops) |
 
-Alertes utiles MVP : app down, DB down, taux d’échec sync POS élevé.
+Alertes utiles MVP : app down, DB down (`/api/ready`), taux d’échec sync POS élevé (manuel / logs).
 
 ---
 
 ## 5. Backups
 
+Procédure concrète : `docs/ops/04-backup-restore.md`.
+
 - Sauvegardes PostgreSQL planifiées (quotidien minimum).  
-- Tester une restauration périodiquement.  
+- Tester une restauration avant go-live puis périodiquement.  
 - Les données offline locales **ne remplacent pas** le backup serveur.

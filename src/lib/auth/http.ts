@@ -9,6 +9,7 @@ import {
   hasPermission,
   type PermissionCode,
 } from "@/lib/auth/permissions";
+import { logger } from "@/lib/logger";
 
 function jsonReplacer(_key: string, value: unknown) {
   return typeof value === "bigint" ? value.toString() : value;
@@ -29,7 +30,10 @@ export function toErrorResponse(error: unknown) {
   if (isAppError(error)) {
     return jsonFail(error);
   }
-  console.error(error);
+  logger.error("unhandled_api_error", {
+    err: error instanceof Error ? error.message : String(error),
+    name: error instanceof Error ? error.name : undefined,
+  });
   return jsonFail(
     new AppError(
       "INTERNAL_ERROR",

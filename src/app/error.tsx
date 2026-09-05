@@ -10,7 +10,16 @@ type ErrorPageProps = {
 
 export default function ErrorPage({ error, reset }: ErrorPageProps) {
   useEffect(() => {
-    console.error(error);
+    console.error(
+      JSON.stringify({
+        level: "error",
+        msg: "client_route_error",
+        time: new Date().toISOString(),
+        digest: error.digest,
+        name: error.name,
+        message: error.message,
+      }),
+    );
   }, [error]);
 
   return (

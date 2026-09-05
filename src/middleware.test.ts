@@ -18,4 +18,11 @@ describe("auth middleware", () => {
     expect(response.status).toBe(307);
     expect(response.headers.get("location")).toContain("/login?from=%2Fstock");
   });
+
+  it("allows anonymous readiness and health API probes", () => {
+    const health = middleware(new NextRequest("http://localhost/api/health"));
+    expect(health.status).toBe(200);
+    const ready = middleware(new NextRequest("http://localhost/api/ready"));
+    expect(ready.status).toBe(200);
+  });
 });

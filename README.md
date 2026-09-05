@@ -17,8 +17,9 @@ Cette phase inclut la fondation technique, l'authentification, le catalogue,
 le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**,
 les **retours / remboursements / garanties**, le **tableau de bord** (Prompt 012),
 les **reçus / impressions / PDF** (Prompt 013), le **durcissement sécurité**
-(Prompt 014 — voir `docs/security/01-mvp-security-decisions.md`), et la
-**passe QA complète** (Prompt 015 — `docs/qa/01-complete-qa-pass.md`, 203 tests).
+(Prompt 014), la **passe QA** (Prompt 015 — `docs/qa/01-complete-qa-pass.md`),
+et la **préparation production** (Prompt 016 — `docs/ops/`, Docker, health/ready,
+logs JSON, CI build).
 
 Hors scope volontaire :
 - résolution `STORE_CREDIT` — MVP = `REFUND` | `EXCHANGE` ;
@@ -26,9 +27,11 @@ Hors scope volontaire :
 - coût d'achat historisé à la ligne de vente (marge = estimation au coût actuel) ;
 - rapports détaillés exportables (stub `/api/reports`) ;
 - persistance fichier `Receipt.pdfPath` (PDF/HTML générés à la demande ; instantané
-  `snapshotJson` figé à la finalisation de vente).
+  `snapshotJson` figé à la finalisation de vente) ;
+- E2E Playwright / APM / multi-instances Redis.
 
-La production readiness reste pour le prompt suivant (016).
+Go-live MVP mono-processus : voir `docs/ops/06-go-live-checklist.md`
+(PASS / WARNINGS / BLOCKERS).
 
 ## Stack
 
@@ -92,7 +95,8 @@ Ces comptes ne sont **pas** de vrais utilisateurs magasin. Ne pas les utiliser e
 | `npm test` | Tests unitaires (Vitest) |
 | `npm run test:coverage` | Tests avec couverture |
 | `npm run db:generate` | Génère le client Prisma |
-| `npm run db:migrate` | Applique les migrations |
+| `npm run db:migrate` | Migrations en développement (`migrate dev`) |
+| `npm run db:migrate:deploy` | Applique les migrations (prod / CI) |
 | `npm run db:studio` | Ouvre Prisma Studio |
 
 ## Structure
@@ -128,5 +132,5 @@ Voir `.env.example`.
 
 ## Prochaine étape
 
-Prompt 016 — production readiness (déploiement, observabilité, checklist go-live).
-Ne pas enchaîner automatiquement.
+MVP feature + ops documentés. Améliorations post-go-live possibles : E2E Playwright,
+APM, Redis rate-limit, multi-instances. Ne pas enchaîner automatiquement.

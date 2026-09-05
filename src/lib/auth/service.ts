@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { prisma } from "@/lib/db/prisma";
 import { AppError } from "@/lib/errors/app-error";
+import { isTrustedProxyEnabled } from "@/lib/env";
 import { verifyPassword } from "@/lib/auth/password";
 import {
   isLoginRateLimited,
@@ -29,10 +30,7 @@ const loginSchema = z.object({
  * Only trust X-Forwarded-For / X-Real-IP when TRUSTED_PROXY=1 (reverse proxy).
  */
 export function clientIp(request: Request): string {
-  const trusted =
-    process.env.TRUSTED_PROXY === "1" ||
-    process.env.TRUSTED_PROXY === "true";
-  if (!trusted) {
+  if (!isTrustedProxyEnabled()) {
     return "unknown";
   }
   return (

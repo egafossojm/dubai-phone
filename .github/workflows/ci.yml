@@ -40,3 +40,15 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm test
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_APP_NAME: Dubai Phone
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+      - name: Docker image build
+        run: >
+          docker build
+          --build-arg NEXT_PUBLIC_APP_NAME=Dubai Phone
+          --build-arg NEXT_PUBLIC_APP_URL=http://localhost:3000
+          --build-arg DATABASE_URL=postgresql://postgres:postgres@db:5432/dubai_phone?schema=public
+          -t dubai-phone:ci
+          .

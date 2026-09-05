@@ -12,7 +12,11 @@ const withPWA = withPWAInit({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: "standalone",
   serverExternalPackages: ["pdfkit"],
+  outputFileTracingIncludes: {
+    "/*": ["./node_modules/.prisma/**/*", "./node_modules/@prisma/client/**/*"],
+  },
 };
 
 export default withPWA(nextConfig);

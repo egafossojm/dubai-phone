@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { ErrorState } from "@/components/shared/error-state";
 
 type GlobalErrorProps = {
@@ -8,7 +9,18 @@ type GlobalErrorProps = {
 };
 
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
-  console.error(error);
+  useEffect(() => {
+    console.error(
+      JSON.stringify({
+        level: "error",
+        msg: "client_global_error",
+        time: new Date().toISOString(),
+        digest: error.digest,
+        name: error.name,
+        message: error.message,
+      }),
+    );
+  }, [error]);
 
   return (
     <html lang="fr">

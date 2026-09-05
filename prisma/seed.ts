@@ -647,6 +647,14 @@ async function seedCreditExample(input: {
 }
 
 async function main() {
+  if (
+    process.env.NODE_ENV === "production" &&
+    process.env.ALLOW_PROD_SEED !== "1"
+  ) {
+    throw new Error(
+      "Seed refusé en production. Définir ALLOW_PROD_SEED=1 uniquement pour un bootstrap contrôlé (jamais avec les comptes démo en go-live).",
+    );
+  }
   await seedPermissions();
   await seedRoles();
   await seedUsers();

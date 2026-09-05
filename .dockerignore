@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.gitignore
+coverage
+.cursor
+agent-transcripts
+canvases
+npm-debug.log*
+.env
+.env.*
+!.env.example
+.github
+*.md
+!docker-entrypoint.sh

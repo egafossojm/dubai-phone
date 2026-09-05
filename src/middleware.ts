@@ -5,6 +5,7 @@ const PUBLIC_PATHS = new Set([
   "/login",
   "/offline",
   "/api/health",
+  "/api/ready",
   "/api/auth/login",
 ]);
 
