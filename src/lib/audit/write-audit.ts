@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db/prisma";
+import type { Prisma } from "@prisma/client";
 
 type WriteAuditInput = {
   actorId: string;
@@ -8,10 +9,12 @@ type WriteAuditInput = {
   before?: unknown;
   after?: unknown;
   reason?: string;
+  tx?: Prisma.TransactionClient;
 };
 
 export async function writeAudit(input: WriteAuditInput): Promise<void> {
-  await prisma.auditLog.create({
+  const client = input.tx ?? prisma;
+  await client.auditLog.create({
     data: {
       actorId: input.actorId,
       action: input.action,

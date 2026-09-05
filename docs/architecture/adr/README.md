@@ -12,3 +12,4 @@ Les ADR capturent les **choix structurants** et leurs compromis.
 | [0006](./0006-damaged-stock-quantity.md) | DAMAGED hors stock vendable | Accepté |
 | [0007](./0007-last-cost-on-goods-receipt.md) | Dernier coût à la réception | Accepté |
 | [0008](./0008-login-rate-limit-memory.md) | Rate-limit login en mémoire (MVP) | Accepté |
+| [0009](./0009-session-revoke-on-login.md) | Révocation session au login + TRUSTED_PROXY | Accepté |

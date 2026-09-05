@@ -1,7 +1,7 @@
 /**
  * @vitest-environment node
  */
-import { randomBytes } from "node:crypto";
+import { randomBytes, randomUUID } from "node:crypto";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db/prisma";
@@ -92,6 +92,7 @@ describe.skipIf(!databaseAvailable)("inventory domain", () => {
         variantId: cable.id,
         quantity: -1,
         reason: "test interdit",
+        idempotencyKey: `forbid-${randomUUID()}`,
       }),
     );
     expect(response.status).toBe(403);
@@ -113,6 +114,7 @@ describe.skipIf(!databaseAvailable)("inventory domain", () => {
         quantity: 1,
         type: "STOCK_ADJUSTMENT",
         reason: "Inventaire physique — écart câbles",
+        idempotencyKey: `adj-ok-${randomUUID()}`,
       }),
     );
     expect(response.status).toBe(201);
@@ -140,6 +142,42 @@ describe.skipIf(!databaseAvailable)("inventory domain", () => {
       orderBy: { createdAt: "desc" },
     });
     expect(audit).toBeTruthy();
+
+    const key = `adj-idem-${randomUUID()}`;
+    const first = await adjustInventory(
+      jsonRequest("http://localhost/api/inventory/adjust", "POST", {
+        variantId: cable.id,
+        quantity: 1,
+        type: "STOCK_ADJUSTMENT",
+        reason: "Idempotence ajustement",
+        idempotencyKey: key,
+      }),
+    );
+    expect(first.status).toBe(201);
+    const firstPayload = (await first.json()) as {
+      data: { movementId: string };
+    };
+    const qtyAfterFirst = (
+      await prisma.productVariant.findUniqueOrThrow({ where: { id: cable.id } })
+    ).quantityOnHand;
+    const second = await adjustInventory(
+      jsonRequest("http://localhost/api/inventory/adjust", "POST", {
+        variantId: cable.id,
+        quantity: 1,
+        type: "STOCK_ADJUSTMENT",
+        reason: "Idempotence ajustement",
+        idempotencyKey: key,
+      }),
+    );
+    expect(second.status).toBe(201);
+    const secondPayload = (await second.json()) as {
+      data: { movementId: string };
+    };
+    expect(secondPayload.data.movementId).toBe(firstPayload.data.movementId);
+    const qtyAfterSecond = (
+      await prisma.productVariant.findUniqueOrThrow({ where: { id: cable.id } })
+    ).quantityOnHand;
+    expect(qtyAfterSecond).toBe(qtyAfterFirst);
   });
 
   it("rejects adjustment without reason", async () => {
@@ -152,6 +190,7 @@ describe.skipIf(!databaseAvailable)("inventory domain", () => {
         variantId: cable.id,
         quantity: -1,
         reason: "x",
+        idempotencyKey: `adj-short-${randomUUID()}`,
       }),
     );
     expect(response.status).toBe(400);
@@ -167,6 +206,7 @@ describe.skipIf(!databaseAvailable)("inventory domain", () => {
         variantId: cable.id,
         quantity: -(cable.quantityOnHand + 50),
         reason: "Tentative stock négatif",
+        idempotencyKey: `adj-neg-${randomUUID()}`,
       }),
     );
     expect(response.status).toBe(422);

@@ -19,14 +19,21 @@ export type AuthUser = {
 export async function createUserSession(userId: string): Promise<string> {
   const token = createSessionToken();
   const expiresAt = new Date(Date.now() + SESSION_TTL_SECONDS * 1000);
+  const tokenHash = hashSessionToken(token);
 
-  await prisma.session.create({
-    data: {
-      userId,
-      tokenHash: hashSessionToken(token),
-      expiresAt,
-    },
-  });
+  await prisma.$transaction([
+    prisma.session.updateMany({
+      where: { userId, revokedAt: null },
+      data: { revokedAt: new Date() },
+    }),
+    prisma.session.create({
+      data: {
+        userId,
+        tokenHash,
+        expiresAt,
+      },
+    }),
+  ]);
 
   return token;
 }

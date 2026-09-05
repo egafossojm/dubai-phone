@@ -17,7 +17,9 @@ Cette phase inclut la fondation technique, l'authentification, le catalogue,
 le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**,
 les **retours / remboursements / garanties**, le **tableau de bord** (Prompt 012),
 et les **reçus / impressions / PDF** (Prompt 013) via un moteur de documents
-réutilisable (`src/lib/documents`) découplé du POS.
+réutilisable (`src/lib/documents`) découplé du POS, plus le **durcissement
+sécurité** (Prompt 014 : révocation session au login, rate-limit anti-spoof,
+idempotence ajustements, audits — voir `docs/security/01-mvp-security-decisions.md`).
 
 Hors scope volontaire :
 - résolution `STORE_CREDIT` — MVP = `REFUND` | `EXCHANGE` ;
@@ -27,7 +29,8 @@ Hors scope volontaire :
 - persistance fichier `Receipt.pdfPath` (PDF/HTML générés à la demande ; instantané
   `snapshotJson` figé à la finalisation de vente).
 
-L'audit sécurité reste pour le prompt suivant.
+L'audit sécurité MVP est documenté ; les tests complets / production readiness
+restent pour les prompts suivants.
 
 ## Stack
 

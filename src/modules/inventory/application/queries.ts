@@ -129,6 +129,7 @@ export async function adjustStockUseCase(user: AuthUser, input: AdjustInput) {
     type: input.type,
     reason: input.reason,
     productSerialId: input.productSerialId,
+    idempotencyKey: input.idempotencyKey,
   });
 
   const detail = await getInventoryDetailUseCase(input.variantId);

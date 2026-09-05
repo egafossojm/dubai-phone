@@ -217,6 +217,9 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
     await attachSession("caisse@dubai-phone.local");
     const token = cookieJar.token;
     expect(token).toBeTruthy();
+    const user = await prisma.user.findUniqueOrThrow({
+      where: { email: "caisse@dubai-phone.local" },
+    });
 
     const request = new NextRequest("http://localhost/api/auth/logout", {
       method: "POST",
@@ -229,6 +232,13 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
       where: { tokenHash: hashSessionToken(token!) },
     });
     expect(session?.revokedAt).not.toBeNull();
+
+    const logoutAudit = await prisma.auditLog.findFirst({
+      where: { action: "auth.logout", actorId: user.id },
+      orderBy: { createdAt: "desc" },
+    });
+    expect(logoutAudit?.actorId).toBe(user.id);
+    expect(logoutAudit?.entityId).toBe(session?.id);
   });
 
   it("rate-limits repeated login failures and resets after success", async () => {
@@ -260,5 +270,33 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
       expect(await statusOf(await postLogin("wrong-password"))).toBe(401);
     }
     expect(await statusOf(await postLogin("wrong-password"))).toBe(429);
+  });
+
+  it("revokes prior sessions on a new successful login", async () => {
+    resetLoginRateLimitForTests();
+    await attachSession("caisse@dubai-phone.local");
+    const oldToken = cookieJar.token!;
+    expect(await statusOf(await getProducts(productsListRequest()))).toBe(200);
+
+    const password = getSeedUserPassword();
+    const loginResponse = await loginRoute(
+      new NextRequest("http://localhost/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: "caisse@dubai-phone.local",
+          password,
+        }),
+        headers: { "content-type": "application/json" },
+      }),
+    );
+    expect(await statusOf(loginResponse)).toBe(200);
+
+    cookieJar.token = oldToken;
+    expect(await statusOf(await getProducts(productsListRequest()))).toBe(401);
+
+    const oldSession = await prisma.session.findUnique({
+      where: { tokenHash: hashSessionToken(oldToken) },
+    });
+    expect(oldSession?.revokedAt).not.toBeNull();
   });
 });

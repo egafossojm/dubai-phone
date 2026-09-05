@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import type { InstallmentStatus, Prisma } from "@prisma/client";
+import type { InstallmentStatus } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { AppError } from "@/lib/errors/app-error";
 import type { AuthUser } from "@/lib/auth/session";

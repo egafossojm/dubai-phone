@@ -59,4 +59,5 @@ export const adjustStockSchema = z.object({
     .min(3, "Le motif est obligatoire (3 caractères minimum).")
     .max(500),
   productSerialId: z.string().uuid().optional(),
+  idempotencyKey: z.string().trim().min(8).max(120),
 });

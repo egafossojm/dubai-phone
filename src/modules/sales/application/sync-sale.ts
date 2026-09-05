@@ -3,6 +3,7 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { AppError } from "@/lib/errors/app-error";
 import type { AuthUser } from "@/lib/auth/session";
+import { writeAudit } from "@/lib/audit/write-audit";
 import type { completeSaleSchema } from "@/modules/sales/api/schemas";
 import { completeSaleUseCase } from "@/modules/sales/application/complete-sale";
 import { computeSalePayloadFingerprint } from "@/modules/sales/application/fingerprint";
@@ -10,8 +11,18 @@ import { syncTransactionStatusFromError } from "@/lib/offline/sync-classify";
 
 type CompleteInput = z.infer<typeof completeSaleSchema>;
 
+function fingerprintFromPayloadJson(payloadJson: string): string | null {
+  try {
+    const parsed = JSON.parse(payloadJson) as { fingerprint?: unknown };
+    return typeof parsed.fingerprint === "string" ? parsed.fingerprint : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Idempotent sync endpoint: records SyncTransaction then delegates to CompleteSale.
+ * Payload fingerprint is frozen after the first attempt for a clientTxnId.
  */
 export async function syncSaleUseCase(user: AuthUser, input: CompleteInput) {
   const fingerprint = computeSalePayloadFingerprint(input);
@@ -32,23 +43,42 @@ export async function syncSaleUseCase(user: AuthUser, input: CompleteInput) {
     };
   }
 
-  const syncRow = await prisma.syncTransaction.upsert({
-    where: { clientTxnId: input.clientTxnId },
-    create: {
-      clientTxnId: input.clientTxnId,
-      status: "SYNCING",
-      payloadJson,
-      attempts: 1,
-      lastAttemptAt: new Date(),
-    },
-    update: {
-      status: "SYNCING",
-      payloadJson,
-      attempts: { increment: 1 },
-      lastAttemptAt: new Date(),
-      errorMessage: null,
-    },
-  });
+  if (existing) {
+    const frozen = fingerprintFromPayloadJson(existing.payloadJson);
+    if (frozen && frozen !== fingerprint) {
+      throw new AppError(
+        "CONFLICT",
+        "Le payload de cette transaction offline a changé — créez une nouvelle vente.",
+        {
+          details: {
+            kind: "SYNC_PAYLOAD_MISMATCH",
+            clientTxnId: input.clientTxnId,
+          },
+        },
+      );
+    }
+  }
+
+  const syncRow = existing
+    ? await prisma.syncTransaction.update({
+        where: { id: existing.id },
+        data: {
+          status: "SYNCING",
+          attempts: { increment: 1 },
+          lastAttemptAt: new Date(),
+          errorMessage: null,
+          // Keep original payloadJson / fingerprint frozen.
+        },
+      })
+    : await prisma.syncTransaction.create({
+        data: {
+          clientTxnId: input.clientTxnId,
+          status: "SYNCING",
+          payloadJson,
+          attempts: 1,
+          lastAttemptAt: new Date(),
+        },
+      });
 
   try {
     const result = await completeSaleUseCase(user, input);
@@ -81,6 +111,18 @@ export async function syncSaleUseCase(user: AuthUser, input: CompleteInput) {
         status,
         errorMessage: message,
       },
+    });
+    await writeAudit({
+      actorId: user.id,
+      action: "sync.sale_failed",
+      entityType: "SyncTransaction",
+      entityId: syncRow.id,
+      after: {
+        clientTxnId: input.clientTxnId,
+        status,
+        errorMessage: message,
+      },
+      reason: message,
     });
     if (error instanceof AppError) {
       throw error;

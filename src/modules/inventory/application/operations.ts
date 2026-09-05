@@ -1,4 +1,4 @@
-import type { DeviceStatus, StockMovementType } from "@prisma/client";
+import { Prisma, type DeviceStatus, type StockMovementType } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import { AppError } from "@/lib/errors/app-error";
 import { writeAudit } from "@/lib/audit/write-audit";
@@ -21,6 +21,53 @@ import {
   expectedSerialStatusAfterMovement,
   isAdjustmentType,
 } from "@/modules/inventory/domain/policies";
+
+const ADJUST_IDEMPOTENCY_SCOPE = "inventory.adjust";
+
+function scopedAdjustKey(userId: string, key: string): string {
+  return `${userId}:${key}`;
+}
+
+function isAdjustIdempotencyConflict(error: unknown): boolean {
+  if (
+    !(error instanceof Prisma.PrismaClientKnownRequestError) ||
+    error.code !== "P2002"
+  ) {
+    return false;
+  }
+  const target = Array.isArray(error.meta?.target)
+    ? (error.meta.target as string[]).join(",")
+    : String(error.meta?.target ?? "");
+  return (
+    target.includes("scope") ||
+    target.includes("key") ||
+    target.includes("idempotency_records")
+  );
+}
+
+async function replayAdjustByKey(scopedKey: string) {
+  const existing = await prisma.idempotencyRecord.findUnique({
+    where: {
+      scope_key: { scope: ADJUST_IDEMPOTENCY_SCOPE, key: scopedKey },
+    },
+  });
+  if (!existing?.resourceId) {
+    throw new AppError(
+      "CONFLICT",
+      "Conflit d'idempotence d'ajustement — réessayez.",
+    );
+  }
+  const movement = await prisma.stockMovement.findUnique({
+    where: { id: existing.resourceId },
+  });
+  if (!movement) {
+    throw new AppError(
+      "CONFLICT",
+      "Mouvement d'ajustement introuvable pour cette clé.",
+    );
+  }
+  return movement;
+}
 
 async function withInventoryTx<T>(
   existing: DbClient | undefined,
@@ -410,6 +457,7 @@ export type ManualAdjustmentInput = {
   reason: string;
   productSerialId?: string;
   approvedById?: string;
+  idempotencyKey?: string;
 };
 
 export async function recordManualAdjustment(
@@ -423,92 +471,136 @@ export async function recordManualAdjustment(
   }
   const reason = assertAdjustmentReason(input.reason);
   assertAdjustmentQuantitySign(type, input.quantity);
+  const scopedKey = input.idempotencyKey
+    ? scopedAdjustKey(recordedById, input.idempotencyKey)
+    : null;
 
-  const movement = await withInventoryTx(options?.tx, async (tx) => {
-    const variant = await tx.productVariant.findFirst({
-      where: { id: input.variantId, deletedAt: null },
-      include: { product: { select: { isSerialized: true, name: true } } },
-    });
-    if (!variant) {
-      throw new AppError("NOT_FOUND", "Variante introuvable.");
-    }
-
-    let serialStatusAfter: DeviceStatus | undefined =
-      expectedSerialStatusAfterMovement(type, input.quantity);
-
-    if (variant.product.isSerialized) {
-      if (!input.productSerialId) {
-        throw new AppError(
-          "BUSINESS_RULE_ERROR",
-          "Ajustement sérialisé : précisez l'appareil (IMEI / série).",
-        );
+  try {
+    const result = await withInventoryTx(options?.tx, async (tx) => {
+      if (scopedKey) {
+        const existing = await tx.idempotencyRecord.findUnique({
+          where: {
+            scope_key: {
+              scope: ADJUST_IDEMPOTENCY_SCOPE,
+              key: scopedKey,
+            },
+          },
+        });
+        if (existing?.resourceId) {
+          const replayed = await tx.stockMovement.findUnique({
+            where: { id: existing.resourceId },
+          });
+          if (replayed) {
+            return { movement: replayed, replayed: true as const };
+          }
+        }
       }
-      if (Math.abs(input.quantity) !== 1) {
-        throw new AppError(
-          "BUSINESS_RULE_ERROR",
-          "Ajustement sérialisé : quantité +1 ou -1 uniquement.",
-        );
-      }
-      const serial = await tx.productSerial.findUnique({
-        where: { id: input.productSerialId },
+
+      const variant = await tx.productVariant.findFirst({
+        where: { id: input.variantId, deletedAt: null },
+        include: { product: { select: { isSerialized: true, name: true } } },
       });
-      if (!serial || serial.variantId !== input.variantId) {
-        throw new AppError("NOT_FOUND", "Appareil sérialisé introuvable.");
+      if (!variant) {
+        throw new AppError("NOT_FOUND", "Variante introuvable.");
       }
-      if (input.quantity < 0) {
-        if (serial.status !== "IN_STOCK" && serial.status !== "RESERVED") {
-          throw new AppError(
-            "BUSINESS_RULE_ERROR",
-            "Seuls les appareils en stock (ou réservés) peuvent sortir par ajustement.",
-          );
-        }
-        if (type === "STOCK_ADJUSTMENT") {
-          serialStatusAfter = "LOST";
-        }
-      } else {
-        if (serial.status === "IN_STOCK") {
-          throw new AppError(
-            "BUSINESS_RULE_ERROR",
-            "Cet appareil est déjà en stock.",
-          );
-        }
-        serialStatusAfter = "IN_STOCK";
-      }
-    } else if (input.productSerialId) {
-      throw new AppError(
-        "BUSINESS_RULE_ERROR",
-        "Produit non sérialisé : aucun IMEI attendu.",
-      );
-    }
 
-    return applyStockMovement(tx, {
-      type,
-      variantId: input.variantId,
-      quantity: input.quantity,
-      productSerialId: input.productSerialId,
-      reason,
-      recordedById,
-      approvedById: input.approvedById,
-      serialStatusAfter,
+      let serialStatusAfter: DeviceStatus | undefined =
+        expectedSerialStatusAfterMovement(type, input.quantity);
+
+      if (variant.product.isSerialized) {
+        if (!input.productSerialId) {
+          throw new AppError(
+            "BUSINESS_RULE_ERROR",
+            "Ajustement sérialisé : précisez l'appareil (IMEI / série).",
+          );
+        }
+        if (Math.abs(input.quantity) !== 1) {
+          throw new AppError(
+            "BUSINESS_RULE_ERROR",
+            "Ajustement sérialisé : quantité +1 ou -1 uniquement.",
+          );
+        }
+        const serial = await tx.productSerial.findUnique({
+          where: { id: input.productSerialId },
+        });
+        if (!serial || serial.variantId !== input.variantId) {
+          throw new AppError("NOT_FOUND", "Appareil sérialisé introuvable.");
+        }
+        if (input.quantity < 0) {
+          if (serial.status !== "IN_STOCK" && serial.status !== "RESERVED") {
+            throw new AppError(
+              "BUSINESS_RULE_ERROR",
+              "Seuls les appareils en stock (ou réservés) peuvent sortir par ajustement.",
+            );
+          }
+          if (type === "STOCK_ADJUSTMENT") {
+            serialStatusAfter = "LOST";
+          }
+        } else {
+          if (serial.status === "IN_STOCK") {
+            throw new AppError(
+              "BUSINESS_RULE_ERROR",
+              "Cet appareil est déjà en stock.",
+            );
+          }
+          serialStatusAfter = "IN_STOCK";
+        }
+      } else if (input.productSerialId) {
+        throw new AppError(
+          "BUSINESS_RULE_ERROR",
+          "Produit non sérialisé : aucun IMEI attendu.",
+        );
+      }
+
+      const movement = await applyStockMovement(tx, {
+        type,
+        variantId: input.variantId,
+        quantity: input.quantity,
+        productSerialId: input.productSerialId,
+        reason,
+        recordedById,
+        approvedById: input.approvedById,
+        serialStatusAfter,
+      });
+
+      if (scopedKey) {
+        await tx.idempotencyRecord.create({
+          data: {
+            scope: ADJUST_IDEMPOTENCY_SCOPE,
+            key: scopedKey,
+            resourceType: "StockMovement",
+            resourceId: movement.id,
+          },
+        });
+      }
+
+      await writeAudit({
+        tx,
+        actorId: recordedById,
+        action: "inventory.adjust",
+        entityType: "StockMovement",
+        entityId: movement.id,
+        after: {
+          type: movement.type,
+          variantId: movement.variantId,
+          quantity: movement.quantity,
+          productSerialId: movement.productSerialId,
+          reason,
+          idempotencyKey: input.idempotencyKey ?? null,
+        },
+        reason,
+      });
+
+      return { movement, replayed: false as const };
     });
-  });
 
-  await writeAudit({
-    actorId: recordedById,
-    action: "inventory.adjust",
-    entityType: "StockMovement",
-    entityId: movement.id,
-    after: {
-      type: movement.type,
-      variantId: movement.variantId,
-      quantity: movement.quantity,
-      productSerialId: movement.productSerialId,
-      reason,
-    },
-    reason,
-  });
-
-  return movement;
+    return result.movement;
+  } catch (error) {
+    if (scopedKey && isAdjustIdempotencyConflict(error)) {
+      return replayAdjustByKey(scopedKey);
+    }
+    throw error;
+  }
 }
 
 /** Soft hold on a serialized unit (no quantity movement). V1 long-basket holds stay out of scope. */

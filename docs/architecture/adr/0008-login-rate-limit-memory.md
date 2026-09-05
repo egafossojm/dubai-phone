@@ -5,7 +5,12 @@
 
 ## Contexte
 
-Le login est limité (5 échecs / 15 min par couple IP + e-mail) via `src/lib/auth/rate-limit.ts`.
+Le login est limité via `src/lib/auth/rate-limit.ts` :
+
+- **5** échecs / 15 min **par e-mail** (primaire) ;
+- **30** échecs / 15 min **par IP** (secondaire).
+
+Voir aussi ADR-0009 (TRUSTED_PROXY + non-confiance à `X-Forwarded-For` par défaut).
 
 ## Décision
 
@@ -18,7 +23,7 @@ Documenté explicitement : redémarrage = reset ; plusieurs instances Next.js = 
 Avant multi-instances / haute dispo :
 
 1. Remplacer le store par **Redis** (ou équivalent partagé) ;
-2. Prendre l’IP client depuis le hop reverse-proxy de confiance ;
+2. Activer `TRUSTED_PROXY=1` derrière le reverse-proxy ;
 3. Ne jamais faire confiance à un `X-Forwarded-For` brut venant d’Internet.
 
 ## Conséquences

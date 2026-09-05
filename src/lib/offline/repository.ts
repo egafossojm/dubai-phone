@@ -55,7 +55,8 @@ export async function getSnapshotMeta(): Promise<SnapshotMeta | null> {
   if (!meta) {
     return null;
   }
-  const { key: _key, ...rest } = meta;
+  const { key: _ignoredKey, ...rest } = meta;
+  void _ignoredKey;
   return rest;
 }
 

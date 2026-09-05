@@ -11,7 +11,6 @@ import {
   allocateTestSerial,
   ensureVariantStock,
   findSellableVariant,
-  uniqueTestPhone,
 } from "@/lib/test/sales-fixtures";
 import { POST as syncSale } from "@/app/api/sync/sales/route";
 import { GET as getSnapshot } from "@/app/api/sync/snapshot/route";
@@ -218,5 +217,58 @@ describe.skipIf(!databaseAvailable)("offline sync APIs", () => {
       where: { clientTxnId },
     });
     expect(syncRow.status).toBe("FAILED");
+    const audit = await prisma.auditLog.findFirst({
+      where: {
+        action: "sync.sale_failed",
+        entityId: syncRow.id,
+      },
+      orderBy: { createdAt: "desc" },
+    });
+    expect(audit).toBeTruthy();
+  });
+
+  it("rejects a mutated payload for the same clientTxnId", async () => {
+    await attachSession("caisse@dubai-phone.local");
+    const cable = await findSellableVariant();
+    if (!cable) {
+      return;
+    }
+    await ensureVariantStock(cable.id, 2);
+    const clientTxnId = randomUUID();
+    const first = await syncSale(
+      jsonRequest("http://localhost/api/sync/sales", "POST", {
+        clientTxnId,
+        kind: "IMMEDIATE",
+        items: [{ variantId: cable.id, quantity: 1 }],
+        payments: [
+          {
+            method: "CASH",
+            amountXaf: "1",
+            idempotencyKey: `sync-mut-a-${clientTxnId}`,
+          },
+        ],
+      }),
+    );
+    expect(first.status).toBe(422);
+
+    const second = await syncSale(
+      jsonRequest("http://localhost/api/sync/sales", "POST", {
+        clientTxnId,
+        kind: "IMMEDIATE",
+        items: [{ variantId: cable.id, quantity: 1 }],
+        payments: [
+          {
+            method: "CASH",
+            amountXaf: cable.sellingPriceXaf.toString(),
+            idempotencyKey: `sync-mut-b-${clientTxnId}`,
+          },
+        ],
+      }),
+    );
+    expect(second.status).toBe(409);
+    const body = (await second.json()) as {
+      error: { details?: { kind?: string } };
+    };
+    expect(body.error.details?.kind).toBe("SYNC_PAYLOAD_MISMATCH");
   });
 });

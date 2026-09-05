@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
@@ -15,12 +15,19 @@ type StockAdjustFormProps = {
   serials: SerialOption[];
 };
 
+function newAdjustKey() {
+  return typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : `adj-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
 export function StockAdjustForm({
   variantId,
   isSerialized,
   serials,
 }: StockAdjustFormProps) {
   const router = useRouter();
+  const idempotencyKeyRef = useRef(newAdjustKey());
   const [quantity, setQuantity] = useState("-1");
   const [type, setType] = useState<"STOCK_ADJUSTMENT" | "DAMAGED" | "LOST">(
     "STOCK_ADJUSTMENT",
@@ -33,6 +40,9 @@ export function StockAdjustForm({
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
+    if (pending) {
+      return;
+    }
     setPending(true);
     setError(null);
     setSuccess(null);
@@ -45,6 +55,7 @@ export function StockAdjustForm({
         quantity: Number(quantity),
         type,
         reason,
+        idempotencyKey: idempotencyKeyRef.current,
         ...(isSerialized && productSerialId ? { productSerialId } : {}),
       }),
     });
@@ -60,6 +71,8 @@ export function StockAdjustForm({
       return;
     }
 
+    // Rotate key only after a successful commit so retries stay idempotent.
+    idempotencyKeyRef.current = newAdjustKey();
     setSuccess("Ajustement enregistré.");
     setReason("");
     router.refresh();

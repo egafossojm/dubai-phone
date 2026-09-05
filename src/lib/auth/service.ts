@@ -13,7 +13,10 @@ import {
   revokeSessionByToken,
   setSessionCookie,
 } from "@/lib/auth/session";
-import { SESSION_COOKIE } from "@/lib/auth/session-token";
+import {
+  SESSION_COOKIE,
+  hashSessionToken,
+} from "@/lib/auth/session-token";
 import { cookies } from "next/headers";
 
 const loginSchema = z.object({
@@ -21,10 +24,20 @@ const loginSchema = z.object({
   password: z.string().min(1, "Le mot de passe est requis"),
 });
 
-function clientIp(request: Request): string {
+/**
+ * Resolve client IP for rate-limit / audit.
+ * Only trust X-Forwarded-For / X-Real-IP when TRUSTED_PROXY=1 (reverse proxy).
+ */
+export function clientIp(request: Request): string {
+  const trusted =
+    process.env.TRUSTED_PROXY === "1" ||
+    process.env.TRUSTED_PROXY === "true";
+  if (!trusted) {
+    return "unknown";
+  }
   return (
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
+    request.headers.get("x-real-ip")?.trim() ||
     "unknown"
   );
 }
@@ -97,17 +110,29 @@ export async function login(request: Request) {
 export async function logout(request: Request) {
   const store = await cookies();
   const token = store.get(SESSION_COOKIE)?.value;
+  const ip = clientIp(request);
+  let actorId: string | undefined;
+  let sessionId = "none";
+
   if (token) {
+    const session = await prisma.session.findUnique({
+      where: { tokenHash: hashSessionToken(token) },
+      select: { id: true, userId: true, revokedAt: true },
+    });
+    if (session && !session.revokedAt) {
+      actorId = session.userId;
+      sessionId = session.id;
+    }
     await revokeSessionByToken(token);
   }
   await clearSessionCookie();
 
-  const ip = clientIp(request);
   await prisma.auditLog.create({
     data: {
+      actorId,
       action: "auth.logout",
       entityType: "Session",
-      entityId: "current",
+      entityId: sessionId,
       ipAddress: ip,
     },
   });
