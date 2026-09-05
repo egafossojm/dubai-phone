@@ -14,9 +14,15 @@ Gérer le cycle opérationnel d'un magasin physique :
 - retours et garanties
 
 Cette phase inclut la fondation technique, l'authentification, le catalogue,
-le stock, les achats, les clients / crédits, le **POS online** et le **POS offline**
-(cache IndexedDB + outbox + sync idempotente).
-Les retours / garanties avancées restent pour les prompts suivants.
+le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**
+(cache IndexedDB + outbox + sync idempotente), et les **retours / remboursements /
+échanges / garanties** (Prompt 011, remédiations 999 A–D).
+
+Hors scope volontaire (à documenter) :
+- résolution `STORE_CREDIT` (métier §15) — MVP = `REFUND` | `EXCHANGE` uniquement ;
+- workflow de réclamation garantie (`CLAIMED` → `RESOLVED`) — lookup + expiration seulement.
+
+Le dashboard et les rapports avancés restent pour les prompts suivants.
 
 ## Stack
 

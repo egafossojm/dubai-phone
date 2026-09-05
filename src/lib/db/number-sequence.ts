@@ -18,6 +18,8 @@ const EXISTS_BY_TYPE: Partial<Record<NumberDocumentType, ExistsFn>> = {
     Boolean(await tx.customerCredit.findUnique({ where: { reference }, select: { id: true } })),
   WARRANTY: async (tx, reference) =>
     Boolean(await tx.warranty.findUnique({ where: { reference }, select: { id: true } })),
+  RETURN: async (tx, reference) =>
+    Boolean(await tx.return.findUnique({ where: { reference }, select: { id: true } })),
 };
 
 /**

@@ -783,24 +783,26 @@ model Receipt {
 // ---------------------------------------------------------------------------
 
 model Return {
-  id              String       @id @default(uuid())
-  reference       String       @unique
-  saleId          String
-  customerId      String?
-  status          ReturnStatus @default(REQUESTED)
-  resolution      ReturnResolution?
-  reason          String?
-  requestedById   String
-  inspectedAt     DateTime?
-  completedAt     DateTime?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+  id                       String       @id @default(uuid())
+  reference                String       @unique
+  saleId                   String
+  customerId               String?
+  status                   ReturnStatus @default(REQUESTED)
+  resolution               ReturnResolution?
+  reason                   String?
+  requestedById            String
+  inspectedAt              DateTime?
+  completedAt              DateTime?
+  /// Idempotency key for exchange completion (refunds use Refund.idempotencyKey).
+  completionIdempotencyKey String?      @unique
+  createdAt                DateTime     @default(now())
+  updatedAt                DateTime     @updatedAt
 
-  sale          Sale           @relation(fields: [saleId], references: [id], onDelete: Restrict)
-  customer      Customer?      @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  requestedBy   User           @relation("ReturnRequestedBy", fields: [requestedById], references: [id], onDelete: Restrict)
-  items         ReturnItem[]
-  refunds       Refund[]
+  sale           Sale            @relation(fields: [saleId], references: [id], onDelete: Restrict)
+  customer       Customer?       @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  requestedBy    User            @relation("ReturnRequestedBy", fields: [requestedById], references: [id], onDelete: Restrict)
+  items          ReturnItem[]
+  refunds        Refund[]
   stockMovements StockMovement[]
 
   @@index([saleId])
@@ -833,14 +835,15 @@ model ReturnItem {
 
 /// Append-oriented outbound money. Never void a posted payment (U-08).
 model Refund {
-  id             String   @id @default(uuid())
-  idempotencyKey String   @unique
-  returnId       String
-  amountXaf      BigInt
-  method         PaymentMethod
-  recordedById   String
-  refundedAt     DateTime @default(now())
-  createdAt      DateTime @default(now())
+  id                String   @id @default(uuid())
+  idempotencyKey    String   @unique
+  returnId          String
+  amountXaf         BigInt
+  method            PaymentMethod
+  operatorReference String?
+  recordedById      String
+  refundedAt        DateTime @default(now())
+  createdAt         DateTime @default(now())
 
   returnRecord Return @relation(fields: [returnId], references: [id], onDelete: Restrict)
   recordedBy   User   @relation("RefundRecordedBy", fields: [recordedById], references: [id], onDelete: Restrict)

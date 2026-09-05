@@ -23,6 +23,10 @@ import { NextRequest } from "next/server";
 
 const cookieJar = vi.hoisted(() => ({ token: undefined as string | undefined }));
 
+function refundStubRequest() {
+  return new NextRequest("http://localhost/api/sales/refund", { method: "POST" });
+}
+
 vi.mock("next/headers", () => ({
   cookies: async () => ({
     get: (name: string) =>
@@ -128,7 +132,7 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
     await attachSession("caisse@dubai-phone.local");
     expect(await statusOf(await getSales(salesListRequest()))).toBe(200);
     expect(await statusOf(await getProducts(productsListRequest()))).toBe(200);
-    expect(await statusOf(await refundSale())).toBe(403);
+    expect(await statusOf(await refundSale(refundStubRequest()))).toBe(403);
     expect(await statusOf(await getUsers())).toBe(403);
     expect(await statusOf(await getAudit())).toBe(403);
     expect(await statusOf(await adjustInventory(adjustRequest()))).toBe(403);
@@ -141,23 +145,24 @@ describe.skipIf(!databaseAvailable)("authorization APIs by role", () => {
     // Adjust is implemented: empty/invalid body → validation (not 501 stub).
     expect(await statusOf(await adjustInventory(adjustRequest()))).toBe(400);
     expect(await statusOf(await getSales(salesListRequest()))).toBe(403);
-    expect(await statusOf(await refundSale())).toBe(403);
+    expect(await statusOf(await refundSale(refundStubRequest()))).toBe(403);
     expect(await statusOf(await getUsers())).toBe(403);
   });
 
-  it("allows a manager to request a refund but does not execute it yet", async () => {
+  it("allows a manager to hit legacy refund stub without mutating data", async () => {
     await attachSession("manager@dubai-phone.local");
     const paymentsBefore = await prisma.payment.count();
     const movementsBefore = await prisma.stockMovement.count();
 
-    const refundResponse = await refundSale();
+    const refundResponse = await refundSale(refundStubRequest());
     expect(refundResponse.status).toBe(501);
     const payload = (await refundResponse.json()) as {
       success: boolean;
-      error?: { code: string };
+      error?: { code: string; message?: string };
     };
     expect(payload.success).toBe(false);
     expect(payload.error?.code).toBe("NOT_IMPLEMENTED");
+    expect(payload.error?.message).toMatch(/returns/i);
     expect(await prisma.payment.count()).toBe(paymentsBefore);
     expect(await prisma.stockMovement.count()).toBe(movementsBefore);
 

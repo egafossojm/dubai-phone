@@ -261,6 +261,16 @@ export async function recordCustomerReturn(
     const movements = [];
     for (const line of lines) {
       if (!line.restock) {
+        if (line.productSerialId) {
+          await tx.productSerial.update({
+            where: { id: line.productSerialId },
+            data: {
+              saleItemId: null,
+              customerId: null,
+              status: "DAMAGED",
+            },
+          });
+        }
         continue;
       }
       const variant = await tx.productVariant.findFirst({
@@ -557,5 +567,85 @@ export async function releaseSerializedReservation(
       after: { status: "IN_STOCK" },
     });
     return updated;
+  });
+}
+
+/**
+ * Deduct a same-SKU replacement during exchange.
+ * Does not use saleItemId (already consumed by the original sale movement).
+ * Idempotent per (returnId, returnItemId) via reason marker.
+ */
+export type ExchangeReplacementInput = {
+  variantId: string;
+  quantity: number;
+  returnId: string;
+  returnItemId: string;
+  productSerialId?: string;
+};
+
+export async function recordExchangeReplacement(
+  recordedById: string,
+  lines: ExchangeReplacementInput[],
+  options?: { tx?: DbClient },
+) {
+  return withInventoryTx(options?.tx, async (tx) => {
+    const movements = [];
+    for (const line of lines) {
+      const reason = `EXCHANGE_OUT:${line.returnItemId}`;
+      const existing = await tx.stockMovement.findFirst({
+        where: { returnId: line.returnId, reason },
+        select: { id: true },
+      });
+      if (existing) {
+        continue;
+      }
+
+      const variant = await tx.productVariant.findFirst({
+        where: { id: line.variantId, deletedAt: null },
+        include: { product: { select: { isSerialized: true } } },
+      });
+      if (!variant) {
+        throw new AppError("NOT_FOUND", "Variante introuvable.");
+      }
+
+      if (variant.product.isSerialized) {
+        if (!line.productSerialId || line.quantity !== 1) {
+          throw new AppError(
+            "BUSINESS_RULE_ERROR",
+            "Échange sérialisé : un appareil de remplacement (qté 1) est requis.",
+          );
+        }
+        movements.push(
+          await applyStockMovement(tx, {
+            type: "SALE",
+            variantId: line.variantId,
+            quantity: -1,
+            productSerialId: line.productSerialId,
+            returnId: line.returnId,
+            reason,
+            recordedById,
+            serialStatusAfter: "SOLD",
+          }),
+        );
+      } else {
+        if (line.productSerialId) {
+          throw new AppError(
+            "BUSINESS_RULE_ERROR",
+            "Produit non sérialisé : aucun IMEI attendu pour l'échange.",
+          );
+        }
+        movements.push(
+          await applyStockMovement(tx, {
+            type: "SALE",
+            variantId: line.variantId,
+            quantity: -line.quantity,
+            returnId: line.returnId,
+            reason,
+            recordedById,
+          }),
+        );
+      }
+    }
+    return movements;
   });
 }

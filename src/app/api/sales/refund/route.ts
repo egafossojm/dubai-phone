@@ -1,3 +1,16 @@
-import { protectedPost } from "@/lib/auth/permission-route";
+import { NextRequest } from "next/server";
+import { jsonOk, requirePermission } from "@/lib/auth/http";
+import { handleRoute } from "@/lib/api/handle";
+import { AppError } from "@/lib/errors/app-error";
 
-export const POST = protectedPost("sales.refund");
+/**
+ * Legacy stub — refunds go through /api/returns/[id]/refund.
+ * Kept to avoid 404 for old clients; redirects with a clear error.
+ */
+export const POST = handleRoute(async (_request: NextRequest) => {
+  await requirePermission("sales.refund");
+  throw new AppError(
+    "NOT_IMPLEMENTED",
+    "Utilisez POST /api/returns/{id}/refund pour enregistrer un remboursement.",
+  );
+});

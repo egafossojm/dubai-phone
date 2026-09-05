@@ -1,5 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { prisma } from "@/lib/db/prisma";
+import { applyStockMovement } from "@/modules/inventory/application/apply-movement";
 
 export async function findInStockSerial() {
   return prisma.productSerial.findFirst({
@@ -24,12 +25,24 @@ export async function ensureVariantStock(variantId: string, minimum: number) {
     where: { id: variantId },
     select: { quantityOnHand: true },
   });
-  if (row.quantityOnHand < minimum) {
-    await prisma.productVariant.update({
-      where: { id: variantId },
-      data: { quantityOnHand: minimum },
-    });
+  if (row.quantityOnHand >= minimum) {
+    return;
   }
+  const delta = minimum - row.quantityOnHand;
+  const actor = await prisma.user.findFirstOrThrow({
+    where: { email: "caisse@dubai-phone.local" },
+    select: { id: true },
+  });
+  await prisma.$transaction(async (tx) => {
+    await applyStockMovement(tx, {
+      type: "STOCK_ADJUSTMENT",
+      variantId,
+      quantity: delta,
+      reason: "TEST_ENSURE_STOCK",
+      recordedById: actor.id,
+      allowNegative: true,
+    });
+  });
 }
 
 /**
@@ -42,27 +55,55 @@ export async function allocateTestSerial() {
       status: "ACTIVE",
       product: { isSerialized: true, status: "ACTIVE", deletedAt: null },
     },
-    select: { id: true },
+    select: { id: true, quantityOnHand: true },
   });
   if (!variant) {
     return null;
   }
+  const actor = await prisma.user.findFirstOrThrow({
+    where: { email: "caisse@dubai-phone.local" },
+    select: { id: true },
+  });
   const suffix = randomBytes(4).toString("hex");
   const imei = `3599${suffix}000001`.slice(0, 15);
-  const serial = await prisma.productSerial.create({
-    data: {
+
+  return prisma.$transaction(async (tx) => {
+    // Heal polluted negative caches so +1 stock-in can succeed.
+    if (variant.quantityOnHand < 0) {
+      await applyStockMovement(tx, {
+        type: "STOCK_ADJUSTMENT",
+        variantId: variant.id,
+        quantity: -variant.quantityOnHand,
+        reason: "TEST_HEAL_NEGATIVE_STOCK",
+        recordedById: actor.id,
+        allowNegative: true,
+      });
+    }
+
+    const serial = await tx.productSerial.create({
+      data: {
+        variantId: variant.id,
+        imei1: imei,
+        serialNumber: `TST-${suffix}`,
+        status: "LOST",
+      },
+    });
+
+    await applyStockMovement(tx, {
+      type: "STOCK_ADJUSTMENT",
       variantId: variant.id,
-      imei1: imei,
-      serialNumber: `TST-${suffix}`,
-      status: "IN_STOCK",
-    },
-    include: { variant: true },
+      quantity: 1,
+      productSerialId: serial.id,
+      reason: "TEST_ALLOCATE_SERIAL",
+      recordedById: actor.id,
+      serialStatusAfter: "IN_STOCK",
+    });
+
+    return tx.productSerial.findUniqueOrThrow({
+      where: { id: serial.id },
+      include: { variant: true },
+    });
   });
-  await prisma.productVariant.update({
-    where: { id: variant.id },
-    data: { quantityOnHand: { increment: 1 } },
-  });
-  return serial;
 }
 
 export function uniqueTestPhone() {

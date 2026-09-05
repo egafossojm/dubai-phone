@@ -115,9 +115,21 @@ export default async function VenteDetailPage({
         </div>
       </section>
 
-      <Link href="/pos" className={buttonVariants({ variant: "outline" })}>
-        Retour caisse
-      </Link>
+      <div className="flex flex-wrap gap-2">
+        {sale.status !== "DRAFT" &&
+        sale.status !== "CANCELLED" &&
+        sale.status !== "RETURNED" ? (
+          <Link
+            href={`/retours/nouveau?saleId=${sale.id}`}
+            className={buttonVariants()}
+          >
+            Demander un retour
+          </Link>
+        ) : null}
+        <Link href="/pos" className={buttonVariants({ variant: "outline" })}>
+          Retour caisse
+        </Link>
+      </div>
     </section>
   );
 }

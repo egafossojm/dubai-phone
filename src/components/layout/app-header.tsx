@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/pos", label: "Caisse", permission: "sales.create" },
   { href: "/sync", label: "Sync", permission: "sales.create" },
   { href: "/ventes", label: "Ventes", permission: "sales.read" },
+  { href: "/retours", label: "Retours", permission: "sales.read" },
   { href: "/produits", label: "Produits", permission: "products.read" },
   { href: "/stock", label: "Stock", permission: "inventory.read" },
   { href: "/achats", label: "Achats", permission: "purchases.read" },
