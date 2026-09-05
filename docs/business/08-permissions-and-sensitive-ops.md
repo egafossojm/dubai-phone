@@ -41,7 +41,9 @@ Rôles : **SA** Super Admin · **MG** Manager · **SP** Sales · **IM** Inventor
 | Audit log | C | C\* | X | X |
 | Synchro offline (ops) | W | W | W | — |
 
-\* = restreint par permission granulaire (ex. vendeur voit son CA, pas la marge globale).
+\* = restreint par permission granulaire (ex. vendeur voit **son** CA sur le
+tableau de bord via `dashboard.read`, pas la marge / créances / CA magasin —
+réservés à `reports.read`).
 
 ---
 

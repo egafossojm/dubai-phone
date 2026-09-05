@@ -20,7 +20,8 @@
 | `returns` | Retours / refunds / échanges | Garantie longue |
 | `warranties` | Garanties liées vente/device | Atelier réparation |
 | `receipts` | Génération / données reçu | Paiement |
-| `dashboard` | Agrégations lecture | Écritures métier |
+| `dashboard` | Agrégations lecture ; CA net = encaissements − remboursements (`Africa/Douala`) ; créances = soldes hors `PAID`/`CANCELLED` (**inclut `DEFAULTED`**) | Écritures métier |
+
 | `audit` | Journal append-only | Business rules |
 | `synchronization` | Ingestion offline idempotente | UI catalogue |
 

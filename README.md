@@ -14,15 +14,21 @@ Gérer le cycle opérationnel d'un magasin physique :
 - retours et garanties
 
 Cette phase inclut la fondation technique, l'authentification, le catalogue,
-le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**
-(cache IndexedDB + outbox + sync idempotente), et les **retours / remboursements /
-échanges / garanties** (Prompt 011, remédiations 999 A–D).
+le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**,
+les **retours / remboursements / garanties**, et le **tableau de bord** (Prompt 012)
+avec filtres de période (fuseau `Africa/Douala`), CA net (encaissements −
+remboursements), et cloisonnement financier :
 
-Hors scope volontaire (à documenter) :
-- résolution `STORE_CREDIT` (métier §15) — MVP = `REFUND` | `EXCHANGE` uniquement ;
-- workflow de réclamation garantie (`CLAIMED` → `RESOLVED`) — lookup + expiration seulement.
+- `reports.read` → KPIs magasin (CA, marge estimée, créances dont `DEFAULTED`, paiements) ;
+- sans `reports.read` → CA **personnel** du vendeur uniquement (docs 08), pas la marge globale.
 
-Le dashboard et les rapports avancés restent pour les prompts suivants.
+Hors scope volontaire :
+- résolution `STORE_CREDIT` — MVP = `REFUND` | `EXCHANGE` ;
+- workflow réclamation garantie (`CLAIMED` → `RESOLVED`) ;
+- coût d'achat historisé à la ligne de vente (marge = estimation au coût actuel) ;
+- rapports détaillés exportables (stub `/api/reports`).
+
+Les reçus / impressions et l'audit sécurité restent pour les prompts suivants.
 
 ## Stack
 
