@@ -109,8 +109,11 @@ async function seedUsers() {
 async function seedSettings() {
   const settings: Record<string, string> = {
     "store.name": "Dubai Phone",
+    "store.address": "Marché central, boutiques électroniques",
     "store.city": "Douala",
     "store.country": "CM",
+    "store.phone": "+237 600 000 000",
+    "store.email": "contact@dubai-phone.local",
     "currency.code": "XAF",
     "currency.label": "FCFA",
     "returns.maxDays": "7",

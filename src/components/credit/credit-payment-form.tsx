@@ -136,7 +136,7 @@ export function CreditPaymentForm({
           >
             <option value="CASH">Espèces</option>
             <option value="ORANGE_MONEY">Orange Money</option>
-            <option value="MTN_MOBILE_MONEY">MTN MoMo</option>
+            <option value="MTN_MOBILE_MONEY">MTN Mobile Money</option>
           </select>
         </div>
         <div>

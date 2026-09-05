@@ -47,7 +47,7 @@ export function paymentMethodLabel(method: string): string {
     case "ORANGE_MONEY":
       return "Orange Money";
     case "MTN_MOBILE_MONEY":
-      return "MTN MoMo";
+      return "MTN Mobile Money";
     default:
       return method;
   }

@@ -12,6 +12,7 @@ const withPWA = withPWAInit({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  serverExternalPackages: ["pdfkit"],
 };
 
 export default withPWA(nextConfig);

@@ -15,20 +15,19 @@ Gérer le cycle opérationnel d'un magasin physique :
 
 Cette phase inclut la fondation technique, l'authentification, le catalogue,
 le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**,
-les **retours / remboursements / garanties**, et le **tableau de bord** (Prompt 012)
-avec filtres de période (fuseau `Africa/Douala`), CA net (encaissements −
-remboursements), et cloisonnement financier :
-
-- `reports.read` → KPIs magasin (CA, marge estimée, créances dont `DEFAULTED`, paiements) ;
-- sans `reports.read` → CA **personnel** du vendeur uniquement (docs 08), pas la marge globale.
+les **retours / remboursements / garanties**, le **tableau de bord** (Prompt 012),
+et les **reçus / impressions / PDF** (Prompt 013) via un moteur de documents
+réutilisable (`src/lib/documents`) découplé du POS.
 
 Hors scope volontaire :
 - résolution `STORE_CREDIT` — MVP = `REFUND` | `EXCHANGE` ;
 - workflow réclamation garantie (`CLAIMED` → `RESOLVED`) ;
 - coût d'achat historisé à la ligne de vente (marge = estimation au coût actuel) ;
-- rapports détaillés exportables (stub `/api/reports`).
+- rapports détaillés exportables (stub `/api/reports`) ;
+- persistance fichier `Receipt.pdfPath` (PDF/HTML générés à la demande ; instantané
+  `snapshotJson` figé à la finalisation de vente).
 
-Les reçus / impressions et l'audit sécurité restent pour les prompts suivants.
+L'audit sécurité reste pour le prompt suivant.
 
 ## Stack
 

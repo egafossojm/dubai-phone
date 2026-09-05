@@ -116,12 +116,20 @@ export default async function VenteDetailPage({
       </section>
 
       <div className="flex flex-wrap gap-2">
+        {sale.receiptReference ? (
+          <Link
+            href={`/recus/${sale.id}`}
+            className={buttonVariants()}
+          >
+            Voir le reçu
+          </Link>
+        ) : null}
         {sale.status !== "DRAFT" &&
         sale.status !== "CANCELLED" &&
         sale.status !== "RETURNED" ? (
           <Link
             href={`/retours/nouveau?saleId=${sale.id}`}
-            className={buttonVariants()}
+            className={buttonVariants({ variant: sale.receiptReference ? "outline" : "default" })}
           >
             Demander un retour
           </Link>

@@ -20,6 +20,7 @@ import {
 import { computeSalePayloadFingerprint } from "@/modules/sales/application/fingerprint";
 import { toSaleDetail, toSaleSummary } from "@/modules/sales/application/presenters";
 import { deriveCreditStatus } from "@/modules/credit/domain/policies";
+import { buildReceiptSnapshotInTx } from "@/modules/receipts/application/build-snapshot";
 
 type CompleteInput = z.infer<typeof completeSaleSchema>;
 
@@ -465,6 +466,10 @@ export async function completeSaleUseCase(user: AuthUser, input: CompleteInput) 
       }
 
       let creditId: string | null = null;
+      let creditSnapshot: {
+        reference: string;
+        remainingXaf: bigint;
+      } | null = null;
       if (input.kind === "INSTALLMENT" && input.installmentPlan) {
         const remainingXaf = totalXaf - paidNowXaf;
         const amounts = splitEqualInstallments(
@@ -509,6 +514,10 @@ export async function completeSaleUseCase(user: AuthUser, input: CompleteInput) 
           },
         });
         creditId = credit.id;
+        creditSnapshot = {
+          reference: credit.reference,
+          remainingXaf,
+        };
 
         // Link down-payment payments to the credit account (not to installments).
         await tx.payment.updateMany({
@@ -567,6 +576,30 @@ export async function completeSaleUseCase(user: AuthUser, input: CompleteInput) 
         data: {
           saleId: sale.id,
           reference: receiptReference,
+          snapshotJson: await buildReceiptSnapshotInTx(tx, {
+            receiptReference,
+            saleId: sale.id,
+            saleReference: sale.reference,
+            saleKind: input.kind,
+            completedAt: sale.completedAt!,
+            cashierName: user.fullName,
+            customer: input.customerId
+              ? await tx.customer
+                  .findUniqueOrThrow({
+                    where: { id: input.customerId },
+                    select: { fullName: true, phone: true },
+                  })
+                  .then((row) => ({
+                    fullName: row.fullName,
+                    phone: row.phone,
+                  }))
+              : null,
+            subtotalXaf: linesSubtotal,
+            lineDiscountTotalXaf: linesDiscount,
+            globalDiscountXaf,
+            totalXaf,
+            credit: creditSnapshot,
+          }),
         },
       });
 

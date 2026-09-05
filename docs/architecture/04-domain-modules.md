@@ -19,7 +19,7 @@
 | `credit` | Comptes crédit, échéances, statuts MVP | POS UI |
 | `returns` | Retours / refunds / échanges | Garantie longue |
 | `warranties` | Garanties liées vente/device | Atelier réparation |
-| `receipts` | Génération / données reçu | Paiement |
+| `receipts` | Instantané immuable (`snapshotJson`) + aperçu / PDF / HTML / impression via `src/lib/documents` | Écritures POS ; pas de couplage UI caisse |
 | `dashboard` | Agrégations lecture ; CA net = encaissements − remboursements (`Africa/Douala`) ; créances = soldes hors `PAID`/`CANCELLED` (**inclut `DEFAULTED`**) | Écritures métier |
 
 | `audit` | Journal append-only | Business rules |

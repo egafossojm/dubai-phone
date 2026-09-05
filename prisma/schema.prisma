@@ -766,12 +766,15 @@ model PaymentAllocation {
 }
 
 model Receipt {
-  id         String    @id @default(uuid())
-  saleId     String    @unique
-  reference  String    @unique
-  pdfPath    String?
-  printedAt  DateTime?
-  createdAt  DateTime  @default(now())
+  id           String    @id @default(uuid())
+  saleId       String    @unique
+  reference    String    @unique
+  /// Immutable receipt document captured at CompleteSale (JSON).
+  snapshotJson Json?
+  /// Reserved for future object-storage path; PDF is generated on demand today.
+  pdfPath      String?
+  printedAt    DateTime?
+  createdAt    DateTime  @default(now())
 
   sale Sale @relation(fields: [saleId], references: [id], onDelete: Restrict)
 
