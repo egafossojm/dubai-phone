@@ -31,8 +31,10 @@ Vitest est déjà configuré pour les tests unitaires/composants.
 
 - Stock ≈ somme mouvements (pour qty trackées)  
 - Device non vendable deux fois  
-- Solde crédit = total − paiements valides  
+- Solde crédit = total − acompte − paiements valides  
 - Permissions : cas autorisé **et** refusé  
+
+Voir le rapport Prompt 015 : `docs/qa/01-complete-qa-pass.md`.
 
 ---
 

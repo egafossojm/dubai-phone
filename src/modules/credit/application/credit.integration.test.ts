@@ -171,6 +171,40 @@ describe.skipIf(!databaseAvailable)("credit payment APIs", () => {
     expect(payload.data.credit.status).toBe("PARTIALLY_PAID");
   });
 
+  it("keeps remaining balance = credit total − down payment − valid payments", async () => {
+    await attachSession("caisse@dubai-phone.local");
+    const credit = await createOpenCredit();
+    await payCredit(
+      jsonRequest("http://localhost/api/credit/payments", "POST", {
+        creditId: credit.id,
+        amountXaf: 15_000,
+        method: PaymentMethod.CASH,
+        idempotencyKey: `bal-a-${credit.reference}`,
+      }),
+    );
+    await payCredit(
+      jsonRequest("http://localhost/api/credit/payments", "POST", {
+        creditId: credit.id,
+        amountXaf: 10_000,
+        method: PaymentMethod.CASH,
+        idempotencyKey: `bal-b-${credit.reference}`,
+      }),
+    );
+
+    const updated = await prisma.customerCredit.findUniqueOrThrow({
+      where: { id: credit.id },
+      include: { payments: true },
+    });
+    const paid = updated.payments.reduce(
+      (sum, row) => sum + row.amountXaf,
+      BigInt(0),
+    );
+    expect(updated.remainingXaf).toBe(
+      updated.totalAmountXaf - updated.downPaymentXaf - paid,
+    );
+    expect(updated.remainingXaf).toBe(xaf(55_000));
+  });
+
   it("supports multiple payments until completed", async () => {
     await attachSession("caisse@dubai-phone.local");
     const credit = await createOpenCredit();

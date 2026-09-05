@@ -301,6 +301,45 @@ describe.skipIf(!databaseAvailable)("returns / refunds / warranties APIs", () =>
     expect(forbidden.status).toBe(403);
   });
 
+  it("rejects a refund above the refundable amount", async () => {
+    await attachSession("caisse@dubai-phone.local");
+    const sold = await sellCable(1);
+    if (!sold) {
+      return;
+    }
+    const returnId = await openAcceptedReturn({
+      saleId: sold.sale.id,
+      saleItemId: sold.sale.items[0]!.id,
+      quantity: 1,
+      resolution: "REFUND",
+    });
+
+    const detail = await getReturn(
+      new NextRequest(`http://localhost/api/returns/${returnId}`),
+      params(returnId),
+    );
+    const detailPayload = (await detail.json()) as {
+      data: { refundableXaf: string };
+    };
+    const refundable = BigInt(detailPayload.data.refundableXaf);
+
+    await attachSession("manager@dubai-phone.local");
+    const over = await refundReturn(
+      jsonRequest(`http://localhost/api/returns/${returnId}/refund`, "POST", {
+        amountXaf: String(refundable + BigInt(1)),
+        method: "CASH",
+        idempotencyKey: `over-refund-${randomBytes(4).toString("hex")}`,
+      }),
+      params(returnId),
+    );
+    expect(over.status).toBe(422);
+
+    const refunds = await prisma.refund.count({
+      where: { returnId },
+    });
+    expect(refunds).toBe(0);
+  });
+
   it("records a partial refund without closing the return early", async () => {
     await attachSession("caisse@dubai-phone.local");
     const sold = await sellCable(2);

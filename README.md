@@ -16,10 +16,9 @@ Gérer le cycle opérationnel d'un magasin physique :
 Cette phase inclut la fondation technique, l'authentification, le catalogue,
 le stock, les achats, les clients / crédits, le **POS online**, le **POS offline**,
 les **retours / remboursements / garanties**, le **tableau de bord** (Prompt 012),
-et les **reçus / impressions / PDF** (Prompt 013) via un moteur de documents
-réutilisable (`src/lib/documents`) découplé du POS, plus le **durcissement
-sécurité** (Prompt 014 : révocation session au login, rate-limit anti-spoof,
-idempotence ajustements, audits — voir `docs/security/01-mvp-security-decisions.md`).
+les **reçus / impressions / PDF** (Prompt 013), le **durcissement sécurité**
+(Prompt 014 — voir `docs/security/01-mvp-security-decisions.md`), et la
+**passe QA complète** (Prompt 015 — `docs/qa/01-complete-qa-pass.md`, 203 tests).
 
 Hors scope volontaire :
 - résolution `STORE_CREDIT` — MVP = `REFUND` | `EXCHANGE` ;
@@ -29,8 +28,7 @@ Hors scope volontaire :
 - persistance fichier `Receipt.pdfPath` (PDF/HTML générés à la demande ; instantané
   `snapshotJson` figé à la finalisation de vente).
 
-L'audit sécurité MVP est documenté ; les tests complets / production readiness
-restent pour les prompts suivants.
+La production readiness reste pour le prompt suivant (016).
 
 ## Stack
 
@@ -130,4 +128,5 @@ Voir `.env.example`.
 
 ## Prochaine étape
 
-Ne pas enchaîner automatiquement. Attendre la phase suivante pour l'architecture métier et les premiers domaines.
+Prompt 016 — production readiness (déploiement, observabilité, checklist go-live).
+Ne pas enchaîner automatiquement.

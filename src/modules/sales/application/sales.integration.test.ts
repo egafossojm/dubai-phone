@@ -129,6 +129,11 @@ describe.skipIf(!databaseAvailable)("sales / POS APIs", () => {
     });
     expect(after.quantityOnHand).toBe(beforeQty - 1);
 
+    const saleMovesAfterFirst = await prisma.stockMovement.count({
+      where: { saleId: firstPayload.data.sale.id, type: "SALE" },
+    });
+    expect(saleMovesAfterFirst).toBe(1);
+
     const second = await createSale(
       jsonRequest("http://localhost/api/sales", "POST", body),
     );
@@ -138,6 +143,16 @@ describe.skipIf(!databaseAvailable)("sales / POS APIs", () => {
     };
     expect(secondPayload.data.replayed).toBe(true);
     expect(secondPayload.data.sale.id).toBe(firstPayload.data.sale.id);
+
+    const afterReplay = await prisma.productVariant.findUniqueOrThrow({
+      where: { id: cable.id },
+    });
+    expect(afterReplay.quantityOnHand).toBe(beforeQty - 1);
+    expect(
+      await prisma.stockMovement.count({
+        where: { saleId: firstPayload.data.sale.id, type: "SALE" },
+      }),
+    ).toBe(1);
 
     const mismatch = await createSale(
       jsonRequest("http://localhost/api/sales", "POST", {

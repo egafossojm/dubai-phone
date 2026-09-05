@@ -370,6 +370,27 @@ describe.skipIf(!databaseAvailable)("purchases receiving", () => {
       }),
     );
     expect(response.status).toBe(201);
+
+    const payload = (await response.json()) as {
+      data: { id: string; name: string };
+    };
+    const audit = await prisma.auditLog.findFirst({
+      where: {
+        action: "supplier.create",
+        entityId: payload.data.id,
+      },
+    });
+    expect(audit).not.toBeNull();
+  });
+
+  it("forbids a salesperson from creating a supplier", async () => {
+    await attachSession("caisse@dubai-phone.local");
+    const response = await createSupplier(
+      jsonRequest("http://localhost/api/suppliers", "POST", {
+        name: "Interdit Caisse",
+      }),
+    );
+    expect(response.status).toBe(403);
   });
 
   it("replays the same receive idempotency key without double stock", async () => {
