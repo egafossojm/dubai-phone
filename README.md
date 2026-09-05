@@ -14,8 +14,9 @@ Gérer le cycle opérationnel d'un magasin physique :
 - retours et garanties
 
 Cette phase inclut la fondation technique, l'authentification, le catalogue,
-le stock, les achats, les clients / crédits et le **POS online** (ventes comptant et à crédit).
-La synchronisation offline reste liée au prompt 010.
+le stock, les achats, les clients / crédits, le **POS online** et le **POS offline**
+(cache IndexedDB + outbox + sync idempotente).
+Les retours / garanties avancées restent pour les prompts suivants.
 
 ## Stack
 

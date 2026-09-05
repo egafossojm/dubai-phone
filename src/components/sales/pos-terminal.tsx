@@ -1,8 +1,28 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useOnlineStatus } from "@/lib/offline/use-online-status";
+import {
+  describeSnapshotFreshness,
+  getSnapshotMeta,
+  searchLocalCatalog,
+  searchLocalCustomers,
+} from "@/lib/offline/repository";
+import {
+  buildOfflineSalePayload,
+  sumPaymentLineDrafts,
+} from "@/lib/offline/sale-draft";
+import { lockSerial, releaseSerial } from "@/lib/offline/serial-locks";
+import { listPendingOutboxSerialIds } from "@/lib/offline/stock-reservation";
+import {
+  enqueueOfflineSale,
+  flushOutbox,
+  pullOfflineSnapshot,
+} from "@/lib/offline/sync-engine";
+import { formatXaf, normalizeMoneyInput, xaf, type Xaf } from "@/lib/money";
 
 const inputClass =
   "h-10 w-full rounded-md border border-[var(--border)] bg-white px-3 text-sm";
@@ -56,8 +76,13 @@ function lineTotal(line: CartLine) {
   return line.unitPriceXaf * line.quantity - line.discountXaf;
 }
 
+function sumPaymentDrafts(rows: PaymentDraft[]): Xaf {
+  return sumPaymentLineDrafts(rows);
+}
+
 export function PosTerminal() {
   const router = useRouter();
+  const online = useOnlineStatus();
   const [query, setQuery] = useState("");
   const [hits, setHits] = useState<CatalogHit[]>([]);
   const [searching, setSearching] = useState(false);
@@ -83,6 +108,7 @@ export function PosTerminal() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [cacheHint, setCacheHint] = useState<string | null>(null);
 
   const subtotal = useMemo(
     () => cart.reduce((sum, line) => sum + line.unitPriceXaf * line.quantity, 0),
@@ -92,8 +118,56 @@ export function PosTerminal() {
     () => cart.reduce((sum, line) => sum + line.discountXaf, 0),
     [cart],
   );
-  const globalDiscountNum = Number.parseInt(globalDiscount || "0", 10) || 0;
+  const globalDiscountNum = Number(normalizeMoneyInput(globalDiscount));
   const total = Math.max(0, subtotal - lineDiscounts - globalDiscountNum);
+  const totalXaf = useMemo(
+    () =>
+      cart.reduce(
+        (sum, line) =>
+          sum +
+          xaf(String(line.unitPriceXaf)) * BigInt(line.quantity) -
+          xaf(String(line.discountXaf)),
+        BigInt(0),
+      ) - xaf(normalizeMoneyInput(globalDiscount)),
+    [cart, globalDiscount],
+  );
+
+  useEffect(() => {
+    void (async () => {
+      const meta = await getSnapshotMeta();
+      if (!meta) {
+        return;
+      }
+      const warning = describeSnapshotFreshness(meta);
+      if (warning) {
+        setCacheHint(`Cache : ${warning}.`);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!online) {
+      return;
+    }
+    void (async () => {
+      try {
+        await pullOfflineSnapshot();
+        const meta = await getSnapshotMeta();
+        const warning = meta ? describeSnapshotFreshness(meta) : null;
+        setCacheHint(
+          warning ? `Cache à jour — ${warning}.` : "Cache local à jour.",
+        );
+        const result = await flushOutbox();
+        if (result.processed > 0) {
+          setCacheHint(
+            `Sync : ${result.synced} ok, ${result.failed} échec, ${result.conflicted} conflit(s).`,
+          );
+        }
+      } catch {
+        setCacheHint("Cache local non rafraîchi.");
+      }
+    })();
+  }, [online]);
 
   useEffect(() => {
     if (query.trim().length < 2) {
@@ -102,6 +176,17 @@ export function PosTerminal() {
     }
     const handle = window.setTimeout(async () => {
       setSearching(true);
+      if (!online) {
+        const allowSerialIds = cart
+          .map((line) => line.productSerialId)
+          .filter((id): id is string => Boolean(id));
+        const items = await searchLocalCatalog(query.trim(), 15, {
+          allowSerialIds,
+        });
+        setHits(items);
+        setSearching(false);
+        return;
+      }
       const response = await fetch(
         `/api/sales/catalog?q=${encodeURIComponent(query.trim())}`,
       );
@@ -115,7 +200,27 @@ export function PosTerminal() {
       }
     }, 250);
     return () => window.clearTimeout(handle);
-  }, [query]);
+  }, [query, online, cart]);
+
+  const cartSerialsRef = useRef<string[]>([]);
+  useEffect(() => {
+    cartSerialsRef.current = cart
+      .map((line) => line.productSerialId)
+      .filter((id): id is string => Boolean(id));
+  }, [cart]);
+
+  useEffect(() => {
+    return () => {
+      void (async () => {
+        const pending = await listPendingOutboxSerialIds();
+        for (const id of cartSerialsRef.current) {
+          if (!pending.has(id)) {
+            await releaseSerial(id);
+          }
+        }
+      })();
+    };
+  }, []);
 
   useEffect(() => {
     if (customerQuery.trim().length < 2) {
@@ -123,6 +228,10 @@ export function PosTerminal() {
       return;
     }
     const handle = window.setTimeout(async () => {
+      if (!online) {
+        setCustomers(await searchLocalCustomers(customerQuery.trim()));
+        return;
+      }
       const response = await fetch(
         `/api/customers?q=${encodeURIComponent(customerQuery.trim())}`,
       );
@@ -135,9 +244,9 @@ export function PosTerminal() {
       }
     }, 250);
     return () => window.clearTimeout(handle);
-  }, [customerQuery]);
+  }, [customerQuery, online]);
 
-  function addHit(hit: CatalogHit) {
+  async function addHit(hit: CatalogHit) {
     setError(null);
     if (hit.isSerialized) {
       if (!hit.productSerialId) {
@@ -148,6 +257,12 @@ export function PosTerminal() {
         setError("Cet appareil est déjà dans le panier.");
         return;
       }
+      try {
+        await lockSerial(hit.productSerialId);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "IMEI indisponible.");
+        return;
+      }
       setCart((prev) => [
         ...prev,
         {
@@ -156,7 +271,7 @@ export function PosTerminal() {
           productSerialId: hit.productSerialId!,
           name: hit.name,
           sku: hit.sku,
-          unitPriceXaf: Number(hit.sellingPriceXaf),
+          unitPriceXaf: Number(normalizeMoneyInput(hit.sellingPriceXaf)),
           quantity: 1,
           quantityAvailable: 1,
           discountXaf: 0,
@@ -195,7 +310,7 @@ export function PosTerminal() {
           variantId: hit.variantId,
           name: hit.name,
           sku: hit.sku,
-          unitPriceXaf: Number(hit.sellingPriceXaf),
+          unitPriceXaf: Number(normalizeMoneyInput(hit.sellingPriceXaf)),
           quantity: 1,
           quantityAvailable: hit.quantityAvailable,
           discountXaf: 0,
@@ -206,7 +321,11 @@ export function PosTerminal() {
   }
 
   function removeLine(key: string) {
-    setCart((prev) => prev.filter((line) => line.key !== key));
+    const line = cart.find((row) => row.key === key);
+    if (line?.productSerialId) {
+      void releaseSerial(line.productSerialId);
+    }
+    setCart((prev) => prev.filter((row) => row.key !== key));
   }
 
   async function onComplete() {
@@ -218,32 +337,70 @@ export function PosTerminal() {
     setError(null);
     setSuccess(null);
 
-    const body = {
+    const paidXaf = sumPaymentDrafts(payments);
+    let paymentsToSend = payments;
+    if (kind === "IMMEDIATE" && paidXaf !== totalXaf) {
+      const allEmpty = payments.every(
+        (row) => xaf(normalizeMoneyInput(row.amountXaf)) === BigInt(0),
+      );
+      if (allEmpty && totalXaf > BigInt(0)) {
+        paymentsToSend = [
+          {
+            method: "CASH",
+            amountXaf: totalXaf.toString(),
+            operatorReference: "",
+            idempotencyKey: newKey("pay"),
+          },
+        ];
+        setPayments(paymentsToSend);
+      } else {
+        setPending(false);
+        setError(
+          `Paiement incomplet : attendu ${formatXaf(totalXaf)}, reçu ${formatXaf(paidXaf)}. Utilisez « Remplir paiement = total » ou corrigez le montant.`,
+        );
+        return;
+      }
+    }
+
+    const body = buildOfflineSalePayload({
       clientTxnId,
       kind,
-      customerId: customerId || undefined,
-      discountTotalXaf: globalDiscountNum,
-      items: cart.map((line) => ({
-        variantId: line.variantId,
-        quantity: line.quantity,
-        productSerialId: line.productSerialId,
-        discountXaf: line.discountXaf,
-      })),
-      payments: payments.map((row) => ({
-        method: row.method,
-        amountXaf: Number.parseInt(row.amountXaf || "0", 10) || 0,
-        idempotencyKey: row.idempotencyKey,
-        operatorReference: row.operatorReference || undefined,
-      })),
-      installmentPlan:
-        kind === "INSTALLMENT"
-          ? {
-              installmentCount: Number.parseInt(installmentCount, 10) || 1,
-              intervalDays: Number.parseInt(intervalDays, 10) || 30,
-              firstDueDate: firstDueDate || undefined,
-            }
-          : undefined,
-    };
+      customerId,
+      globalDiscount,
+      cart,
+      payments: paymentsToSend,
+      installmentCount,
+      intervalDays,
+      firstDueDate,
+    });
+
+    if (!online) {
+      try {
+        await enqueueOfflineSale(body);
+      } catch (err) {
+        setPending(false);
+        setError(err instanceof Error ? err.message : "Vente hors ligne impossible.");
+        return;
+      }
+      setPending(false);
+      setSuccess(
+        "Vente enregistrée hors ligne — en attente de synchronisation (pas encore validée serveur).",
+      );
+      setCart([]);
+      setGlobalDiscount("0");
+      setPayments([
+        {
+          method: "CASH",
+          amountXaf: "",
+          operatorReference: "",
+          idempotencyKey: newKey("pay"),
+        },
+      ]);
+      setClientTxnId(crypto.randomUUID());
+      setKind("IMMEDIATE");
+      setFirstDueDate("");
+      return;
+    }
 
     const response = await fetch("/api/sales", {
       method: "POST",
@@ -271,6 +428,11 @@ export function PosTerminal() {
     }
 
     const sale = payload.data.sale;
+    for (const line of cart) {
+      if (line.productSerialId) {
+        await releaseSerial(line.productSerialId);
+      }
+    }
     setSuccess(
       payload.data.replayed
         ? `Rejeu : vente ${sale.reference} déjà enregistrée.`
@@ -296,6 +458,25 @@ export function PosTerminal() {
   }
 
   return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm">
+        <p>
+          <span
+            className={
+              online ? "font-medium text-emerald-700" : "font-medium text-amber-800"
+            }
+          >
+            {online ? "En ligne" : "Hors ligne"}
+          </span>
+          {cacheHint ? (
+            <span className="text-[var(--muted-foreground)]"> · {cacheHint}</span>
+          ) : null}
+        </p>
+        <Link href="/sync" className="text-sm underline-offset-2 hover:underline">
+          Centre de synchronisation
+        </Link>
+      </div>
+
     <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr]">
       <div className="space-y-4">
         <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
@@ -341,7 +522,7 @@ export function PosTerminal() {
                     type="button"
                     size="sm"
                     variant="outline"
-                    onClick={() => addHit(hit)}
+                    onClick={() => void addHit(hit)}
                   >
                     Ajouter
                   </Button>
@@ -618,7 +799,7 @@ export function PosTerminal() {
                   setPayments([
                     {
                       method: "CASH",
-                      amountXaf: String(total),
+                      amountXaf: totalXaf.toString(),
                       operatorReference: "",
                       idempotencyKey: newKey("pay"),
                     },
@@ -728,6 +909,7 @@ export function PosTerminal() {
           {pending ? "Enregistrement…" : "Finaliser la vente"}
         </Button>
       </div>
+    </div>
     </div>
   );
 }

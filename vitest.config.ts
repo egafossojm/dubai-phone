@@ -8,6 +8,9 @@ export default defineConfig({
     environment: "node",
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    pool: "forks",
+    fileParallelism: false,
+    sequence: { concurrent: false },
     css: true,
     env: {
       NODE_ENV: "test",

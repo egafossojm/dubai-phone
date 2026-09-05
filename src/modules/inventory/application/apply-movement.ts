@@ -178,6 +178,7 @@ export async function applyStockMovement(
         throw new AppError(
           "BUSINESS_RULE_ERROR",
           "Cet appareil n'est plus disponible à la vente.",
+          { details: { kind: "SERIAL_UNAVAILABLE" } },
         );
       }
     } else {

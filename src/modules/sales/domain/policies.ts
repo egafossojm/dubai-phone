@@ -31,6 +31,13 @@ export function assertImmediatePaymentsCoverTotal(
     throw new AppError(
       "BUSINESS_RULE_ERROR",
       `Paiement incomplet : attendu ${totalXaf.toString()} FCFA, reçu ${paidXaf.toString()} FCFA.`,
+      {
+        details: {
+          kind: "PAYMENT_MISMATCH",
+          expectedTotalXaf: totalXaf.toString(),
+          receivedPaidXaf: paidXaf.toString(),
+        },
+      },
     );
   }
 }
@@ -57,12 +64,14 @@ export function assertDownPaymentRules(options: {
     throw new AppError(
       "BUSINESS_RULE_ERROR",
       "L'acompte crédit doit être supérieur à 0 FCFA.",
+      { details: { kind: "DOWN_PAYMENT_RULE" } },
     );
   }
   if (downPaymentXaf >= totalXaf) {
     throw new AppError(
       "BUSINESS_RULE_ERROR",
       "L'acompte doit être inférieur au total (sinon choisissez une vente comptant).",
+      { details: { kind: "DOWN_PAYMENT_RULE" } },
     );
   }
   const minRequired =
@@ -71,6 +80,7 @@ export function assertDownPaymentRules(options: {
     throw new AppError(
       "BUSINESS_RULE_ERROR",
       `Acompte insuffisant (minimum ${minRequired.toString()} FCFA).`,
+      { details: { kind: "DOWN_PAYMENT_RULE" } },
     );
   }
 }

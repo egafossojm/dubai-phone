@@ -139,6 +139,7 @@ enum SyncStatus {
   SYNCING
   SYNCED
   FAILED
+  CONFLICT
 }
 
 enum NumberDocumentType {

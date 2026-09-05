@@ -6,6 +6,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 import { createSessionToken, hashSessionToken } from "@/lib/auth/session-token";
+import { uniqueTestPhone } from "@/lib/test/sales-fixtures";
 import { requireDatabaseForIntegration } from "@/lib/test/database-available";
 import {
   GET as getCustomers,
@@ -80,10 +81,11 @@ describe.skipIf(!databaseAvailable)("customers APIs", () => {
   it("creates a customer and returns detail with empty credit", async () => {
     await attachSession("caisse@dubai-phone.local");
     const suffix = randomBytes(2).toString("hex");
+    const phone = uniqueTestPhone();
     const created = await createCustomer(
       jsonRequest("http://localhost/api/customers", "POST", {
         fullName: `Client Test ${suffix}`,
-        phone: `690${suffix}11`,
+        phone,
       }),
     );
     expect(created.status).toBe(201);
@@ -121,7 +123,7 @@ describe.skipIf(!databaseAvailable)("customers APIs", () => {
   it("allows reusing a phone after soft-delete", async () => {
     await attachSession("caisse@dubai-phone.local");
     const suffix = randomBytes(2).toString("hex");
-    const phone = `691${suffix}22`;
+    const phone = uniqueTestPhone();
     const created = await createCustomer(
       jsonRequest("http://localhost/api/customers", "POST", {
         fullName: `Client Soft ${suffix}`,
@@ -155,7 +157,7 @@ describe.skipIf(!databaseAvailable)("customers APIs", () => {
     const created = await createCustomer(
       jsonRequest("http://localhost/api/customers", "POST", {
         fullName: `Client Edit ${suffix}`,
-        phone: `692${suffix}33`,
+        phone: uniqueTestPhone(),
       }),
     );
     expect(created.status).toBe(201);

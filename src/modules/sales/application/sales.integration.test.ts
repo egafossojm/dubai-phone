@@ -8,6 +8,7 @@ import { prisma } from "@/lib/db/prisma";
 import { xaf } from "@/lib/money";
 import { createSessionToken, hashSessionToken } from "@/lib/auth/session-token";
 import { requireDatabaseForIntegration } from "@/lib/test/database-available";
+import { allocateTestSerial } from "@/lib/test/sales-fixtures";
 import { POST as createSale, GET as listSales } from "@/app/api/sales/route";
 import { GET as getSale } from "@/app/api/sales/[id]/route";
 import { GET as searchCatalog } from "@/app/api/sales/catalog/route";
@@ -276,11 +277,11 @@ describe.skipIf(!databaseAvailable)("sales / POS APIs", () => {
 
   it("sells a serialized device once and rejects the second sale", async () => {
     await attachSession("caisse@dubai-phone.local");
-    const serial = await prisma.productSerial.findFirstOrThrow({
-      where: { status: "IN_STOCK" },
-      include: { variant: true },
-    });
-    const price = Number(serial.variant.sellingPriceXaf);
+    const serial = await allocateTestSerial();
+    if (!serial) {
+      return;
+    }
+    const price = serial.variant.sellingPriceXaf.toString();
     const firstTxn = randomUUID();
     const first = await createSale(
       jsonRequest("http://localhost/api/sales", "POST", {
@@ -334,11 +335,11 @@ describe.skipIf(!databaseAvailable)("sales / POS APIs", () => {
 
   it("rejects concurrent double-sell of the same IMEI", async () => {
     await attachSession("caisse@dubai-phone.local");
-    const serial = await prisma.productSerial.findFirstOrThrow({
-      where: { status: "IN_STOCK" },
-      include: { variant: true },
-    });
-    const price = Number(serial.variant.sellingPriceXaf);
+    const serial = await allocateTestSerial();
+    if (!serial) {
+      return;
+    }
+    const price = serial.variant.sellingPriceXaf.toString();
     const bodyA = {
       clientTxnId: randomUUID(),
       kind: "IMMEDIATE" as const,

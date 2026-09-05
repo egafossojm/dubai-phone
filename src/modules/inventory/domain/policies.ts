@@ -50,6 +50,13 @@ export function assertNoNegativeStock(
     throw new AppError(
       "BUSINESS_RULE_ERROR",
       `Stock insuffisant (disponible : ${currentQty}, demandé : ${Math.abs(delta)}).`,
+      {
+        details: {
+          kind: "STOCK_INSUFFICIENT",
+          available: currentQty,
+          requested: Math.abs(delta),
+        },
+      },
     );
   }
   return next;
@@ -78,6 +85,7 @@ export function assertDeviceSellable(status: DeviceStatus): void {
     throw new AppError(
       "BUSINESS_RULE_ERROR",
       `Cet appareil n'est pas disponible à la vente (statut : ${deviceStatusLabel(status)}).`,
+      { details: { kind: "SERIAL_UNAVAILABLE", status } },
     );
   }
 }
