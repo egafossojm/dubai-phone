@@ -8,7 +8,7 @@
 
 | Chemin | Statut |
 | --- | --- |
-| **EC2 + Docker Compose (Nginx + Certbot uid 101)** | **Cible ops** — `01-deployment.md` + `08-nginx.md` |
+| **2 × EC2 + CD GitHub Environments `dev` / `prod`** | **Cible ops** — `09-cd-github-actions.md` |
 | VM nue `next start` / Caddy | Non retenu |
 
 Secrets Compose : `POSTGRES_PASSWORD`, `DATABASE_URL`. Nginx : `TRUSTED_PROXY=1` + `NEXT_PUBLIC_APP_URL=https://…`.

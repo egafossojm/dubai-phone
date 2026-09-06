@@ -4,7 +4,7 @@
 
 | Élément | Choix |
 | --- | --- |
-| Hôte | **AWS EC2** (Ubuntu), 1 instance — **Docker seulement** |
+| Hôte | **2 × AWS EC2** identiques (Ubuntu) — **dev** et **prod**, Docker seulement |
 | Région | `af-south-1` (Cape Town) si possible, sinon `eu-west-1` |
 | Taille | **t3.small** minimum ; **t3.medium** recommandé (app + Postgres + Nginx) |
 | Disque | 30 Go gp3 |
@@ -78,13 +78,16 @@ Premier certificat : préférer `CERTBOT_STAGING=1`, vérifier les logs `certbot
 ## C. Pipeline release
 
 ```text
-lint → typecheck → test → build → backup DB → docker compose up --build → smoke Nginx
+merge ou Run workflow sur dev|prod → CI → GitHub Environment → SSH EC2 correspondant
+  → backup → compose up --build → smoke /api/ready
 ```
 
-Sur l’EC2 : `git pull` + `docker compose up --build -d`.  
-L’entrypoint `app` réapplique `migrate deploy` (no-op si déjà à jour). Les certificats **ne sont pas** régénérés à chaque deploy (volume `letsencrypt`).
+Détail branches, secrets, deux instances : [09-cd-github-actions.md](./09-cd-github-actions.md).
 
-CI : typecheck, lint, test, build app, **build Compose** (app + nginx + certbot) — ne déploie pas.
+À la main, sur l’EC2 visée : `git fetch && git reset --hard <sha> && ./deploy/ec2-release.sh`.  
+`.env` n’est pas versionné (un fichier **par** instance).
+
+Une PR ouverte : `quality` seulement, **pas** de deploy.
 
 ## D. Smoke checklist
 

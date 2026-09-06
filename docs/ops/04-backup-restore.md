@@ -14,7 +14,9 @@ Sur EC2, Postgres vit dans Compose (volume `dubai_phone_pg`). Un snapshot EBS **
 
 ## Backup logique (`pg_dump`)
 
-Depuis l’EC2, **sans** exposer 5432 :
+Le script `deploy/ec2-release.sh` (CD GitHub Actions) écrit un dump `backups/pre-deploy_*.dump` **avant** chaque `compose up`. Copier ces fichiers vers S3 ; ne pas compter uniquement sur le disque EC2.
+
+Dump manuel (en plus du CD) :
 
 ```bash
 stamp=$(date -u +%Y%m%dT%H%M%SZ)

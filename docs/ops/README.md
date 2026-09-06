@@ -14,13 +14,15 @@ Point d’entrée ops pour le déploiement MVP **mono-processus** :
 | [06-go-live-checklist.md](./06-go-live-checklist.md) | Verdict PASS / WARNINGS / BLOCKERS |
 | [07-user-provisioning.md](./07-user-provisioning.md) | Comptes sans API users (501) |
 | [08-nginx.md](./08-nginx.md) | Nginx + Certbot **conteneurs**, Let’s Encrypt auto |
+| [09-cd-github-actions.md](./09-cd-github-actions.md) | CD : environments GitHub `dev` / `prod` → 2 EC2 |
+| [10-git-branches.md](./10-git-branches.md) | Branches `prod` (défaut) et `dev` ; plus de `main` |
 
 Architecture complémentaire : `docs/architecture/10-deployment-observability.md`.  
 Sécurité MVP : `docs/security/01-mvp-security-decisions.md`.
 
 ## Hypothèses MVP
 
-- **1** instance Node (rate-limit login en mémoire — ADR-0008).
+- **2** instances Node séparées (EC2 **dev** + EC2 **prod**) ; une seule par instance (ADR-0008).
 - PostgreSQL **dans Compose** (volume Docker) sur la même EC2.
 - TLS **terminé dans le conteneur Nginx** (uid 101) ; Certbot uid 101, renouvellement 12 h.
 - L’app n’écoute pas sur l’hôte ; le security group n’ouvre que 22 / 80 / 443.

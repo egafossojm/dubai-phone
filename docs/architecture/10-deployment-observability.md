@@ -11,7 +11,7 @@
 
 **Hors MVP :** Kubernetes, multi-région, service mesh, ALB/RDS, multi-instances sans Redis.
 
-Runbooks : **`docs/ops/`** (cible : EC2 + Compose Nginx/Certbot — `01-deployment.md`, `08-nginx.md`).
+Runbooks : **`docs/ops/`** (EC2 + Compose + CD Actions — `01-deployment.md`, `08-nginx.md`, `09-cd-github-actions.md`).
 
 Variables : `.env.example` + validation `src/lib/env.ts`  
 (`DATABASE_URL` **obligatoire** en production ; sessions sans JWT secret).
@@ -21,8 +21,10 @@ Variables : `.env.example` + validation `src/lib/env.ts`
 ## 2. Pipeline de release
 
 ```text
-lint → typecheck → unit/integration tests → build → backup → migrate deploy → deploy → smoke
+lint → typecheck → unit/integration tests → build → **CD EC2** (backup → compose up → smoke)
 ```
+
+CD : merge ou *Run workflow* sur `dev` / `prod` → environment GitHub du même nom → EC2 — `docs/ops/09-cd-github-actions.md`.
 
 ```bash
 source ~/.nvm/nvm.sh && nvm use
@@ -32,7 +34,7 @@ npm test
 npm run build
 ```
 
-CI (`.github/workflows/ci.yml`) : migrate + seed + typecheck + lint + test + **build** + **docker build**.
+CI (`.github/workflows/ci.yml`) : quality ; **deploy** vers l’environment GitHub `dev` ou `prod`.
 
 ---
 

@@ -2,6 +2,8 @@
 
 Référence : `.env.example` + validation Zod (`src/lib/env.ts`).
 
+Deux EC2 (GitHub Environments `dev` / `prod`) : un fichier `.env` **par machine**, secrets et `NEXT_PUBLIC_APP_URL` distincts. Voir [09-cd-github-actions.md](./09-cd-github-actions.md).
+
 ## Tableau
 
 | Variable | Obligatoire | Notes |

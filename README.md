@@ -125,7 +125,8 @@ Voir `.env.example` et `docs/ops/02-environment.md`.
 
 `DATABASE_URL` est optionnelle au démarrage UI en développement, **obligatoire** si `NODE_ENV=production`.
 
-Déploiement magasin : `docs/ops/01-deployment.md` (EC2 + Compose) et `docs/ops/08-nginx.md` (HTTPS).
+Déploiement : deux EC2 (`dev` / `prod`) via GitHub Actions — `docs/ops/09-cd-github-actions.md`.  
+Branches Git : **`prod`** (principale) et **`dev`** — `docs/ops/10-git-branches.md`.
 
 ## Langue
 

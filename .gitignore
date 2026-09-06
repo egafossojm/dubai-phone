@@ -38,6 +38,9 @@ yarn-error.log*
 .env.production.local
 !.env.example
 
+# dumps pré-deploy sur l’EC2 (deploy/ec2-release.sh)
+/backups
+
 # pwa generated
 public/sw.js
 public/sw.js.map
