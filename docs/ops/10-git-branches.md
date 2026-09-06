@@ -42,10 +42,12 @@ git checkout prod
 # 2. dev à partir de prod
 git branch dev
 
-# 3. remote HTTPS
+# 3. remote (HTTPS public ; SSH si pas de credential HTTPS)
 git remote add origin https://github.com/egafossojm/dubai-phone.git
 # si origin existe déjà :
 # git remote set-url origin https://github.com/egafossojm/dubai-phone.git
+# sans identifiants HTTPS (askpass) :
+git remote set-url origin git@github.com:egafossojm/dubai-phone.git
 
 # 4. pousser prod puis dev (ne pas pousser main)
 git push -u origin prod
