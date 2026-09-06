@@ -109,20 +109,29 @@ jobs:
       group: dubai-phone-${{ needs.target.outputs.env_name }}
       cancel-in-progress: false
     steps:
+      - name: Check GitHub Environment config
+        env:
+          EC2_HOST: ${{ vars.EC2_HOST }}
+          EC2_USER: ${{ vars.EC2_USER }}
+        run: |
+          set -eu
+          env_name='${{ needs.target.outputs.env_name }}'
+          : "${EC2_HOST:?missing vars.EC2_HOST on GitHub Environment ${env_name}}"
+          echo "env=${env_name} host=${EC2_HOST} user=${EC2_USER:-ubuntu}"
+
       - name: Release on EC2 (${{ needs.target.outputs.env_name }})
         uses: appleboy/ssh-action@v1.2.2
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
+          host: ${{ vars.EC2_HOST }}
+          username: ${{ vars.EC2_USER || 'ubuntu' }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          port: ${{ secrets.EC2_SSH_PORT || 22 }}
+          port: ${{ vars.EC2_SSH_PORT || 22 }}
           script_stop: true
           command_timeout: 40m
           script: |
             set -eu
-            DEPLOY_PATH='${{ secrets.EC2_DEPLOY_PATH }}'
+            DEPLOY_PATH='${{ vars.EC2_DEPLOY_PATH || '/opt/dubai-phone' }}'
             DEPLOY_SHA='${{ needs.target.outputs.sha }}'
-            : "${DEPLOY_PATH:=/opt/dubai-phone}"
             cd "$DEPLOY_PATH"
             git fetch origin --prune
             git fetch origin "$DEPLOY_SHA" 2>/dev/null || true

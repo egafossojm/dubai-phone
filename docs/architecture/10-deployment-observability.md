@@ -24,7 +24,7 @@ Variables : `.env.example` + validation `src/lib/env.ts`
 lint → typecheck → unit/integration tests → build → **CD EC2** (backup → compose up → smoke)
 ```
 
-CD : merge ou *Run workflow* sur `dev` / `prod` → environment GitHub du même nom → EC2 — `docs/ops/09-cd-github-actions.md`.
+CD : merge ou *Run workflow* sur `dev` / `prod` → environment GitHub du même nom (`vars.EC2_*` + `secrets.EC2_SSH_KEY`) → EC2 — `docs/ops/09-cd-github-actions.md`.
 
 ```bash
 source ~/.nvm/nvm.sh && nvm use

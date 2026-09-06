@@ -1,7 +1,7 @@
 # 09 — CD GitHub Actions : environnements `dev` et `prod`
 
 Deux instances EC2 identiques (Compose + Nginx + Certbot).  
-Deux **GitHub Environments** du même nom, chacun avec ses secrets SSH.
+Deux **GitHub Environments** du même nom : **variables** de connexion (hôte, user, port, chemin) + **secret** de la clé SSH.
 
 | Branche cible | Environment GitHub | Instance |
 | --- | --- | --- |
@@ -32,17 +32,31 @@ Settings → Environments → New :
 1. Nom **`dev`**
 2. Nom **`prod`** (protection : reviewers, éventuellement wait timer)
 
-Secrets **par environment** (pas au niveau dépôt, sinon collision) :
+Le job `deploy` charge **cet** environment (`environment: dev` ou `prod`).  
+Variables et secrets **par environment** (pas au niveau repository, sinon collision / masquage).
+
+### Environment variables (`vars.*`)
+
+Settings → Environments → `dev` ou `prod` → **Environment variables** :
+
+| Variable | Obligatoire | Dev | Prod | Défaut pipeline |
+| --- | --- | --- | --- | --- |
+| `EC2_HOST` | **oui** | Elastic IP / DNS **dev** | Elastic IP / DNS **prod** | — |
+| `EC2_USER` | non | `ubuntu` | `ubuntu` | `ubuntu` |
+| `EC2_SSH_PORT` | non | `22` | `22` | `22` |
+| `EC2_DEPLOY_PATH` | non | `/opt/dubai-phone` | `/opt/dubai-phone` | `/opt/dubai-phone` |
+
+Ces valeurs sont lisibles dans l’UI GitHub ; ne pas y mettre de mot de passe ni de clé privée.
+
+### Environment secrets (`secrets.*`)
+
+Settings → Environments → `dev` ou `prod` → **Environment secrets** :
 
 | Secret | Dev | Prod |
 | --- | --- | --- |
-| `EC2_HOST` | Elastic IP / DNS **dev** | Elastic IP / DNS **prod** |
-| `EC2_USER` | `ubuntu` | `ubuntu` |
 | `EC2_SSH_KEY` | clé privée deploy **dev** | clé privée deploy **prod** |
-| `EC2_SSH_PORT` | optionnel (`22`) | optionnel |
-| `EC2_DEPLOY_PATH` | optionnel (`/opt/dubai-phone`) | optionnel |
 
-Une clé SSH **par instance** (recommandé).
+Une clé SSH **par instance** (recommandé). Le `.env` de l’app (Postgres, `NEXT_PUBLIC_APP_URL`, Certbot) reste **sur l’EC2**, pas dans GitHub.
 
 ## Une fois par EC2
 
@@ -96,7 +110,8 @@ Migration cassante : restore `backups/pre-deploy_*.dump` ([04-backup-restore.md]
 
 ## Interdits
 
-- Secrets EC2 au niveau **repository** (ils masqueraient / mélangeraient dev et prod).
+- Variables / secrets EC2 au niveau **repository** (ils masqueraient / mélangeraient dev et prod).
+- `EC2_SSH_KEY` en **variable** GitHub (visible) : uniquement en **secret**.
 - Même `POSTGRES_PASSWORD` / même domaine sur les deux instances.
 - Lancer un *Run workflow* depuis une feature branch (aucun deploy).
 - Commits locaux sur l’EC2 : le CD fait `reset --hard`.
