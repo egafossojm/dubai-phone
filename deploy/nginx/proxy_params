@@ -1,0 +1,17 @@
+# En-têtes vers Next.js (TRUSTED_PROXY=1).
+# X-Forwarded-For = $remote_addr uniquement : on ÉCRASE (pas $proxy_add_x_forwarded_for)
+# sinon un client peut spoof le 1er hop lu par src/lib/auth/service.ts.
+proxy_http_version 1.1;
+proxy_set_header Host              $host;
+proxy_set_header X-Real-IP         $remote_addr;
+proxy_set_header X-Forwarded-For   $remote_addr;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_set_header X-Forwarded-Host  $host;
+proxy_set_header Upgrade           $http_upgrade;
+proxy_set_header Connection        $connection_upgrade;
+proxy_connect_timeout 10s;
+# Vente + génération PDF : laisser plus que le défaut 60 s.
+proxy_send_timeout    120s;
+proxy_read_timeout    120s;
+proxy_buffering on;
+proxy_request_buffering on;

@@ -1,14 +1,17 @@
 # 06 — Go-live checklist (Prompt 016 + remédiation 999 A+B+C)
 
 **Date :** 2026-09-05  
-**Cible :** MVP mono-magasin, **mono-processus** Node + PostgreSQL.
+**Cible :** MVP mono-magasin, **mono-processus** Node + PostgreSQL.  
+**Ops :** EC2 + Docker Compose (app, db, Nginx, Certbot).
 
-## Chemins de déploiement
+## Chemin de déploiement
 
 | Chemin | Statut |
 | --- | --- |
-| **VM** (`migrate deploy` + `next start`) | Supporté — procédure `01-deployment.md` §A |
-| **Docker Compose** (entrypoint migrate + `/api/ready` schéma) | Supporté — secrets via `.env` (`POSTGRES_PASSWORD`, `DATABASE_URL`) |
+| **EC2 + Docker Compose (Nginx + Certbot uid 101)** | **Cible ops** — `01-deployment.md` + `08-nginx.md` |
+| VM nue `next start` / Caddy | Non retenu |
+
+Secrets Compose : `POSTGRES_PASSWORD`, `DATABASE_URL`. Nginx : `TRUSTED_PROXY=1` + `NEXT_PUBLIC_APP_URL=https://…`.
 
 ## Vérifications automatisées
 
@@ -34,29 +37,31 @@ Compter les tests **exécutés** (passed), pas seulement collectés ; sans Postg
 - Liveness `/api/health` ; readiness `/api/ready` = DB **et** migration terminée
 - CI : migrate + typecheck + lint + test + build (+ docker build)
 - Docker : Alpine openssl, `binaryTargets` musl, entrypoint `migrate deploy`, HEALTHCHECK `/api/ready`
-- Compose : plus de secrets hardcodés (`:?` requires `.env`)
+- Compose : secrets via `.env` (`:?`) ; Nginx/Certbot **uid 101** ; app sans port public
 - Seed bloqué en prod sans `ALLOW_PROD_SEED=1`
-- Runbooks ops + provisioning users SQL (`07-user-provisioning.md`)
+- Runbooks ops (EC2 + Nginx) + provisioning users SQL (`07-user-provisioning.md`)
 
 ## WARNINGS
 
 - Pas d’E2E Playwright
-- Rate-limit login mémoire → **une** instance Node
+- Rate-limit login mémoire → **une** instance Node (une EC2)
 - Pas d’APM / Prometheus
 - PDF non persistés (`pdfPath` réservé)
 - Users API 501 — comptes via SQL / seed (runbook 07)
 - Snapshot offline tronqué si catalogue très large
-- Backup planifié : **à activer** et **tester** chez l’hébergeur
-- `TRUSTED_PROXY` correct derrière le reverse-proxy
+- Backup : cron `pg_dump` → **S3** à activer et **tester** (`04-backup-restore.md`)
+- `TRUSTED_PROXY=1` avec Nginx Compose qui **écrase** `X-Forwarded-For` (`08-nginx.md`)
 
 ## BLOCKERS (ops — hors merge code)
 
 Toujours bloquants **avant ouverture magasin** :
 
-1. Backup PostgreSQL planifié + **un** restore testé
+1. Backup PostgreSQL planifié hors EC2 + **un** restore testé
 2. Aucun compte démo `*@dubai-phone.local` en prod
-3. `NEXT_PUBLIC_APP_URL` HTTPS + TLS
-4. Mono-instance (ou Redis rate-limit accepté / reporté)
+3. `NEXT_PUBLIC_APP_URL` HTTPS + certificat Let’s Encrypt (conteneur Certbot)
+4. Security group : 22 restreint ; 3000/5432 fermés
+5. Mono-instance (ou Redis rate-limit accepté / reporté)
+6. Image **app** rebuild **avec** l’URL publique réelle
 
 ## Déclaration
 

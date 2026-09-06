@@ -12,7 +12,13 @@ Les comptes se créent via seed (dev/CI) ou SQL contrôlé en production.
 
 Prérequis : rôles déjà présents (`SUPER_ADMINISTRATOR`, `MANAGER`, `SALES_PERSON`, `INVENTORY_MANAGER`).
 
-1. Hasher le mot de passe (bcrypt cost 12), ex. depuis le host :
+Sur EC2, ouvrir `psql` dans Compose :
+
+```bash
+docker compose exec db psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+```
+
+1. Hasher le mot de passe (bcrypt cost 12), depuis une machine avec les deps (`npm ci`) :
 
 ```bash
 node -e "require('bcryptjs').hash('MotDePasseFort!', 12).then(console.log)"

@@ -1,0 +1,64 @@
+# Avant certificat Let’s Encrypt : HTTP proxifie l’app ; HTTPS = auto-signé.
+# ${CERTBOT_DOMAIN} / ${SSL_*} substitués par envsubst (entrypoint).
+# $upstream_app + resolver Docker : ne pas utiliser 127.0.0.1 (ce serait Nginx).
+
+server {
+    listen 8080;
+    server_name ${CERTBOT_DOMAIN};
+    set $upstream_app http://app:3000;
+
+    # HTTP-01 Let’s Encrypt (webroot Certbot = /var/www/certbot).
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    # Healthcheck Compose — ne dépend pas de l’app (évite un 502 au boot migrate).
+    location = /nginx-health {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    # Assets Next hashés : cache long OK (le nom change à chaque build).
+    location /_next/static/ {
+        include /etc/nginx/proxy_params;
+        proxy_pass $upstream_app;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    # HTML / API / POS : jamais de cache (sessions, stock).
+    location / {
+        include /etc/nginx/proxy_params;
+        proxy_pass $upstream_app;
+        add_header Cache-Control "no-store" always;
+    }
+}
+
+server {
+    listen 8443 ssl;
+    http2 on;
+    server_name ${CERTBOT_DOMAIN};
+    set $upstream_app http://app:3000;
+
+    ssl_certificate     ${SSL_CERT};
+    ssl_certificate_key ${SSL_KEY};
+    ssl_protocols       TLSv1.2 TLSv1.3;
+
+    location = /nginx-health {
+        access_log off;
+        default_type text/plain;
+        return 200 "ok\n";
+    }
+
+    location /_next/static/ {
+        include /etc/nginx/proxy_params;
+        proxy_pass $upstream_app;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    location / {
+        include /etc/nginx/proxy_params;
+        proxy_pass $upstream_app;
+        add_header Cache-Control "no-store" always;
+    }
+}

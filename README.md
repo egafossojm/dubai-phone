@@ -46,6 +46,7 @@ Go-live MVP mono-processus : voir `docs/ops/06-go-live-checklist.md`
 | Qualité | ESLint + Prettier |
 | Tests | Vitest + Testing Library |
 | Offline / PWA | `@ducanh2912/next-pwa` |
+| Prod MVP | EC2 + Docker Compose (app, Postgres, Nginx, Certbot) — `docs/ops/` |
 
 ## Prérequis
 
@@ -120,9 +121,11 @@ prisma/
 
 ## Variables d'environnement
 
-Voir `.env.example`.
+Voir `.env.example` et `docs/ops/02-environment.md`.
 
-`DATABASE_URL` est optionnelle au démarrage de l'UI shell, mais obligatoire pour toute opération base de données.
+`DATABASE_URL` est optionnelle au démarrage UI en développement, **obligatoire** si `NODE_ENV=production`.
+
+Déploiement magasin : `docs/ops/01-deployment.md` (EC2 + Compose) et `docs/ops/08-nginx.md` (HTTPS).
 
 ## Langue
 

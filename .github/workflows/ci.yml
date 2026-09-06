@@ -44,11 +44,8 @@ jobs:
         env:
           NEXT_PUBLIC_APP_NAME: Dubai Phone
           NEXT_PUBLIC_APP_URL: http://localhost:3000
-      - name: Docker image build
-        run: >
-          docker build
-          --build-arg NEXT_PUBLIC_APP_NAME=Dubai Phone
-          --build-arg NEXT_PUBLIC_APP_URL=http://localhost:3000
-          --build-arg DATABASE_URL=postgresql://postgres:postgres@db:5432/dubai_phone?schema=public
-          -t dubai-phone:ci
-          .
+      - name: Docker Compose images
+        env:
+          POSTGRES_PASSWORD: postgres
+          DATABASE_URL: postgresql://postgres:postgres@db:5432/dubai_phone?schema=public
+        run: docker compose build

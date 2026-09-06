@@ -4,14 +4,14 @@
 
 | Élément | Choix recommandé |
 | --- | --- |
-| Application | 1 process Node (`next start`) ou image Docker `standalone` derrière reverse proxy TLS |
-| Base | PostgreSQL managé ou conteneur |
+| Application | EC2 + Docker Compose (`app` + **Nginx/Certbot** uid 101) |
+| Base | PostgreSQL dans Compose (même instance) |
 | Fichiers (reçus PDF) | Générés à la demande (pas de stockage objet MVP) |
 | Environnements | `development`, `staging` (si possible), `production` |
 
-**Hors MVP :** Kubernetes, multi-région, service mesh, multi-instances sans Redis.
+**Hors MVP :** Kubernetes, multi-région, service mesh, ALB/RDS, multi-instances sans Redis.
 
-Runbooks détaillés : **`docs/ops/`**.
+Runbooks : **`docs/ops/`** (cible : EC2 + Compose Nginx/Certbot — `01-deployment.md`, `08-nginx.md`).
 
 Variables : `.env.example` + validation `src/lib/env.ts`  
 (`DATABASE_URL` **obligatoire** en production ; sessions sans JWT secret).

@@ -16,5 +16,5 @@ Prompt 014 (audit sécurité) : un jeton `dp_session` volé restait valide aprè
 ## Conséquences
 
 - Un nouvel appareil / navigateur invalide les anciens cookies (volontaire pour magasin mono-utilisateur).
-- Derrière nginx/Caddy : activer `TRUSTED_PROXY=1`.
+- Derrière Nginx Compose : activer `TRUSTED_PROXY=1` — voir `docs/ops/08-nginx.md`.
 - Toujours ADR-0008 pour le store mémoire → Redis en multi-instances.
