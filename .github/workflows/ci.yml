@@ -39,6 +39,15 @@ jobs:
       - run: npm ci
       - run: npx prisma migrate deploy
       - run: npx prisma db seed
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python microservices
+        working-directory: services
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          pytest
       - run: npm run typecheck
       - run: npm run lint
       - run: npm test

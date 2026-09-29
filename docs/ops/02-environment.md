@@ -15,6 +15,9 @@ Deux EC2 (GitHub Environments `dev` / `prod`) : un fichier `.env` **par machine*
 | `LOG_LEVEL` | non (`info`) | `debug` \| `info` \| `warn` \| `error` — logs JSON stdout |
 | `TRUSTED_PROXY` | **oui derrière Nginx** | Défaut Compose `1` — Nginx fixe `X-Forwarded-For` / `X-Real-IP` |
 | `SEED_USER_PASSWORD` | pour seed uniquement | Jamais commitée ; comptes démo |
+| `IDENTITY_URL` | Compose | `http://identity:8000` — vide = auth in-process Next.js |
+| `CATALOG_URL` | Compose | `http://catalog:8000` — vide = catalogue in-process |
+| `REPORTING_URL` | Compose | `http://reporting:8000` — vide = dashboard in-process |
 | `ALLOW_PROD_SEED` | non | Doit être `1` pour autoriser le seed si `NODE_ENV=production` |
 
 ### Docker Compose (EC2)

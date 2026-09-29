@@ -25,6 +25,84 @@ services:
       timeout: 5s
       retries: 10
 
+  identity:
+    build:
+      context: ./services
+    command: uvicorn identity_service.main:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment: &python-env
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL in .env}
+      NODE_ENV: production
+      TRUSTED_PROXY: ${TRUSTED_PROXY:-1}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  catalog:
+    build:
+      context: ./services
+    command: uvicorn catalog_service.main:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      <<: *python-env
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  reporting:
+    build:
+      context: ./services
+    command: uvicorn reporting_service.main:app --host 0.0.0.0 --port 8000
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      <<: *python-env
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
   app:
     build:
       context: .
@@ -45,8 +123,29 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-info}
       TRUSTED_PROXY: ${TRUSTED_PROXY:-1}
       RUN_MIGRATE_ON_START: ${RUN_MIGRATE_ON_START:-1}
+      IDENTITY_URL: http://identity:8000
+      CATALOG_URL: http://catalog:8000
+      REPORTING_URL: http://reporting:8000
     depends_on:
       db:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+      identity:
+        condition: service_healthy
+      catalog:
+        condition: service_healthy
+      reporting:
         condition: service_healthy
 
   nginx:

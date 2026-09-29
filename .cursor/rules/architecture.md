@@ -15,9 +15,7 @@ Priorities:
 
 Avoid unnecessary abstraction.
 
-Avoid premature microservices.
-
-The MVP should be a modular monolith unless a documented technical reason requires otherwise.
+The MVP may use Python microservices for decoupled domains (identity, catalog, reporting). Keep sales, inventory, payments, credit, returns, and offline sync in **one transactional process** and **one PostgreSQL database** (see `docs/architecture/adr/0010-python-microservices.md`).
 
 ---
 
@@ -175,16 +173,9 @@ Use:
 
 # 12. Scalability
 
-Do not prematurely introduce:
+Do not split CompleteSale / refunds / goods receipt across independently deployed databases.
 
-- microservices
-- Kubernetes
-- event-driven distributed architecture
-- complex message brokers
-
-unless justified.
-
-The initial architecture should be easy to operate and deploy.
+The public edge remains one Nginx → Next.js BFF. Python services are internal.
 
 ---
 

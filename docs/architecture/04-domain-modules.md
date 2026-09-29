@@ -123,8 +123,8 @@ Flèches = « dépend de / appelle ».
 
 | Mode | Usage |
 | --- | --- |
-| Appel synchrone de service | Cas normal dans le monolithe |
-| Même transaction Prisma | Opérations critiques multi-domaines |
-| Pas d’événements distribués | MVP |
+| HTTP sync via BFF Next.js | identity, catalog, reporting (Python) |
+| Appel de service + **même transaction Prisma** | CompleteSale, réception, refund, crédit, sync |
+| Pas d’événements distribués | Cœur financier / stock |
 
 Exemple : `CompleteSale` ouvre une transaction et appelle inventory + payments + credit + audit.

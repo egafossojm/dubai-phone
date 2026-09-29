@@ -1,8 +1,8 @@
 # Production operations — Dubai Phone
 
-Point d’entrée ops pour le déploiement MVP **mono-processus** :
+Point d’entrée ops pour le déploiement MVP :
 
-**EC2 (AWS) + Docker Compose (app + PostgreSQL + Nginx + Certbot).**
+**EC2 (AWS) + Docker Compose (BFF Next.js + identity/catalog/reporting Python + PostgreSQL + Nginx + Certbot).**
 
 | Document | Contenu |
 | --- | --- |
@@ -16,6 +16,7 @@ Point d’entrée ops pour le déploiement MVP **mono-processus** :
 | [08-nginx.md](./08-nginx.md) | Nginx + Certbot **conteneurs**, Let’s Encrypt auto |
 | [09-cd-github-actions.md](./09-cd-github-actions.md) | CD : environments GitHub `dev` / `prod` → 2 EC2 |
 | [10-git-branches.md](./10-git-branches.md) | Branches `prod` (défaut) et `dev` ; plus de `main` |
+| [11-microservices.md](./11-microservices.md) | Identity / catalog / reporting (Python) + BFF Next.js |
 
 Architecture complémentaire : `docs/architecture/10-deployment-observability.md`.  
 Sécurité MVP : `docs/security/01-mvp-security-decisions.md`.

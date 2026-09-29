@@ -2,14 +2,14 @@
 
 ## 1. Style retenu
 
-**Monolithe modulaire** (modular monolith) sur **Next.js**.
+**Style retenu :** **BFF Next.js + microservices Python** (identity, catalog, reporting) + **cœur commerce transactionnel** dans Next.js. PostgreSQL unique. [ADR-0010](./adr/0010-python-microservices.md).
 
 | Choix | Pourquoi |
 | --- | --- |
-| Un seul déploiement applicatif | Opération simple pour un magasin unique |
-| Domaines séparés dans le code | Maintenabilité sans microservices |
-| PostgreSQL unique | Source de vérité métier |
-| Pas de Kubernetes / bus d’événements | Hors besoin MVP |
+| UI + POS offline dans Next.js | PWA / IndexedDB, pas Python |
+| Identity / catalogue / reporting en FastAPI | Domaines découplables, même contrat HTTP |
+| Ventes / stock / paiements / crédit dans un process | Une transaction PostgreSQL (pas de saga) |
+| PostgreSQL unique | Source de vérité métier, FK intactes |
 
 Aligné sur `.cursor/rules/architecture.md`.
 

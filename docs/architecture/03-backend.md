@@ -2,12 +2,12 @@
 
 ## 1. Forme
 
-Le « backend » vit **dans le même monolithe Next.js** :
+Le « backend » est **splitté** :
 
-- **Route Handlers** sous `src/app/api/**` pour les opérations métier et le POS ;
-- éventuellement Server Actions pour formulaires admin simples.
+- **Route Handlers** Next.js sous `src/app/api/**` : BFF (proxy) + **cœur commerce** (ventes, stock, achats, crédit, retours, sync, reçus) ;
+- **Microservices FastAPI** : `identity`, `catalog`, `reporting` (`services/`, [ADR-0010](./adr/0010-python-microservices.md)).
 
-Pas de microservice séparé en MVP.
+Si `IDENTITY_URL` / `CATALOG_URL` / `REPORTING_URL` sont absents (Vitest, `npm run dev` local), les handlers Next.js restent in-process.
 
 ---
 

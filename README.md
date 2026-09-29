@@ -46,7 +46,7 @@ Go-live MVP mono-processus : voir `docs/ops/06-go-live-checklist.md`
 | Qualité | ESLint + Prettier |
 | Tests | Vitest + Testing Library |
 | Offline / PWA | `@ducanh2912/next-pwa` |
-| Prod MVP | EC2 + Docker Compose (app, Postgres, Nginx, Certbot) — `docs/ops/` |
+| Prod MVP | EC2 + Compose : Next.js BFF, identity/catalog/reporting (Python), Postgres, Nginx, Certbot — `docs/ops/` |
 
 ## Prérequis
 

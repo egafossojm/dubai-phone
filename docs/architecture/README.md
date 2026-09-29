@@ -1,10 +1,7 @@
 # Architecture technique — Index
 
 **Projet :** Dubai Phone  
-**Phase :** Architecture (`prompt_002`)  
-**Statut :** Documentation uniquement — **aucune logique métier implémentée**  
-**Prérequis :** `docs/business/` (prompt_001) + fondation technique (prompt_000)  
-**Étape suivante :** `prompt_003_database.txt`
+**Décision actuelle :** BFF Next.js + microservices Python ([ADR-0010](./adr/0010-python-microservices.md))
 
 ---
 
@@ -41,19 +38,12 @@
 
 ---
 
-## État actuel du code (inspection)
+## État actuel du code
 
 | Élément | État |
 | --- | --- |
-| Next.js 15 App Router + TypeScript + Tailwind | Présent |
-| Prisma + PostgreSQL (schéma fondation) | Présent |
-| Zod, React Hook Form, PWA, Vitest | Présents |
-| Modules métier (ventes, stock, etc.) | **Absents** |
-| Auth réelle | **Absente** |
-| Routes API métier | Health check seulement |
-
----
-
-## Commandes
-
-**Aucune commande Node/npm à lancer** pour cette phase (documentation seule).
+| Next.js 15 BFF + UI + POS offline | Présent |
+| Prisma + PostgreSQL (schéma métier) | Présent |
+| Cœur commerce (ventes, stock, crédit, retours, sync) | Présent (Next.js, une TX) |
+| Microservices Python identity / catalog / reporting | Présents (`services/`) |
+| Auth sessions `dp_session` | Présente (identity Python en Compose) |

@@ -41,6 +41,13 @@ yarn-error.log*
 # dumps pré-deploy sur l’EC2 (deploy/ec2-release.sh)
 /backups
 
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+
 # pwa generated
 public/sw.js
 public/sw.js.map

@@ -1,6 +1,6 @@
 # ADR-0001 — Monolithe modulaire Next.js
 
-- **Statut :** Accepté  
+- **Statut :** Remplacé par [ADR-0010](./0010-python-microservices.md) (2026-09-28)  
 - **Date :** 2026-08-17  
 - **Contexte :** Application interne pour un magasin unique au Cameroun.
 

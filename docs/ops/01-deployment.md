@@ -17,7 +17,8 @@
 | Fichiers PDF | Générés à la demande (pas de stockage objet) |
 
 ```text
-Caisse  --HTTPS:443-->  nginx (conteneur)  --HTTP-->  app:3000  -->  Postgres
+Caisse  --HTTPS:443-->  nginx  --HTTP-->  app:3000 (BFF + commerce)
+                              -->  identity / catalog / reporting :8000  -->  Postgres
 ```
 
 Hors cible MVP : Nginx/Certbot installés sur l’hôte, ECS, ALB, RDS, Caddy, Kubernetes, multi-instances.

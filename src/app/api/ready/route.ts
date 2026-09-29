@@ -5,9 +5,21 @@ import { logger } from "@/lib/logger";
 
 type MigrationRow = { present: number };
 
+async function pingReady(name: string, baseUrl: string | undefined) {
+  if (!baseUrl || process.env.NODE_ENV === "test") {
+    return;
+  }
+  const response = await fetch(`${baseUrl.replace(/\/$/, "")}/ready`, {
+    cache: "no-store",
+    signal: AbortSignal.timeout(4000),
+  });
+  if (!response.ok) {
+    throw new Error(`${name}_not_ready`);
+  }
+}
+
 /**
- * Readiness probe — Postgres answers AND at least one finished Prisma migration.
- * Empty / unmigrated databases return 503 (not "ready for traffic").
+ * Readiness probe — Postgres + Prisma migrations + Python services if URLs set.
  */
 export async function GET() {
   const timestamp = new Date().toISOString();
@@ -29,6 +41,11 @@ export async function GET() {
         { status: 503 },
       );
     }
+
+    await pingReady("identity", process.env.IDENTITY_URL);
+    await pingReady("catalog", process.env.CATALOG_URL);
+    await pingReady("reporting", process.env.REPORTING_URL);
+
     return NextResponse.json(
       ok({
         status: "ready",

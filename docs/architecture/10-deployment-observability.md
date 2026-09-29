@@ -11,7 +11,7 @@
 
 **Hors MVP :** Kubernetes, multi-région, service mesh, ALB/RDS, multi-instances sans Redis.
 
-Runbooks : **`docs/ops/`** (EC2 + Compose + CD Actions — `01-deployment.md`, `08-nginx.md`, `09-cd-github-actions.md`).
+Runbooks : **`docs/ops/`** (EC2 + Compose + microservices Python — `01-deployment.md`, `11-microservices.md`, `09-cd-github-actions.md`).
 
 Variables : `.env.example` + validation `src/lib/env.ts`  
 (`DATABASE_URL` **obligatoire** en production ; sessions sans JWT secret).
@@ -34,7 +34,7 @@ npm test
 npm run build
 ```
 
-CI (`.github/workflows/ci.yml`) : quality ; **deploy** vers l’environment GitHub `dev` ou `prod`.
+CI (`.github/workflows/ci.yml`) : quality Node + **pytest** services Python ; **deploy** vers l’environment GitHub `dev` ou `prod`.
 
 ---
 
